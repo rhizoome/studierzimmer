@@ -1,0 +1,57 @@
+on:
+  push:
+    branches: [stage, release]
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-24.04
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - name: Build stage
+        run: |
+          git fetch --depth=1 origin stage
+          git checkout stage
+          mkdir -p ./output/stage/
+          cp ./static/* ./output/stage/
+
+      - name: Build release
+        run: |
+          git fetch --depth=1 origin release
+          git checkout release
+          mkdir -p ./output/release/
+          cp ./static/* ./output/release/
+
+      - name: Create root redirect
+        run: |
+          mkdir -p ./output
+          echo '<!DOCTYPE html><html><head><meta http-equiv="refresh" content="0;url=./release" /></head><body></body></html>' > ./output/index.html
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: ./output
+
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-24.04
+    needs: build
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
