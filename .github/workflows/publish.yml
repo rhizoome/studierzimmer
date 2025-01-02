@@ -26,14 +26,16 @@ jobs:
           git fetch --depth=1 origin stage
           git checkout stage
           mkdir -p ./output/stage/
-          cp ./static/* ./output/stage/
+          make
+          cp ./build/* ./output/stage/
 
       - name: Build release
         run: |
           git fetch --depth=1 origin release
           git checkout release
           mkdir -p ./output/release/
-          cp ./static/* ./output/release/
+          make
+          cp ./build/* ./output/release/
 
       - name: Create root redirect
         run: |

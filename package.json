@@ -1,5 +1,13 @@
 {
+  "nane": "studierzimmer",
+  "version": "0.1.0",
   "devDependencies": {
-    "inkjs": "^2.3.1"
+    "inkjs": "^2.3.1",
+    "json-loader": "^0.5.7",
+    "terser": "^5.37.0",
+    "ts-loader": "^9.5.1",
+    "typescript": "^5.7.2",
+    "webpack": "^5.97.1",
+    "webpack-cli": "^6.0.1"
   }
 }

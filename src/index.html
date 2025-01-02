@@ -1,0 +1,34 @@
+﻿<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Studierzimmer</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+
+</head>
+
+<body>
+    <div class="outerContainer">
+        <h3 class="written-in-ink"><a href="https://www.inklestudios.com/ink">GESCHRIEBEN MIT INK</a></h3>
+        <div id="controls" class="buttons">
+          <a id="rewind" title="Starte die Geschichte vom Anfang">Starten</a>
+          <a id="save" title="Speichere Fortschritt">Speichern</a>
+          <a id="reload" title="Lade von Speicherpunkt">Laden</a>
+          <!--<a id="theme-switch" title="Switch theme">theme</a>-->
+        </div>
+
+        <div id="story" class="container">
+            <div class="header">
+                <h1>Studierzimmer</h1>
+                <h2 class="byline"></h2>
+            </div>
+        </div>
+    </div>
+
+    <script src="main.js"></script>
+    <script>
+        Studierzimmer.runStory();
+    </script>
+</body>
+</html>
