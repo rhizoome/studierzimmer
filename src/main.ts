@@ -1,61 +1,38 @@
 import * as inkjs from 'inkjs';
 import storyContent from '../temp/studierzimmer.json';
 
-/***********************************************************
- * External function bound to Ink's external function call *
- ***********************************************************/
-function setOutsideTheme(dark: boolean) {
-    document.body.classList.add("switched");
-    if (dark) {
-        document.body.classList.add("dark");
-    } else {
-        document.body.classList.remove("dark");
-    }
-}
 
-/*******************************************
- * The StoryRunner class that does the work
- *******************************************/
 class StoryRunner {
-    private story: any;            // Type depends on inkjs definitions
+    private story: any;
+    private previousBottomEdge: number = 0;
+    private delay: number = 0.0;
     private savePoint: string = "";
     private globalTagTheme?: string;
 
-    // DOM elements
     private storyContainer: HTMLElement;
     private outerScrollContainer: HTMLElement;
 
     constructor(private storyContent: any) {
-        // Create ink story from the content using inkjs
-        // If you have the official type definitions for inkjs,
-        // replace `any` with the appropriate types for `new inkjs.Story(...)`
         this.story = new inkjs.Story(storyContent);
 
-        // Bind external function
-        this.story.BindExternalFunction("setOutsideTheme", setOutsideTheme);
+        // Bind external functions
+        this.story.BindExternalFunction("setOutsideTheme", this.setOutsideTheme);
 
         // Grab references to DOM elements
         this.storyContainer = document.querySelector('#story') as HTMLElement;
         this.outerScrollContainer = document.querySelector('.outerContainer') as HTMLElement;
     }
 
-    /**
-     * Main entry point (formerly runStory in JS).
-     * Sets up global tags, theme, saves, and kicks off the story.
-     */
     public run(): void {
-        // Parse global tags
         const globalTags = this.story.globalTags;
         if (globalTags) {
             for (let i = 0; i < globalTags.length; i++) {
                 const globalTag = globalTags[i];
                 const splitTag = this.splitPropertyTag(globalTag);
 
-                // THEME: dark
                 if (splitTag && splitTag.property === "theme") {
                     this.globalTagTheme = splitTag.val;
                 }
-                // author: Your Name
                 else if (splitTag && splitTag.property === "author") {
                     const byline = document.querySelector('.byline') as HTMLElement;
                     if (byline) {
@@ -81,22 +58,99 @@ class StoryRunner {
         this.continueStory(true);
     }
 
-    /*********************************************
-     *  Main story processing
-     *********************************************/
-    private continueStory(firstTime: boolean): void {
-        let delay = 0.0;
-        const previousBottomEdge = firstTime ? 0 : this.contentBottomEdgeY();
+    private setOutsideTheme(dark: boolean) {
+        document.body.classList.add("switched");
+        if (dark) {
+            document.body.classList.add("dark");
+        } else {
+            document.body.classList.remove("dark");
+        }
+    }
 
-        // Generate story text - loop through available content
+    private continueStory(firstTime: boolean): void {
+        this.previousBottomEdge = firstTime ? 0 : this.contentBottomEdgeY();
+        this.delay = 0.0;
+
+        this.writeParagraphs();
+        this.writeChoices(firstTime);
+
+    }
+
+    private writeChoices(firstTime: boolean) {
+        this.story.currentChoices.forEach((choice: any) => {
+            const choiceTags = choice.tags;
+            const choiceClasses: string[] = [];
+            let isClickable = true;
+
+            for (let i = 0; i < choiceTags.length; i++) {
+                const choiceTag = choiceTags[i];
+                const splitTag = this.splitPropertyTag(choiceTag);
+
+                if (choiceTag.toUpperCase() === "UNCLICKABLE") {
+                    isClickable = false;
+                }
+
+                if (splitTag && splitTag.property.toUpperCase() === "CLASS") {
+                    choiceClasses.push(splitTag.val);
+                }
+            }
+
+            const choiceParagraphElement = document.createElement('p');
+            choiceParagraphElement.classList.add("choice");
+            choiceClasses.forEach(cls => choiceParagraphElement.classList.add(cls));
+
+            if (isClickable) {
+                choiceParagraphElement.innerHTML = `<a href='#'>${choice.text}</a>`;
+            } else {
+                choiceParagraphElement.innerHTML = `<span class='unclickable'>${choice.text}</span>`;
+            }
+            this.storyContainer.appendChild(choiceParagraphElement);
+
+            // Fade choice in after a short delay
+            this.showAfter(this.delay, choiceParagraphElement);
+            this.delay += 200.0;
+
+            // Click on choice
+            if (isClickable) {
+                const choiceAnchorEl = choiceParagraphElement.querySelector("a");
+                if (choiceAnchorEl) {
+                    choiceAnchorEl.addEventListener("click", (event: MouseEvent) => {
+                        event.preventDefault();
+
+                        // Extend height to fit
+                        this.storyContainer.style.height = this.contentBottomEdgeY() + "px";
+
+                        // Remove all existing choices
+                        this.removeAll(".choice");
+
+                        // Tell the story where to go next
+                        this.story.ChooseChoiceIndex(choice.index);
+
+                        // This is where the save button will save from
+                        this.savePoint = this.story.state.toJson();
+
+                        // And continue
+                        this.continueStory(false);
+                    });
+                }
+            }
+        });
+
+        // Unset storyContainer's height so it can resize
+        this.storyContainer.style.height = "";
+
+        if (!firstTime) {
+            this.scrollDown();
+        }
+    }
+
+    private writeParagraphs() {
         while (this.story.canContinue) {
             const paragraphText = this.story.Continue();
             const tags = this.story.currentTags;
 
-            // Custom classes for paragraph
             const customClasses: string[] = [];
 
-            // Process tags for images, links, classes, etc.
             for (let i = 0; i < tags.length; i++) {
                 const tag = tags[i];
                 const splitTag = this.splitPropertyTag(tag);
@@ -107,11 +161,11 @@ class StoryRunner {
                     this.storyContainer.appendChild(imageElement);
 
                     imageElement.onload = () => {
-                        this.scrollDown(previousBottomEdge);
+                        this.scrollDown();
                     };
 
-                    this.showAfter(delay, imageElement);
-                    delay += 200.0;
+                    this.showAfter(this.delay, imageElement);
+                    this.delay += 200.0;
                 }
                 else if (splitTag && splitTag.property.toUpperCase() === "LINK") {
                     window.location.href = splitTag.val;
@@ -152,81 +206,11 @@ class StoryRunner {
             this.storyContainer.appendChild(paragraphElement);
 
             // Fade in paragraph after a short delay
-            this.showAfter(delay, paragraphElement);
-            delay += 200.0;
-        }
-
-        // Create HTML choices from ink choices
-        this.story.currentChoices.forEach((choice: any) => {
-            const choiceTags = choice.tags;
-            const choiceClasses: string[] = [];
-            let isClickable = true;
-
-            for (let i = 0; i < choiceTags.length; i++) {
-                const choiceTag = choiceTags[i];
-                const splitTag = this.splitPropertyTag(choiceTag);
-
-                if (choiceTag.toUpperCase() === "UNCLICKABLE") {
-                    isClickable = false;
-                }
-
-                if (splitTag && splitTag.property.toUpperCase() === "CLASS") {
-                    choiceClasses.push(splitTag.val);
-                }
-            }
-
-            const choiceParagraphElement = document.createElement('p');
-            choiceParagraphElement.classList.add("choice");
-            choiceClasses.forEach(cls => choiceParagraphElement.classList.add(cls));
-
-            if (isClickable) {
-                choiceParagraphElement.innerHTML = `<a href='#'>${choice.text}</a>`;
-            } else {
-                choiceParagraphElement.innerHTML = `<span class='unclickable'>${choice.text}</span>`;
-            }
-            this.storyContainer.appendChild(choiceParagraphElement);
-
-            // Fade choice in after a short delay
-            this.showAfter(delay, choiceParagraphElement);
-            delay += 200.0;
-
-            // Click on choice
-            if (isClickable) {
-                const choiceAnchorEl = choiceParagraphElement.querySelector("a");
-                if (choiceAnchorEl) {
-                    choiceAnchorEl.addEventListener("click", (event: MouseEvent) => {
-                        event.preventDefault();
-
-                        // Extend height to fit
-                        this.storyContainer.style.height = this.contentBottomEdgeY() + "px";
-
-                        // Remove all existing choices
-                        this.removeAll(".choice");
-
-                        // Tell the story where to go next
-                        this.story.ChooseChoiceIndex(choice.index);
-
-                        // This is where the save button will save from
-                        this.savePoint = this.story.state.toJson();
-
-                        // And continue
-                        this.continueStory(false);
-                    });
-                }
-            }
-        });
-
-        // Unset storyContainer's height so it can resize
-        this.storyContainer.style.height = "";
-
-        if (!firstTime) {
-            this.scrollDown(previousBottomEdge);
+            this.showAfter(this.delay, paragraphElement);
+            this.delay += 200.0;
         }
     }
 
-    /**
-     * Restart the entire story from the beginning.
-     */
     private restart(): void {
         this.story.ResetState();
         this.setVisible(".header", true);
@@ -235,10 +219,6 @@ class StoryRunner {
         this.continueStory(true);
         this.outerScrollContainer.scrollTo(0, 0);
     }
-
-    /***************************************************************
-     *                       Helper Methods
-     ***************************************************************/
 
     // Detect if the user wants animations
     private isAnimationEnabled(): boolean {
@@ -259,11 +239,11 @@ class StoryRunner {
     }
 
     // Scroll the page down, but no further than the bottom edge of previous content
-    private scrollDown(previousBottomEdge: number): void {
+    private scrollDown(): void {
         if (!this.isAnimationEnabled()) {
             return;
         }
-        let target = previousBottomEdge;
+        let target = this.previousBottomEdge;
 
         const limit = this.outerScrollContainer.scrollHeight - this.outerScrollContainer.clientHeight;
         if (target > limit) target = limit;
@@ -413,12 +393,9 @@ class StoryRunner {
     }
 }
 
-/****************************************************************
- * The simple function that creates and runs a StoryRunner instance
- ****************************************************************/
 function runStory(): void {
     const runner = new StoryRunner(storyContent);
     runner.run();
 }
 
-export { runStory, StoryRunner };
+export { runStory };
