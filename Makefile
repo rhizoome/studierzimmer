@@ -1,5 +1,6 @@
-.PHONY: all
+TS_FILES := $(shell find src -type f -name '*.ts')
 
+.PHONY: all
 all: node_modules \
 	build/index.html \
 	build/style.css
@@ -17,7 +18,7 @@ temp/studierzimmer.json: studierzimmer.ink
 build/style.css: src/style.css
 	cp $< $@
 
-build/main.js: src/main.ts | \
+build/main.js: $(TS_FILES) | \
 		temp/studierzimmer.json
 	npx webpack
 	cp dist/main.js* build/

@@ -2,14 +2,14 @@ import * as inkjs from 'inkjs';
 import storyContent from '../temp/studierzimmer.json';
 
 class StoryRunner {
-    private story: any;
+    private story: inkjs.Story;
     private theme: string = "dark";
     private savePoint: string = "";
     private showList: HTMLElement[] = [];
     private storyContainer: HTMLElement;
 
-    constructor(private storyContent: any) {
-        this.story =  new inkjs.Story(storyContent);
+    constructor(storyContent: any) {
+        this.story = new inkjs.Story(storyContent);
         this.story.BindExternalFunction("setTheme", this.updateTheme.bind(this));
         this.storyContainer = document.querySelector("#story") as HTMLElement;
         this.globalTags();
@@ -26,7 +26,7 @@ class StoryRunner {
 
         if (globalTags) {
             globalTags.forEach((tag: string) => {
-                const {key, value} = this.processTag(tag);
+                const { key, value } = this.processTag(tag);
                 switch (key.toLowerCase()) {
                     case 'title':
                         this.setInnerHTML("#title", value);
@@ -44,17 +44,19 @@ class StoryRunner {
         }
     }
 
-    private parseTags(tags: string[], customClasses: string[]): void {
-        tags.forEach((tag: string) => {
-            const {key, value} = this.processTag(tag);
-            switch (key.toLowerCase()) {
-                case 'class':
-                    customClasses.push(value);
-                    break;
-                default:
-                    console.log(`Unhandled Tag - ${key}: ${value}`);
-            }
-        });
+    private parseTags(tags: string[] | null, customClasses: string[]): void {
+        if (tags) {
+            tags.forEach((tag: string) => {
+                const { key, value } = this.processTag(tag);
+                switch (key.toLowerCase()) {
+                    case 'class':
+                        customClasses.push(value);
+                        break;
+                    default:
+                        console.log(`Unhandled Tag - ${key}: ${value}`);
+                }
+            });
+        }
     }
 
     private renderParagraphs(): void {
@@ -62,7 +64,7 @@ class StoryRunner {
             const paragraph = this.story.Continue();
             const customClasses: string[] = [];
             this.parseTags(this.story.currentTags, customClasses);
-            if (!paragraph.trim()) {
+            if (!paragraph || !paragraph.trim()) {
                 continue;
             }
             const el = document.createElement('p');
