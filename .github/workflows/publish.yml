@@ -27,7 +27,9 @@ jobs:
           git checkout stage
           mkdir -p ./output/stage/
           make
-          cp ./build/* ./output/stage/
+          rsync -a ./build/ ./output/stage/
+          find ./output/stage/
+
 
       - name: Build release
         run: |
@@ -35,7 +37,8 @@ jobs:
           git checkout release
           mkdir -p ./output/release/
           make
-          cp ./build/* ./output/release/
+          rsync -a ./build/ ./output/release/
+          find ./output/release/
 
       - name: Create root redirect
         run: |
