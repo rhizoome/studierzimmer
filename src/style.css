@@ -1,5 +1,18 @@
-@import url('https://fonts.googleapis.com/css?family=Garamond:300,700|Quattrocento:700');
-@import url('https://fonts.googleapis.com/css?family=Open+Sans:300,700|Quattrocento:700');
+@font-face {
+  font-display: swap;
+  font-family: 'EB Garamond';
+  font-style: normal;
+  font-weight: 400;
+  src: url('./eb-garamond-v30-latin-regular.woff2') format('woff2');
+}
+
+@font-face {
+  font-display: swap;
+  font-family: 'Open Sans';
+  font-style: normal;
+  font-weight: 400;
+  src: url('./open-sans-v40-latin-regular.woff2') format('woff2');
+}
 
 :root {
   --background-color: #ddd;
@@ -19,7 +32,7 @@ html {
 }
 
 body {
-    font-family: 'Garamond', 'Georgia', serif;
+    font-family: 'EB Garamond', 'Garamond', 'Georgia', serif;
     font-weight: lighter;
     background-color: var(--background-color);
     color: var(--text-color);

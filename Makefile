@@ -9,7 +9,7 @@ all: node_modules \
 node_modules:
 	npm ci
 
-build/index.html: src/index.html | \
+build/index.html: src/index.html \
 		build/main.js
 	cp $< $@
 
