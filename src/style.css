@@ -14,6 +14,9 @@
   --text-color: #fff;
 }
 
+html {
+    font-size: 18pt;
+}
 
 body {
     font-family: 'Garamond', 'Georgia', serif;
@@ -27,31 +30,38 @@ body.switched {
     transition: background-color 1s ease, color 1s ease;
 }
 
-#written-in-ink {
-    background-color: var(--background-color);
-    z-index: 3;
-    font-size: 9pt;
-    font-weight: 700;
-    position: fixed;
+.left, .center, .right {
+    white-space: nowrap;
+    flex-grow: 1;
+    flex-basis: 0;
+}
+
+.left {
+    text-align: left;
+}
+
+.center {
     text-align: center;
-    display: block;
-    width: 100%;
-    margin: 0;
-    padding-top: 6px;
-    padding-bottom: 6px;
-    height: 14px;
-    top: 0;
+    padding-left: 1em;
+    padding-right: 1em;
+}
+
+.right {
+    text-align: right;
 }
 
 #controls {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
     background-color: var(--background-color);
     z-index: 4;
-    font-size: 9pt;
-    text-align: center;
+    font-size: 0.5rem;
     padding-bottom: 6px;
-    position: fixed;
-    right: 14px;
-    top: 4px;
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
 }
 
 #title {
@@ -72,7 +82,7 @@ body.switched {
     color: var(--story-color);
     margin: auto;
     padding: 15px;
-    max-width: 600px;
+    max-width: 700px;
 }
 
 #outerContainer {
@@ -102,13 +112,13 @@ body.switched {
 
 
 h1 {
-    font-size: 30pt;
+    font-size: 2rem;;
     margin-bottom: 10px;
     
 }
 
 h2 {
-    font-size: 14pt;
+    font-size: 1rem;
     font-style: italic;
 }
 
@@ -121,7 +131,7 @@ a {
 }
 
 p {
-    font-size: 14pt;
+    font-size: 0.9rem;
     padding-top: 5px;
 }
 
