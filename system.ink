@@ -4,7 +4,8 @@ EXTERNAL createSlot(name, loop, groupList)
 EXTERNAL loadSound(slot, sound, url)
 EXTERNAL playSound(slot, sound, volume, crossFade)
 EXTERNAL playSoundV(slot, sound, volume)
-EXTERNAL playSoundS(slot, sound, volume)
+EXTERNAL playSoundS(slot, sound)
+EXTERNAL stopSound(slot)
 
 === function setTheme(theme) ===
 Setting theme to: {theme}
@@ -26,3 +27,6 @@ Playing sound="{sound}" in slot="{slot}" with volume={volume}
 
 === function playSoundS(slot, sound) ===
 Playing sound="{sound}" in slot="{slot}"
+
+=== function stopSound(slot) ===
+Stop slot="{slot}"

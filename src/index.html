@@ -5,12 +5,13 @@
     <title>Studierzimmer</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
-
 </head>
 
 <body>
     <div id="controls">
-        <div class="left"></div>
+        <div class="left">
+            <a id="attribution">Urheber</a>
+        </div>
         <div class="center">
             <a href="https://www.inklestudios.com/ink">GESCHRIEBEN MIT INK</a>
         </div>
@@ -29,6 +30,36 @@
             </div>
         </div>
     </div>
+    <div id="attr_modal" class="modal">
+        <span  id="close_btn">&times;</span>
+        <div id="attr_text" class="full">text</div>
+    </div>
+    <script defer>
+        document.getElementById('attribution').addEventListener('click', function (event) {
+            const attrTextDiv = document.getElementById("attr_text");
+
+            fetch("attribution.html")
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error(`HTTP error! Status: ${response.status}`);
+                    }
+                    return response.text();
+                })
+                .then(html => {
+                    attrTextDiv.innerHTML = html;
+                    attrTextDiv.querySelectorAll('a').forEach(anchor => {
+                        anchor.setAttribute('target', '_blank');
+                    });
+                    document.getElementById('attr_modal').style.display = 'block';
+                })
+                .catch(error => {
+                    console.error("Error loading attribution.html:", error);
+                });
+        });
+        document.getElementById('close_btn').addEventListener('click', function (event) {
+            document.getElementById('attr_modal').style.display = 'none';
+        });
+    </script>
 
     <script src="main.js"></script>
     <script defer>

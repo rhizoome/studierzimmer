@@ -16,8 +16,12 @@ CONST event_wahrscheinlichkeit = 44 // In prozent
 ~ createSlot("loops", true, "loops")
 ~ createSlot("music", true, "loops")
 ~ createSlot("events", false, "")
+~ loadSound("music", "teppich", "./teppich.mp3")
 ~ loadSound("events", "modus-switch", "./613405__modus-switch.mp3")
 ~ loadSound("events", "modus-switch-rev", "./613405__modus-switch-rev.mp3")
+~ loadSound("loops", "tick", "./163371__tick_reverse.mp3")
+~ loadSound("events", "chime", "./163371__chime_reverse.mp3")
+~ loadSound("events", "snap", "./477519__snap-button.mp3")
 
 ->Ankunft
 
@@ -42,7 +46,7 @@ Ich lenke meine Aufmerksamkeit {wort} weg.
 {
     - !tick_an and !tick_pause:
         ~ tick_an = 1
-        # AUDIOLOOP: 163371__tick_reverse.mp3&0.02
+        ~ playSoundV("loops", "tick", 0.02)
     - tick_pause:
         ~ tick_pause -= 1
 }
@@ -51,10 +55,10 @@ Ich lenke meine Aufmerksamkeit {wort} weg.
 { 
     - !audio_standuhr_gespielt:
         ~ audio_standuhr_gespielt = 1
-        # AUDIOLOOP:
+        ~ stopSound("loops")
         ~ tick_an = 0
         ~ tick_pause = 5
-        # AUDIO: 163371__chime_reverse.mp3
+        ~ playSoundS("events", "chime")
 }
 
 // ------ Events
@@ -76,9 +80,8 @@ Ich lenke meine Aufmerksamkeit {wort} weg.
 
 "Siehst Du, ich stecke meine Hand hinein und nichts passiert."
 
-* [Ich stecke die Hand nochmal hinein.] # AUDIOBACKGROUND: teppich.mp3&0.02
-
-~ keepSoundAlive()
+* [Ich stecke die Hand nochmal hinein.]
+    ~ playSoundV("music", "teppich", 0.02)
 - "Oh Schreck, wo bin ich?"
 
 Es riecht nach dem Raum zwischen den Gedanken, dieser Leere in der sich selbst Geruch einsam fühlt.
@@ -125,11 +128,11 @@ Die Gravur zeigt das Symbol {modus == Dunkel:der Sonne|des Mondes}.
 + Ich drücke auf {modus == Dunkel:die Sonne|den Mond}.
     {
         - modus == Dunkel:
-            ~ playSound("events", "modus-switch-rev", 1, true)
+            ~ playSoundS("events", "modus-switch-rev")
             ~ modus = Hell
             ~ setTheme("light")
         - else:
-            ~ playSound("events", "modus-switch", 1, true)
+            ~ playSoundS("events", "modus-switch")
             ~ modus = Dunkel
             ~ setTheme("dark")
     }
@@ -141,7 +144,8 @@ Die Gravur zeigt das Symbol {modus == Dunkel:der Sonne|des Mondes}.
 
 = Lampe
 
-+ Ich schalte Lampe {lampe_an:aus|an}. #AUDIO: 477519__snap-button.mp3
++ Ich schalte Lampe {lampe_an:aus|an}.
+    ~ playSoundS("events", "snap")
     ~ lampe_an = !lampe_an
      ->Leuchten->e->Lampe
 + [Zurück]

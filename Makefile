@@ -19,7 +19,7 @@ temp/studierzimmer.json: studierzimmer.ink
 build/style.css: src/style.css
 	cp $< $@
 
-build/main.js: $(TS_FILES) | \
+build/main.js: $(TS_FILES) \
 		temp/studierzimmer.json
 	npx webpack
 	cp dist/main.js* build/
