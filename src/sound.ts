@@ -88,7 +88,7 @@ class Slot {
         this.sounds[name] = sound;
     }
 
-    public async play(name: string, crossFade: boolean = true, volume: number = 1): Promise<void> {
+    public async play(name: string, volume: number = 1, crossFade: boolean = true): Promise<void> {
         const sound = this.sounds[name];
         if (!sound) {
             console.error(`Sound "${name}" in slot "${this.name}" does not exist.`);
@@ -99,7 +99,6 @@ class Slot {
         const nodes = new SlotNodes(buffer, this.context);
         nodes.source.loop = this.loop;
         nodes.source.onended = () => {
-            console.log(nodes)
             if (this.nodes === nodes) {
                 this.nodes = null;
             }
@@ -178,7 +177,7 @@ class Group {
         this.slots.push(slot);
     }
 
-    public async stop(): Promise<void> {
+    public stop(): void {
         this.slots.forEach(slot => slot.stop());
     }
 }
@@ -196,9 +195,7 @@ class Mixer {
         this.config = new Config(this.context);
         //this.startDummy();
         window.addEventListener('beforeunload', (event) => {
-            for (const slot of Object.values(this.slots)) {
-                slot.stopAll();
-            }
+            this.stopAll();
         });
     }
 
@@ -221,33 +218,39 @@ class Mixer {
         await slot.load(soundName, url);
     }
 
-    public async play(slotName: string, soundName: string): Promise<void> {
+    public async play(slotName: string, soundName: string, volume: number = 1, crossFade: boolean = true): Promise<void> {
         const slot = this.slots[slotName];
         if (!slot) {
             console.error(`Slot "${slotName}" does not exist, please create it first.`);
             return;
         } else {
-            await slot.play(soundName);
+            await slot.play(soundName, volume, crossFade);
         }
     }
 
-    public async stop(slotName: string): Promise<void> {
+    public stop(slotName: string): void {
         const slot = this.slots[slotName];
         if (!slot) {
             console.error(`Slot "${slotName}" does not exist, please create it first.`);
             return;
         } else {
-            await slot.stop();
+            slot.stop();
         }
     }
 
-    public async stopGroup(groupName: string): Promise<void> {
+    public stopAll(): void {
+        for (const slot of Object.values(this.slots)) {
+            slot.stopAll();
+        }
+    }
+
+    public stopGroup(groupName: string): void {
         const group = this.groups[groupName];
         if (!group) {
             console.error(`Slot "${groupName}" does not exist, please create it first.`);
             return;
         } else {
-            await group.stop();
+            group.stop();
         }
     }
 

@@ -1,4 +1,5 @@
 import * as inkjs from 'inkjs';
+import { Mixer } from './sound';
 import storyContent from '../temp/studierzimmer.json';
 
 class StoryRunner {
@@ -8,12 +9,66 @@ class StoryRunner {
     private showList: HTMLElement[] = [];
     private storyContainer: HTMLElement;
     private firstTags: boolean = true;
+    private mixer: Mixer = new Mixer();
+    private loadPromises: Record<string, Promise<void>> = {};
 
     constructor(storyContent: any) {
         this.story = new inkjs.Story(storyContent);
         this.story.BindExternalFunction("setTheme", this.updateTheme.bind(this));
+        this.story.BindExternalFunction("createSlot", this.createSlot.bind(this));
+        this.story.BindExternalFunction("loadSound", this.loadSound.bind(this));
+        this.story.BindExternalFunction("playSound", this.playSound.bind(this));
+        this.story.BindExternalFunction("playSoundS", this.playSoundS.bind(this));
+        this.story.BindExternalFunction("playSoundV", this.playSoundS.bind(this));
+        this.story.BindExternalFunction("stopSound", this.stopSound.bind(this));
+        this.story.BindExternalFunction("stopAllSounds", this.stopAllSounds.bind(this));
+        this.story.BindExternalFunction("stopGroup", this.stopGroup.bind(this));
+        this.story.BindExternalFunction("setFadeTime", this.setFadeTime.bind(this));
         this.storyContainer = document.querySelector("#story") as HTMLElement;
         this.globalTags();
+    }
+
+    private createSlot(name: string, loop: boolean = false, groupList: string = ""): void {
+        const list = groupList.split(":").map(item => item.trim());
+        this.mixer.createSlot(name, loop, list);
+    }
+
+    private loadSound(slotName: string, soundName: string, url: string): void {
+        const name = slotName + soundName;
+        const promise = this.mixer.load(slotName, soundName, url);
+        this.loadPromises[name] = promise;
+    }
+
+    private playSoundS(slotName: string, soundName: string): void {
+        this.playSound(slotName, soundName);
+    }
+
+    private playSoundV(slotName: string, soundName: string, volume: number = 1): void {
+        this.playSound(slotName, soundName, volume);
+    }
+
+    private playSound(slotName: string, soundName: string, volume: number = 1, crossFade: boolean = true): void {
+        (async () => {
+            const name = slotName + soundName;
+            await this.loadPromises[name];
+            this.mixer.play(slotName, soundName, volume, crossFade);
+        })();
+    }
+
+    private stopSound(slotName: string): void {
+        this.mixer.stop(slotName);
+    }
+
+    private stopAllSounds(): void {
+        this.mixer.stopAll();
+    }
+
+    private stopGroup(groupName: string): void {
+        this.mixer.stopGroup(groupName);
+    }
+
+    private setFadeTime(time: number): void {
+        this.mixer.setFadeTime(time);
     }
 
     public run(): void {
@@ -153,6 +208,5 @@ function runStory(): void {
     runner.run();
 }
 
-import { Mixer } from './sound'; // TODO remove
 
-export { runStory, Mixer };
+export { runStory };

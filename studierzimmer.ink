@@ -2,8 +2,6 @@
 # AUTHOR: Jean-Louis Fuchs
 # THEME: dark
 
-EXTERNAL setTheme(theme)
-
 LIST Moden = Dunkel, Hell
 LIST Ton = Schwarz, Weiss, Duester, Sonne, Dunkl
 VAR modus = Dunkel
@@ -15,8 +13,18 @@ CONST ib = "Ich betrachte"
 CONST event_wahrscheinlichkeit = 44 // In prozent
 
 {setTheme("dark")}
+{createSlot("loops", true, "loops")}
+{createSlot("music", true, "loops")}
+{createSlot("events", false, "")}
+{loadSound("events", "modus-switch", "./613405__modus-switch.mp3")}
+{loadSound("events", "modus-switch-rev", "./613405__modus-switch-rev.mp3")}
 
 ->Ankunft
+
+INCLUDE system.ink
+
+
+# INITDONE
 
 // ------ Funktionen
 
@@ -62,9 +70,6 @@ Ich lenke meine Aufmerksamkeit {wort} weg.
 }
 ~ ensure_tick()
 - ->->
-
-=== function setTheme(theme) ===
-Setting theme to: {theme}
 
 // ------ Geschichte
 
@@ -120,11 +125,11 @@ Die Gravur zeigt das Symbol {modus == Dunkel:der Sonne|des Mondes}.
 + Ich drücke auf {modus == Dunkel:die Sonne|den Mond}.
     {
         - modus == Dunkel:
-            #AUDIO: 613405__modus-switch.mp3
+            ~ playSound("events", "modus-switch-rev", 1, true)
             ~ modus = Hell
             ~ setTheme("light")
         - else:
-            #AUDIO: 613405__modus-switch-rev.mp3
+            ~ playSound("events", "modus-switch", 1, true)
             ~ modus = Dunkel
             ~ setTheme("dark")
     }
