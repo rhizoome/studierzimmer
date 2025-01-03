@@ -131,7 +131,6 @@ class Slot {
         if (this.nodes) {
             this.nodesSet.delete(this.nodes);
         }
-        console.log(startTime, stopTime, this.context.currentTime);
         nodes.source.start(startStartTime);
         this.nodesSet.add(nodes);
         this.nodes = nodes;
@@ -203,7 +202,7 @@ class Mixer {
         });
     }
 
-    private startDummy(): void {
+    public startDummy(): void {
         if (!this.dummy) {
             const context = this.context;
             const dummy = context.createBuffer(2, 1, context.sampleRate);

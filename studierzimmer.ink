@@ -12,17 +12,16 @@ VAR audio_standuhr_gespielt = 0
 CONST ib = "Ich betrachte"
 CONST event_wahrscheinlichkeit = 44 // In prozent
 
-{setTheme("dark")}
-{createSlot("loops", true, "loops")}
-{createSlot("music", true, "loops")}
-{createSlot("events", false, "")}
-{loadSound("events", "modus-switch", "./613405__modus-switch.mp3")}
-{loadSound("events", "modus-switch-rev", "./613405__modus-switch-rev.mp3")}
+~ setTheme("dark")
+~ createSlot("loops", true, "loops")
+~ createSlot("music", true, "loops")
+~ createSlot("events", false, "")
+~ loadSound("events", "modus-switch", "./613405__modus-switch.mp3")
+~ loadSound("events", "modus-switch-rev", "./613405__modus-switch-rev.mp3")
 
 ->Ankunft
 
 INCLUDE system.ink
-
 
 # INITDONE
 
@@ -79,6 +78,7 @@ Ich lenke meine Aufmerksamkeit {wort} weg.
 
 * [Ich stecke die Hand nochmal hinein.] # AUDIOBACKGROUND: teppich.mp3&0.02
 
+~ keepSoundAlive()
 - "Oh Schreck, wo bin ich?"
 
 Es riecht nach dem Raum zwischen den Gedanken, dieser Leere in der sich selbst Geruch einsam fühlt.

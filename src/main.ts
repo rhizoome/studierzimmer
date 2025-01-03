@@ -19,13 +19,18 @@ class StoryRunner {
         this.story.BindExternalFunction("loadSound", this.loadSound.bind(this));
         this.story.BindExternalFunction("playSound", this.playSound.bind(this));
         this.story.BindExternalFunction("playSoundS", this.playSoundS.bind(this));
-        this.story.BindExternalFunction("playSoundV", this.playSoundS.bind(this));
+        this.story.BindExternalFunction("playSoundV", this.playSoundV.bind(this));
         this.story.BindExternalFunction("stopSound", this.stopSound.bind(this));
         this.story.BindExternalFunction("stopAllSounds", this.stopAllSounds.bind(this));
         this.story.BindExternalFunction("stopGroup", this.stopGroup.bind(this));
         this.story.BindExternalFunction("setFadeTime", this.setFadeTime.bind(this));
+        this.story.BindExternalFunction("keepSoundAlive", this.keepSoundAlive.bind(this));
         this.storyContainer = document.querySelector("#story") as HTMLElement;
         this.globalTags();
+    }
+
+    private keepSoundAlive(): void {
+        this.mixer.startDummy();
     }
 
     private createSlot(name: string, loop: boolean = false, groupList: string = ""): void {

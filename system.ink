@@ -1,4 +1,5 @@
 EXTERNAL setTheme(theme)
+EXTERNAL keepSoundAlive()
 EXTERNAL createSlot(name, loop, groupList)
 EXTERNAL loadSound(slot, sound, url)
 EXTERNAL playSound(slot, sound, volume, crossFade)
@@ -7,6 +8,9 @@ EXTERNAL playSoundS(slot, sound, volume)
 
 === function setTheme(theme) ===
 Setting theme to: {theme}
+
+=== function keepSoundAlive ===
+Keep sound alive
 
 === function createSlot(name, loop, groupList) ===
 Creating slot="{name}" loop={loop} groupList="{groupList}"
