@@ -97,6 +97,10 @@ body.switched {
     width: 100%;
 }
 
+.choice {
+    text-align: center;
+}
+
 .blend {
     transition: opacity 1s ease;
 }
@@ -127,7 +131,6 @@ a {
     color: var(--gold);
     font-family: 'Open Sans', sans-serif;
     text-decoration: none;
-    text-align: center;
 }
 
 p {

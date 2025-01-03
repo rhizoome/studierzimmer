@@ -111,10 +111,14 @@ class Slot {
 
         let fadeDone;
         let startTime;
+        let startStartTime;
         if (crossFade) {
             startTime = this.context.currentTime;
+            // Safari Bug (delay) - otherweise we'd use startTime
+            startStartTime = 0;
         } else {
             startTime = stopTime;
+            startStartTime = stopTime;
         }
         if (this.loop) {
             fadeDone = startTime + this.config.fadeTime;
@@ -128,7 +132,7 @@ class Slot {
             this.nodesSet.delete(this.nodes);
         }
         console.log(startTime, stopTime, this.context.currentTime);
-        nodes.source.start(startTime);
+        nodes.source.start(startStartTime);
         this.nodesSet.add(nodes);
         this.nodes = nodes;
     }
@@ -242,6 +246,10 @@ class Mixer {
     }
 
     public stopAll(): void {
+        if (this.dummy) {
+            this.dummy.stop();
+            this.dummy.disconnect();
+        }
         for (const slot of Object.values(this.slots)) {
             slot.stopAll();
         }
