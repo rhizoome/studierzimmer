@@ -127,6 +127,7 @@ class Slot {
         if (this.nodes) {
             this.nodesSet.delete(this.nodes);
         }
+        console.log(startTime, stopTime, this.context.currentTime);
         nodes.source.start(startTime);
         this.nodesSet.add(nodes);
         this.nodes = nodes;
@@ -193,20 +194,21 @@ class Mixer {
         const context = new window.AudioContext({ sampleRate: 44100 });
         this.context = context
         this.config = new Config(this.context);
-        //this.startDummy();
         window.addEventListener('beforeunload', (event) => {
             this.stopAll();
         });
     }
 
     private startDummy(): void {
-        const context = this.context;
-        const dummy = context.createBuffer(2, 1, context.sampleRate);
-        this.dummy = context.createBufferSource();
-        this.dummy.loop = true;
-        this.dummy.buffer = dummy;
-        this.dummy.connect(context.destination);
-        this.dummy.start(context.currentTime);
+        if (!this.dummy) {
+            const context = this.context;
+            const dummy = context.createBuffer(2, 1, context.sampleRate);
+            this.dummy = context.createBufferSource();
+            this.dummy.loop = true;
+            this.dummy.buffer = dummy;
+            this.dummy.connect(context.destination);
+            this.dummy.start(context.currentTime);
+        }
     }
 
     public async load(slotName: string, soundName: string, url: string): Promise<void> {
@@ -219,6 +221,7 @@ class Mixer {
     }
 
     public async play(slotName: string, soundName: string, volume: number = 1, crossFade: boolean = true): Promise<void> {
+        this.startDummy();
         const slot = this.slots[slotName];
         if (!slot) {
             console.error(`Slot "${slotName}" does not exist, please create it first.`);
