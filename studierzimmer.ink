@@ -1,7 +1,8 @@
-# author: Jean-Louis Fuchs
-# theme: dark
+# TITLE: Studierzimmer
+# AUTHOR: Jean-Louis Fuchs
+# THEME: dark
 
-EXTERNAL setOutsideTheme(dark)
+EXTERNAL setTheme(theme)
 
 LIST Moden = Dunkel, Hell
 LIST Ton = Schwarz, Weiss, Duester, Sonne, Dunkl
@@ -13,7 +14,7 @@ VAR audio_standuhr_gespielt = 0
 CONST ib = "Ich betrachte"
 CONST event_wahrscheinlichkeit = 44 // In prozent
 
-{setOutsideTheme(1)}
+{setTheme("dark")}
 
 ->Ankunft
 
@@ -62,8 +63,8 @@ Ich lenke meine Aufmerksamkeit {wort} weg.
 ~ ensure_tick()
 - ->->
 
-=== function setOutsideTheme(dark) ===
-Setting outside dark theme to: {dark}
+=== function setTheme(theme) ===
+Setting theme to: {theme}
 
 // ------ Geschichte
 
@@ -121,11 +122,11 @@ Die Gravur zeigt das Symbol {modus == Dunkel:der Sonne|des Mondes}.
         - modus == Dunkel:
             #AUDIO: 613405__modus-switch.mp3
             ~ modus = Hell
-            ~ setOutsideTheme(0)
+            ~ setTheme("light")
         - else:
             #AUDIO: 613405__modus-switch-rev.mp3
             ~ modus = Dunkel
-            ~ setOutsideTheme(1)
+            ~ setTheme("dark")
     }
     Urplötzlich ist alles was Schwarz ist Weiss und umgekehrt. Die abrupte Veränderung ist schwindelerregend. ->Leuchten->e->Knopf
 + [Zurück]
