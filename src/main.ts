@@ -7,6 +7,7 @@ class StoryRunner {
     private savePoint: string = "";
     private showList: HTMLElement[] = [];
     private storyContainer: HTMLElement;
+    private firstTags: boolean = true;
 
     constructor(storyContent: any) {
         this.story = new inkjs.Story(storyContent);
@@ -38,13 +39,17 @@ class StoryRunner {
                         this.updateTheme(value);
                         break;
                     default:
-                        console.log(`Unhandled Tag - ${key}: ${value}`);
+                        console.warn(`Unhandled Tag - ${key}: ${value}`);
                 }
             });
         }
     }
 
     private parseTags(tags: string[] | null, customClasses: string[]): void {
+        if (this.firstTags) {
+            this.firstTags = false;
+            return;
+        }
         if (tags) {
             tags.forEach((tag: string) => {
                 const { key, value } = this.processTag(tag);
@@ -53,7 +58,7 @@ class StoryRunner {
                         customClasses.push(value);
                         break;
                     default:
-                        console.log(`Unhandled Tag - ${key}: ${value}`);
+                        console.warn(`Unhandled Tag - ${key}: ${value}`);
                 }
             });
         }
@@ -110,8 +115,10 @@ class StoryRunner {
         const elements = document.querySelectorAll(".hide");
         if (elements) {
             const el = elements.item(0);
-            el.classList.remove("hide");
-            setTimeout(this.show.bind(this), 250);
+            if (el) {
+                el.classList.remove("hide");
+                setTimeout(this.show.bind(this), 250);
+            }
         }
     }
 
@@ -146,4 +153,6 @@ function runStory(): void {
     runner.run();
 }
 
-export { runStory };
+import { Mixer } from './sound'; // TODO remove
+
+export { runStory, Mixer };

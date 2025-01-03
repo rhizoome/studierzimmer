@@ -11,4 +11,8 @@ class DefaultDict<K, V> extends Map<K, V> {
     }
 }
 
-export { DefaultDict };
+function sleep(time: number): Promise<void> {
+    return new Promise(resolve => setTimeout(resolve, time * 1000));
+}
+
+export { DefaultDict, sleep };

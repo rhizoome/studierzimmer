@@ -2,8 +2,9 @@ TS_FILES := $(shell find src -type f -name '*.ts')
 
 .PHONY: all
 all: node_modules \
-	build/index.html \
-	build/style.css
+		build/index.html \
+		build/style.css
+	rsync -a static/ build/
 
 node_modules:
 	npm ci

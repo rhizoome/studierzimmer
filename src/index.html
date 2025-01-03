@@ -19,6 +19,28 @@
             <a id="save" title="Speichere Fortschritt">Speichern</a> |
             <a id="reload" title="Lade von Speicherpunkt">Laden</a>
             <!--<a id="theme-switch" title="Switch theme">theme</a>-->
+            | <a id="testLink" href="#">Test</a>
+            <script defer>
+                document.getElementById("testLink").addEventListener("click", function (event) {
+                    (async () => {
+                        event.preventDefault();
+                        const mixer = new Studierzimmer.Mixer();
+                        console.log("a");
+                        await mixer.sleep(1);
+                        console.log("b");
+                        mixer.createSlot("loops", true);
+                        await mixer.load("loops", "teppich", "./teppich.mp3");
+                        await mixer.load("loops", "switch", "./613405__modus-switch.mp3");
+                        await mixer.play("loops", "teppich");
+                        await mixer.sleep(4);
+                        await mixer.play("loops", "switch");
+                        await mixer.sleep(4);
+                        await mixer.play("loops", "teppich");
+
+                        console.log(mixer);
+                    })();
+                });
+            </script>        
         </div>
     </div>
     <div id="outerContainer">
@@ -31,8 +53,9 @@
     </div>
 
     <script src="main.js"></script>
-    <script>
+    <script defer>
         Studierzimmer.runStory();
     </script>
+
 </body>
 </html>
