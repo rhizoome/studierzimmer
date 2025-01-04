@@ -41,7 +41,7 @@ class Sound {
 
     public async load(url: string): Promise<void> {
         try {
-            const response = await fetch(url);
+            const response = await fetch(url, { cache: 'reload' });
             this.buffer = await response.arrayBuffer();
         } catch (error) {
             console.error(`Failed to load sound "${this.name}" in slot "${this.slot}" from "${url}"`, error);
