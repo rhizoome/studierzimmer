@@ -211,7 +211,8 @@ Auf dem Sockel des Globus gibt es einen Schalter mit folgenden Positionen: <b>Er
 + {GlobusSchalter != GS_Studierzimmer} Ich schalte den Globus auf <b>Studierzimmer</b>.
     ~ GlobusSchalter = GS_Studierzimmer
     {GlobusBeschreibung()} ->e->Globus
-+ [{tw(Ts_Meta)}] ->e->Meta->e->Lampe
++ {bereit(Ts_Giesskanne) && GlobusSchalter == GS_Studierzimmer} Ich <b>begiesse</b> den Globus mit der Giesskanne.
++ [{tw(Ts_Meta)}] ->e->Meta->e->Globus
 + [Zurück] {iwm("von der Lampe")}
 
 - ->->
@@ -242,7 +243,6 @@ Ihre Form, eine Symphonie von Natur und Traum,<br>Ein Tanz der Eleganz, so zart 
 Der Korpus gleicht einem Tropfen so rein,<br>Gefangen in ewigem Raum und Sein.<br>Es spricht von einer Zeit, wo Kunst Seele lab,<br>Eine Giesskanne, die dem Garten Leben gab.
 
 So vieles hängt an ihr, die Leben uns bringt,<br>Die Jugendstil-Giesskanne, die Schönheit besingt.
-
 
 === Meta ===
 
