@@ -124,6 +124,10 @@ body.switched {
     font-size: 0.7rem;
 }
 
+.modal p {
+    font-size: 0.7rem;
+}
+
 .left, .center, .right {
     white-space: nowrap;
     flex-grow: 1;
