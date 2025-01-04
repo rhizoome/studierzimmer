@@ -16,17 +16,16 @@
 
 :root {
   --background-color: #ddd;
-  --text-color: #333;
-  --bold-color: #111;
+  --text-color: #222;
   --story-color: #888;
+  --bold-color: #666;
   --gold: #b97c2c;
 }
 
 .theme-dark {
   --text-color: #ddd;
-  --bold-color: #eee;
+  --bold-color: #bbb;
   --background-color: #000;
-  --text-color: #fff;
 }
 
 html {

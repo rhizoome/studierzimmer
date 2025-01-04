@@ -4,6 +4,7 @@
 
 LIST Moden = Dunkel, Hell
 LIST Ton = Schwarz, Weiss, Duester, Sonne, Dunkl, Weta
+LIST GlobusSchalter = (GS_Erde), GS_Scheibenwelt, GS_Studierzimmer
 VAR modus = Dunkel
 VAR lampe_an = 0
 VAR audio_standuhr_gespielt = 0
@@ -109,28 +110,23 @@ Es riecht nach dem Raum zwischen den Gedanken, dieser Leere in der sich selbst G
 Im {modus == Dunkel:düstern|hellen} Studierzimmer sehe ich: _einen Schreibtisch_.
 
 + [Schreibtisch]
-    {ib} den Schreibtisch. In die äusseren Ränder des Schreibtisches aus {mw(Schwarz)}em Marmor sind feine, organische Verzierungen gemeisselt. Der Rand der Tischplatte zeigt Gravuren, die an mystische Inschriften erinnern.
-    ->e->Schreibtisch->e->Studierzimmer
-+ [{mw(Weta)}]
-    ->e->Meta->e->Studierzimmer
-+ TODO: Ausgang
-    ->e->END
+    {ib} _den Schreibtisch_. In die äusseren Ränder des Schreibtisches aus {mw(Schwarz)}em Marmor sind feine, organische Verzierungen gemeisselt. Der Rand der Tischplatte zeigt Gravuren, die an mystische Inschriften erinnern. ->e->Schreibtisch->e->Studierzimmer
++ [{mw(Weta)}] ->e->Meta->e->Studierzimmer
++ TODO: Ausgang ->e->END
     
 === Schreibtisch ===
 
 Auf dem Tisch sehe ich: _einen Knopf_, _eine Lampe_ und _einen Globus_.
 
 + [Knopf]
-    {ib} den Knopf.
+    {ib} _den Knopf_.
     In der rechten äusseren Ecke des Schreibtischs ist ein Knopf eingelegt. ->e->Knopf->e->Schreibtisch
 + [Lampe]
-    {ib} die Lampe.
+    {ib} _die Lampe_.
     Es ist eine Bankerlampe mit einem Schirm aus grellgrauem ungrünen Glas. Wie der Schirm in dieser Monochromen Welt so überzeugt grün sein kann, ist mir unerklärbar. ->e->Lampe->e->Schreibtisch
-// + [Globus]
-+ [{mw(Weta)}]
-    ->e->Meta->e->Schreibtisch
-+ [Zurück]
-    {iwm("vom Schreibtisch")}
++ [Globus] {ib} _den Globus_. {GlobusBeschreibung()} ->e->Globus->e->Schreibtisch
++ [{mw(Weta)}] ->e->Meta->e->Schreibtisch
++ [Zurück] {iwm("vom Schreibtisch")}
 
 - ->->
 
@@ -150,10 +146,8 @@ Die Gravur zeigt das Symbol {modus == Dunkel:der Sonne|des Mondes}.
             ~ setTheme("dark")
     }
     Urplötzlich ist alles was Schwarz ist Weiss und umgekehrt. Die abrupte Veränderung ist schwindelerregend. ->e->Leuchten->e->Knopf
-+ [{mw(Weta)}]
-    ->e->Meta->e->Knopf
-+ [Zurück]
-    {iwm("vom Knopf")}
++ [{mw(Weta)}] ->e->Meta->e->Knopf
++ [Zurück] {iwm("vom Knopf")}
 
 - ->->
 
@@ -163,10 +157,14 @@ Die Gravur zeigt das Symbol {modus == Dunkel:der Sonne|des Mondes}.
     ~ playSoundS("events", "snap")
     ~ lampe_an = !lampe_an
      ->e->Leuchten->e->Lampe
-+ [{mw(Weta)}]
-    ->e->Meta->e->Lampe
-+ [Zurück]
-    {iwm("von der Lampe")}
++ [{mw(Weta)}] ->e->Meta->e->Lampe
++ [Zurück] {iwm("von der Lampe")}
+
+- ->->
+
+= Globus
+
+hallo
 
 - ->->
 
@@ -176,6 +174,13 @@ Die Gravur zeigt das Symbol {modus == Dunkel:der Sonne|des Mondes}.
 
 - ->->
 
+=== function GlobusBeschreibung() ===
+{GlobusSchalter:
+    - GS_Erde:
+        Der Globus zeigt eine Karte der Erde in Ocker, Beige und vergibtem Blau.
+    - GS_Scheibenwelt:
+        Aus dem Stockel des Globus ragt eine Stange, die sich in den Bauch einer Schildkröte bohrt. Vier Elefanten auf der Schildkröte tragen eine Scheibe. Ozeane, Berge, Ebenen und alles was eine Welt so braucht in aller polychrome Farbertracht bilden die Schreibe. Sie ist das echteste im ganzen Schreibzimmer - ein Moment - es über der Scheibe hängen Wolken und sie scheinen sich zu bewegen.
+}
 
 === Meta ===
 
