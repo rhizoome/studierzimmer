@@ -101,6 +101,10 @@ body.switched {
     margin: 10px;
 }
 
+.modal h1 {
+    font-size: 3rem;
+}
+
 .modal {
     display: none;
     position: absolute;
