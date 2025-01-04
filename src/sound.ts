@@ -155,12 +155,11 @@ class Slot {
     }
 
     public stopAll(): void {
-        for (const nodes of Object.values(this.nodesSet)) {
+        for (const nodes of this.nodesSet.values()) {
             nodes.gain.gain.value = 0;
             nodes.source.stop();
             nodes.source.disconnect();
             nodes.gain.disconnect();
-            console.log(nodes)
         }
         this.nodesSet.clear();
         this.nodes = null;
