@@ -74,7 +74,7 @@ INCLUDE src/frontend_func.ink
     - !audio_standuhr_gespielt:
         ~ audio_standuhr_gespielt = 1
         ~ stopSound("loops")
-        ~ playSoundS("events-fg", "chime")
+        ~ playSoundV("events-fg", "chime", 0.5)
 }
 
 === function play_musicS(name) ===
