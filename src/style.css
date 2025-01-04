@@ -91,8 +91,14 @@ body.switched {
     width: 100%;
 }
 
-#close_btn {
+#closeBtn {
+    font-size: 3rem;
+    margin-bottom: -10px;
     cursor: pointer;
+}
+
+#attrText {
+    margin: 10px;
 }
 
 .modal {
@@ -175,9 +181,7 @@ b {
 }
 
 h1 {
-    font-size: 4rem;;
-    margin-bottom: 10px;
-    
+    font-size: 4rem;
 }
 
 h2 {
@@ -194,8 +198,8 @@ a {
 }
 
 p {
-    margin-top: 0.5em;
-    margin-bottom: 0.5em;
+    margin-top: 0.7em;
+    margin-bottom: 0.7em;
     font-size: 1.8rem;
 }
 

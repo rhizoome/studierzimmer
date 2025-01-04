@@ -32,13 +32,13 @@
             </div>
         </div>
     </div>
-    <div id="attr_modal" class="modal">
-        <span  id="close_btn">&times;</span>
-        <div id="attr_text" class="full">text</div>
+    <div id="attrModal" class="modal">
+        <div id="closeBtn">&times;</div>
+        <div id="attrOuter" class=full><div id="attrText">text</div></div>
     </div>
     <script defer>
         document.getElementById('attribution').addEventListener('click', function (event) {
-            const attrTextDiv = document.getElementById("attr_text");
+            const attrTextDiv = document.getElementById("attrText");
 
             fetch("attribution.html")
                 .then(response => {
@@ -52,14 +52,14 @@
                     attrTextDiv.querySelectorAll('a').forEach(anchor => {
                         anchor.setAttribute('target', '_blank');
                     });
-                    document.getElementById('attr_modal').style.display = 'block';
+                    document.getElementById('attrModal').style.display = 'block';
                 })
                 .catch(error => {
                     console.error("Error loading attribution.html:", error);
                 });
         });
-        document.getElementById('close_btn').addEventListener('click', function (event) {
-            document.getElementById('attr_modal').style.display = 'none';
+        document.getElementById('closeBtn').addEventListener('click', function (event) {
+            document.getElementById('attrModal').style.display = 'none';
         });
     </script>
 
