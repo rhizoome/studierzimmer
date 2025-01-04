@@ -1,13 +1,3 @@
-EXTERNAL setTheme(theme)
-EXTERNAL keepSoundAlive()
-EXTERNAL createSlot(name, loop, groupList)
-EXTERNAL loadSound(slot, sound, url)
-EXTERNAL playSound(slot, sound, volume, crossFade)
-EXTERNAL playSoundV(slot, sound, volume)
-EXTERNAL playSoundS(slot, sound)
-EXTERNAL stopSound(slot)
-EXTERNAL initDone()
-
 === function setTheme(theme) ===
 Setting theme to: {theme}
 
@@ -32,5 +22,9 @@ Playing sound="{sound}" in slot="{slot}"
 === function stopSound(slot) ===
 Stop slot="{slot}"
 
-=== function initDone() ===
-Init done
+=== function currentSound(slot) ===
+Checking sound of slot="{slot}"
+~ return ""
+
+=== function hasFrontend() ===
+~ return 0

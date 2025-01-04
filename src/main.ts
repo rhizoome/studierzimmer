@@ -10,10 +10,8 @@ class StoryRunner {
     private rewindButton: HTMLElement;
     private saveButton: HTMLElement;
     private loadButton: HTMLElement;
-    private firstTags: boolean = true;
     private mixer: Mixer = new Mixer();
     private loadPromises: Record<string, Promise<void>> = {};
-    private initDone: boolean = false;
 
     constructor(storyContent: any) {
         this.story = new inkjs.Story(storyContent);
@@ -24,11 +22,12 @@ class StoryRunner {
         this.story.BindExternalFunction("playSoundS", this.playSoundS.bind(this));
         this.story.BindExternalFunction("playSoundV", this.playSoundV.bind(this));
         this.story.BindExternalFunction("stopSound", this.stopSound.bind(this));
+        this.story.BindExternalFunction("currentSound", this.currentSound.bind(this));
         this.story.BindExternalFunction("stopAllSounds", this.stopAllSounds.bind(this));
         this.story.BindExternalFunction("stopGroup", this.stopGroup.bind(this));
         this.story.BindExternalFunction("setFadeTime", this.setFadeTime.bind(this));
         this.story.BindExternalFunction("keepSoundAlive", this.keepSoundAlive.bind(this));
-        this.story.BindExternalFunction("initDone", this.setInitDone.bind(this));
+        this.story.BindExternalFunction("hasFrontend", this.hasFrontend.bind(this));
         this.storyContainer = document.querySelector("#target") as HTMLElement;
         this.rewindButton = document.querySelector("#rewind") as HTMLElement;
         this.saveButton = document.querySelector("#save") as HTMLElement;
@@ -44,7 +43,7 @@ class StoryRunner {
         this.run();
     }
 
-    public run(): void {
+    private run(): void {
         this.savePoint = this.story.state.toJson();
         this.renderParagraphs();
         this.renderChoices();
@@ -75,16 +74,17 @@ class StoryRunner {
     }
 
     private parseTags(tags: string[] | null, customClasses: string[]): void {
-        if (this.firstTags) {
-            this.firstTags = false;
-            return;
-        }
         if (tags) {
             tags.forEach((tag: string) => {
                 const { key, value } = this.processTag(tag);
                 switch (key.toLowerCase()) {
                     case 'class':
                         customClasses.push(value);
+                        break;
+                    // Ignore global tags - ink will repeat thems
+                    case 'title':
+                    case 'author':
+                    case 'theme':
                         break;
                     default:
                         console.warn(`Unhandled Tag - ${key}: ${value}`);
@@ -157,7 +157,6 @@ class StoryRunner {
     private restart(): void {
         this.storyContainer.innerHTML = "";
         this.story.ResetState();
-        this.firstTags = true;
         this.mixer.stopAll();
         this.run();
     }
@@ -211,10 +210,6 @@ class StoryRunner {
 
     // Bindings
 
-    private setInitDone(): void {
-        this.initDone = true
-    }
-
     private keepSoundAlive(): void {
         this.mixer.startDummy();
     }
@@ -250,6 +245,10 @@ class StoryRunner {
         this.mixer.stop(slotName);
     }
 
+    private currentSound(slotName: string): string {
+        return this.mixer.current(slotName);
+    }
+
     private stopAllSounds(): void {
         this.mixer.stopAll();
     }
@@ -260,6 +259,10 @@ class StoryRunner {
 
     private setFadeTime(time: number): void {
         this.mixer.setFadeTime(time);
+    }
+
+    private hasFrontend(): boolean {
+        return true;
     }
 }
 

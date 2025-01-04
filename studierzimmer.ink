@@ -12,6 +12,8 @@ VAR audio_standuhr_gespielt = 0
 CONST ib = "Ich betrachte"
 CONST event_wahrscheinlichkeit = 44 // In prozent
 
+INCLUDE src/frontend.ink
+
 ~ setTheme("dark")
 ~ createSlot("loops", true, "loops")
 ~ createSlot("music", true, "loops")
@@ -22,11 +24,10 @@ CONST event_wahrscheinlichkeit = 44 // In prozent
 ~ loadSound("loops", "tick", "./163371__tick_reverse.mp3")
 ~ loadSound("events", "chime", "./163371__chime_reverse.mp3")
 ~ loadSound("events", "snap", "./477519__snap-button.mp3")
-~ initDone()
 
 ->Ankunft
 
-INCLUDE system.ink
+INCLUDE src/frontend_func.ink
 
 // ------ Funktionen
 
@@ -62,7 +63,15 @@ Ich lenke meine Aufmerksamkeit {wort} weg.
 
 // ------ Events
 
+=== function music() ===
+{ hasFrontend() == 1:
+    { currentSound("music") != "teppich":
+        ~ playSoundV("music", "teppich", 0.02)
+    }
+}
+
 === e ===
+~ keepSoundAlive()
 {
     - RANDOM(0, 100) <= event_wahrscheinlichkeit:
     { shuffle:
@@ -71,6 +80,7 @@ Ich lenke meine Aufmerksamkeit {wort} weg.
     }
 }
 ~ ensure_tick()
+~ music()
 - ->->
 
 // ------ Geschichte
@@ -80,7 +90,7 @@ Ich lenke meine Aufmerksamkeit {wort} weg.
 "Siehst Du, ich stecke meine Hand hinein und nichts passiert."
 
 * [Ich stecke die Hand nochmal hinein.]
-    ~ playSoundV("music", "teppich", 0.02)
+    ~ music()
 - "Oh Schreck, wo bin ich?"
 
 Es riecht nach dem Raum zwischen den Gedanken, dieser Leere in der sich selbst Geruch einsam fühlt.

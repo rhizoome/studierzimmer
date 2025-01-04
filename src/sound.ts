@@ -66,6 +66,7 @@ class Slot {
     private context: AudioContext;
     private config: Config;
     private nodes: SlotNodes | null = null;
+    private sound: Sound | null = null;
     private nodesSet: Set<SlotNodes> = new Set();
     private sounds: Sounds = {};
     private loop: boolean = false;
@@ -101,6 +102,7 @@ class Slot {
         nodes.source.onended = () => {
             if (this.nodes === nodes) {
                 this.nodes = null;
+                this.sound = null;
             }
             this.nodesSet.delete(nodes);
             nodes.source.stop();
@@ -134,6 +136,7 @@ class Slot {
         nodes.source.start(startStartTime);
         this.nodesSet.add(nodes);
         this.nodes = nodes;
+        this.sound = sound;
     }
 
     public stop(): number {
@@ -163,6 +166,16 @@ class Slot {
         }
         this.nodesSet.clear();
         this.nodes = null;
+        this.sound = null;
+    }
+
+    public current(): string {
+        const sound = this.sound
+        if (sound) {
+            return sound.name;
+        } else {
+            return "";
+        }
     }
 }
 
@@ -260,6 +273,16 @@ class Mixer {
             return;
         } else {
             group.stop();
+        }
+    }
+
+    public current(slotName: string): string {
+        const slot = this.slots[slotName];
+        if (!slot) {
+            console.error(`Slot "${slotName}" does not exist, please create it first.`);
+            return "";
+        } else {
+            return slot.current();
         }
     }
 
