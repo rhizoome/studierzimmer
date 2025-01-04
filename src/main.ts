@@ -6,7 +6,6 @@ class StoryRunner {
     private story: inkjs.Story;
     private theme: string = "dark";
     private savePoint: string = "";
-    private showList: HTMLElement[] = [];
     private storyContainer: HTMLElement;
     private firstTags: boolean = true;
     private mixer: Mixer = new Mixer();
