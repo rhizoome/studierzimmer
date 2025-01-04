@@ -14,6 +14,8 @@ I wrote a new ink frontend in typescript this is dual licensed under APACHE/MIT:
 - ./src/*.ts
 - ./src/*.ink
 - ./src/*.css
+- ./src/*.html
+- ./src/*\*/*
 - ./server.py
 - See LICENSE-MIT.code and LICENSE-APACHE.code
 
