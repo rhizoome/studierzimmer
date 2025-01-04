@@ -1,5 +1,6 @@
 import * as inkjs from 'inkjs';
 import { Mixer } from './sound';
+import { Activity } from './activity';
 import storyContent from '../temp/studierzimmer.json';
 
 class StoryRunner {
@@ -12,6 +13,7 @@ class StoryRunner {
     private loadButton: HTMLElement;
     private mixer: Mixer = new Mixer();
     private loadPromises: Record<string, Promise<void>> = {};
+    private activityTracker: Activity = new Activity();
 
     constructor(storyContent: any) {
         this.story = new inkjs.Story(storyContent);
@@ -28,10 +30,13 @@ class StoryRunner {
         this.story.BindExternalFunction("setFadeTime", this.setFadeTime.bind(this));
         this.story.BindExternalFunction("keepSoundAlive", this.keepSoundAlive.bind(this));
         this.story.BindExternalFunction("hasFrontend", this.hasFrontend.bind(this));
+        this.story.BindExternalFunction("activity", this.activity.bind(this));
         this.storyContainer = document.querySelector("#target") as HTMLElement;
         this.rewindButton = document.querySelector("#rewind") as HTMLElement;
         this.saveButton = document.querySelector("#save") as HTMLElement;
         this.loadButton = document.querySelector("#load") as HTMLElement;
+        const scroll = document.querySelector("#outerContainer") as HTMLElement;
+        scroll.addEventListener("scroll", this.activityTracker.track.bind(this.activityTracker));
         this.wireButtons();
         this.globalTags();
     }
@@ -263,6 +268,10 @@ class StoryRunner {
 
     private hasFrontend(): boolean {
         return true;
+    }
+
+    private activity(): number {
+        return this.activityTracker.activity();
     }
 }
 

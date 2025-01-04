@@ -110,7 +110,7 @@ Im {modus == Dunkel:düstern|hellen} Studierzimmer sehe ich: einen Schreibtisch.
 
 + [Schreibtisch]
     {ib} den Schreibtisch. In die äusseren Ränder des Schreibtisches aus {mw(Schwarz)}em Marmor sind feine, organische Verzierungen gemeisselt. Der Rand der Tischplatte zeigt Gravuren, die an mystische Inschriften erinnern.
-    ->Schreibtisch->e->Studierzimmer
+    ->e->Schreibtisch->e->Studierzimmer
 + TODO: Ausgang
     ->e->END
 === Schreibtisch ===
@@ -119,10 +119,10 @@ Auf dem Tisch sehe ich: einen Knopf, eine Lampe und einen Globus.
 
 + [Knopf]
     {ib} den Knopf.
-    In der rechten äusseren Ecke des Schreibtischs ist ein Knopf eingelegt. ->Knopf->e->Schreibtisch
+    In der rechten äusseren Ecke des Schreibtischs ist ein Knopf eingelegt. ->e->Knopf->e->Schreibtisch
 + [Lampe]
     {ib} die Lampe.
-    Es ist eine Bankerlampe mit einem Schirm aus grellgrauem ungrünen Glas. Wie der Schirm in dieser Monochromen Welt so überzeugt grün sein kann, ist mir unerklärbar. ->Lampe->e->Schreibtisch
+    Es ist eine Bankerlampe mit einem Schirm aus grellgrauem ungrünen Glas. Wie der Schirm in dieser Monochromen Welt so überzeugt grün sein kann, ist mir unerklärbar. ->e->Lampe->e->Schreibtisch
 // + [Globus]
 + [Zurück]
     {iwm("vom Schreibtisch")}
@@ -145,7 +145,7 @@ Die Gravur zeigt das Symbol {modus == Dunkel:der Sonne|des Mondes}.
             ~ modus = Dunkel
             ~ setTheme("dark")
     }
-    Urplötzlich ist alles was Schwarz ist Weiss und umgekehrt. Die abrupte Veränderung ist schwindelerregend. ->Leuchten->e->Knopf
+    Urplötzlich ist alles was Schwarz ist Weiss und umgekehrt. Die abrupte Veränderung ist schwindelerregend. ->e->Leuchten->e->Knopf
 + [Zurück]
     {iwm("vom Knopf")}
 
@@ -156,7 +156,7 @@ Die Gravur zeigt das Symbol {modus == Dunkel:der Sonne|des Mondes}.
 + Ich schalte Lampe {lampe_an:aus|an}.
     ~ playSoundS("events", "snap")
     ~ lampe_an = !lampe_an
-     ->Leuchten->e->Lampe
+     ->e->Leuchten->e->Lampe
 + [Zurück]
     {iwm("von der Lampe")}
 

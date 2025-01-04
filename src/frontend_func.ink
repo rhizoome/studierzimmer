@@ -28,3 +28,6 @@ Checking sound of slot="{slot}"
 
 === function hasFrontend() ===
 ~ return 0
+
+=== function activity() ===
+~ return 0
