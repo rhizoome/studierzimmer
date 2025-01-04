@@ -15,11 +15,11 @@ I wrote a new ink frontend in typescript this is dual licensed under APACHE/MIT:
 - ./src/*.ink
 - ./src/*.css
 - ./src/*.html
-- ./src/*\*/*
+- ./src/**/*
 - ./server.py
 - See LICENSE-MIT.code and LICENSE-APACHE.code
 
-This is standard rust-lnag style dual-licensing. Google what it means if you want to contribute.
+This is standard rust-lang style dual-licensing. Google what it means if you want to contribute.
 
 ## Third party assets
 
