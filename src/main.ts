@@ -14,6 +14,7 @@ class StoryRunner {
     private mixer: Mixer = new Mixer();
     private loadPromises: Record<string, Promise<void>> = {};
     private activityTracker: Activity = new Activity();
+    private tag: string = "p";
 
     constructor(storyContent: any) {
         this.story = new inkjs.Story(storyContent);
@@ -29,8 +30,9 @@ class StoryRunner {
         this.story.BindExternalFunction("stopGroup", this.stopGroup.bind(this));
         this.story.BindExternalFunction("setFadeTime", this.setFadeTime.bind(this));
         this.story.BindExternalFunction("keepSoundAlive", this.keepSoundAlive.bind(this));
-        this.story.BindExternalFunction("hasFrontend", this.hasFrontend.bind(this));
+        this.story.BindExternalFunction("hasFrontend", this.hasFrontend.bind(this), true);
         this.story.BindExternalFunction("activity", this.activity.bind(this));
+        this.story.BindExternalFunction("cap", this.capitalize.bind(this), true);
         this.storyContainer = document.querySelector("#target") as HTMLElement;
         this.rewindButton = document.querySelector("#rewind") as HTMLElement;
         this.saveButton = document.querySelector("#save") as HTMLElement;
@@ -86,6 +88,9 @@ class StoryRunner {
                     case 'class':
                         customClasses.push(value);
                         break;
+                    case 'tag':
+                        this.tag = value;
+                        break;
                     // Ignore global tags - ink will repeat thems
                     case 'title':
                     case 'author':
@@ -116,14 +121,22 @@ class StoryRunner {
     }
 
     private renderChoices(): void {
+        const last = this.story.currentChoices.slice(-1)[0];
+        let lastTag: string | null = null;
         this.story.currentChoices.forEach((choice: any) => {
             const customClasses: string[] = [];
             this.parseTags(choice.tags, customClasses);
+            console.log(choice.text, this.tag);
 
-            const cel = document.createElement('p');
+            const cel = document.createElement(this.tag);
             cel.classList.add("blend");
             cel.classList.add("choice");
-            cel.innerHTML = `<a>${choice.text}</a>`;
+            let prefix = ""
+            if (this.tag == "span" && lastTag == "span") {
+                prefix = ", ";
+            }
+            lastTag = this.tag;
+            cel.innerHTML = prefix + `<a>${choice.text}</a>`;
             customClasses.forEach(cls => cel.classList.add(cls));
             cel.classList.add("hide");
             this.storyContainer.appendChild(cel);
@@ -276,6 +289,13 @@ class StoryRunner {
 
     private activity(): number {
         return this.activityTracker.activity();
+    }
+
+    private capitalize(input: string): string {
+        if (!input) {
+            return "";
+        }
+        return input.charAt(0).toUpperCase() + input.slice(1);
     }
 }
 

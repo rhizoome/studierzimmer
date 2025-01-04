@@ -39,3 +39,6 @@
 
 === function activity() ===
 ~ return 0
+
+=== function cap(input) ===
+~ return input

@@ -2,13 +2,16 @@
 # AUTHOR: Jean-Louis Fuchs
 # THEME: dark
 
-LIST Moden = Dunkel, Hell
-LIST Ton = Schwarz, Weiss, Duester, Sonne, Dunkl, Weta
+LIST Moden = Mo_Dunkel, Mo_Hell
+LIST Ton = To_Schwarz, To_Weiss, To_Duester, To_Sonne, To_Dunkl
 LIST GlobusSchalter = (GS_Erde), GS_Scheibenwelt, GS_Studierzimmer
-VAR modus = Dunkel
+LIST Tasche = (Ts_Giesskanne), Ts_Nichts, Ts_Meta
+VAR benutze = Ts_Nichts
+VAR modus = Mo_Dunkel
 VAR lampe_an = 0
 VAR audio_standuhr_gespielt = 0
 CONST ib = "Ich betrachte"
+CONST in = "Ich benutze"
 CONST event_wahrscheinlichkeit = 25 // In prozent
 CONST debug = 0
 
@@ -35,11 +38,24 @@ INCLUDE src/frontend_func.ink
 
 === function mw(wort) ===
 { wort:
-- Schwarz: {modus == Dunkel:schwarz|weiss}
-- Weiss: {modus == Dunkel:weiss|schwarz}
-- Duester: {modus == Dunkel:düster|hell}
-- Weta: {modus == Dunkel:Tasche|Tasche}
+- To_Schwarz: {modus == Mo_Dunkel:schwarz|weiss}
+- To_Weiss: {modus == Mo_Dunkel:weiss|schwarz}
+- To_Duester: {modus == Mo_Dunkel:düster|hell}
 - else: ERROR
+}
+
+=== function tw(wort) ===
+{ wort:
+- Ts_Giesskanne: ~ return "Giesskanne"
+- Ts_Meta: ~ return "Tasche"
+- else: ~ return "ERROR"
+}
+
+=== function taw(wort) ===
+{ wort:
+- Ts_Giesskanne: ~ return "die Giesskanne"
+- Ts_Meta: ~ return "die Tasche"
+- else: ~ return "ERROR"
 }
 
 === function iwm(wort) ===
@@ -76,7 +92,7 @@ Ich lenke meine Aufmerksamkeit {wort} weg.
     - RANDOM(0, 100) <= event_wahrscheinlichkeit:
     { shuffle:
         - Die letzen Sandkörner einer Sanduhr auf dem Regal links von mir läuft aus. Einen Moment später verschwindet die Sanduhr. # CLASS: event
-        - {standuhr_schlagen()} Die grosse Standuhr aus {modus == Dunkel:dunkelm|hellem} Holz schlägt, darauf folgt ohrenbetäubende Stille. # CLASS: event
+        - {standuhr_schlagen()} Die grosse Standuhr aus {modus == Mo_Dunkel:dunkelm|hellem} Holz schlägt, darauf folgt ohrenbetäubende Stille. # CLASS: event
     }
 }
 ~ music_loop()
@@ -103,15 +119,15 @@ Es riecht nach dem Raum zwischen den Gedanken, dieser Leere in der sich selbst G
  * "Bin ich tot?"
      {beschreibung} "DU BIST NICHT TOT."
 
-- Ein hoher {mw(Duester)}er Raum, leuchtet in den schrillsten Grautönen, die man sich nur vorstellen kann. Man fühlt mich wie in einem Comic von Frank Miller oder Mike Mignola. An den Wänden ragen majestätische Säulen, die verschlungene, mystische Ornamente kleiden. ->e->Studierzimmer
+- Ein hoher {mw(To_Duester)}er Raum, leuchtet in den schrillsten Grautönen, die man sich nur vorstellen kann. Man fühlt mich wie in einem Comic von Frank Miller oder Mike Mignola. An den Wänden ragen majestätische Säulen, die verschlungene, mystische Ornamente kleiden. ->e->Studierzimmer
 
 === Studierzimmer ===
 
-Im {modus == Dunkel:düstern|hellen} Studierzimmer sehe ich: _einen Schreibtisch_.
+Im {modus == Mo_Dunkel:düstern|hellen} Studierzimmer sehe ich: _einen Schreibtisch_.
 
 + [Schreibtisch]
-    {ib} _den Schreibtisch_. In die äusseren Ränder des Schreibtisches aus {mw(Schwarz)}em Marmor sind feine, organische Verzierungen gemeisselt. Der Rand der Tischplatte zeigt Gravuren, die an mystische Inschriften erinnern. ->e->Schreibtisch->e->Studierzimmer
-+ [{mw(Weta)}] ->e->Meta->e->Studierzimmer
+    {ib} _den Schreibtisch_. In die äusseren Ränder des Schreibtisches aus {mw(To_Schwarz)}em Marmor sind feine, organische Verzierungen gemeisselt. Der Rand der Tischplatte zeigt Gravuren, die an mystische Inschriften erinnern. ->e->Schreibtisch->e->Studierzimmer
++ [{tw(Ts_Meta)}] ->e->Meta->e->Studierzimmer
 + TODO: Ausgang ->e->END
     
 === Schreibtisch ===
@@ -125,28 +141,28 @@ Auf dem Tisch sehe ich: _einen Knopf_, _eine Lampe_ und _einen Globus_.
     {ib} _die Lampe_.
     Es ist eine Bankerlampe mit einem Schirm aus grellgrauem ungrünen Glas. Wie der Schirm in dieser Monochromen Welt so überzeugt grün sein kann, ist mir unerklärbar. ->e->Lampe->e->Schreibtisch
 + [Globus] {ib} _den Globus_. {GlobusBeschreibung()} ->e->Globus->e->Schreibtisch
-+ [{mw(Weta)}] ->e->Meta->e->Schreibtisch
++ [{tw(Ts_Meta)}] ->e->Meta->e->Schreibtisch
 + [Zurück] {iwm("vom Schreibtisch")}
 
 - ->->
 
 = Knopf
 
-Die Gravur zeigt das Symbol {modus == Dunkel:der Sonne|des Mondes}.
+Die Gravur zeigt das Symbol {modus == Mo_Dunkel:der Sonne|des Mondes}.
 
-+ Ich drücke auf {modus == Dunkel:die Sonne|den Mond}.
++ Ich drücke auf {modus == Mo_Dunkel:die Sonne|den Mond}.
     {
-        - modus == Dunkel:
+        - modus == Mo_Dunkel:
             ~ playSoundS("events", "modus-switch-rev")
-            ~ modus = Hell
+            ~ modus = Mo_Hell
             ~ setTheme("light")
         - else:
             ~ playSoundS("events", "modus-switch")
-            ~ modus = Dunkel
+            ~ modus = Mo_Dunkel
             ~ setTheme("dark")
     }
     Urplötzlich ist alles was Schwarz ist Weiss und umgekehrt. Die abrupte Veränderung ist schwindelerregend. ->e->Leuchten->e->Knopf
-+ [{mw(Weta)}] ->e->Meta->e->Knopf
++ [{tw(Ts_Meta)}] ->e->Meta->e->Knopf
 + [Zurück] {iwm("vom Knopf")}
 
 - ->->
@@ -157,7 +173,7 @@ Die Gravur zeigt das Symbol {modus == Dunkel:der Sonne|des Mondes}.
     ~ playSoundS("events", "snap")
     ~ lampe_an = !lampe_an
      ->e->Leuchten->e->Lampe
-+ [{mw(Weta)}] ->e->Meta->e->Lampe
++ [{tw(Ts_Meta)}] ->e->Meta->e->Lampe
 + [Zurück] {iwm("von der Lampe")}
 
 - ->->
@@ -166,23 +182,23 @@ Die Gravur zeigt das Symbol {modus == Dunkel:der Sonne|des Mondes}.
 
 Auf dem Sockel des Globus gibt es einen Schalter mit folgenden Positionen: _Erdenwelt_, _Scheibenwelt_, _Studierzimmer_
 
-+ {GlobusSchalter != GS_Erde} Ich schalte auf _Erdenwelt_.
++ {GlobusSchalter != GS_Erde} Ich schalte den Globus auf _Erdenwelt_.
     ~ GlobusSchalter = GS_Erde
     {GlobusBeschreibung()} ->e->Globus
-+ {GlobusSchalter != GS_Scheibenwelt} Ich schalte auf _Scheibenwelt_.
++ {GlobusSchalter != GS_Scheibenwelt} Ich schalte den Globus auf _Scheibenwelt_.
     ~ GlobusSchalter = GS_Scheibenwelt
     {GlobusBeschreibung()} ->e->Globus
-+ {GlobusSchalter != GS_Studierzimmer} Ich schalte auf _Studierzimmer_.
++ {GlobusSchalter != GS_Studierzimmer} Ich schalte den Globus auf _Studierzimmer_.
     ~ GlobusSchalter = GS_Studierzimmer
     {GlobusBeschreibung()} ->e->Globus
-+ [{mw(Weta)}] ->e->Meta->e->Lampe
++ [{tw(Ts_Meta)}] ->e->Meta->e->Lampe
 + [Zurück] {iwm("von der Lampe")}
 
 - ->->
 
 = Leuchten
 
-{lampe_an: {modus == Dunkel:Die Schreibtischlampe strahlt weisses, farbloses Licht aus.|Die Schreibtischlampe leuchtet nun Schwarz und saugt die Helligkeit auf.}}
+{lampe_an: {modus == Mo_Dunkel:Die Schreibtischlampe strahlt weisses, farbloses Licht aus.|Die Schreibtischlampe leuchtet nun Schwarz und saugt die Helligkeit auf.}}
 
 - ->->
 
@@ -198,6 +214,14 @@ Auf dem Sockel des Globus gibt es einen Schalter mit folgenden Positionen: _Erde
 
 === Meta ===
 
-In meiner Tasche ist: _nichts_
+In meiner Tasche ist: #TAG: span
+
++ {Tasche == Ts_Giesskanne && benutze != Ts_Giesskanne} [{cap(taw(Ts_Giesskanne))}]
+    ~ benutze = Ts_Giesskanne
+    {in} die Giesskanne. ->e->Meta
++ {benutze != Ts_Nichts} Ich lege {taw(Ts_Giesskanne)} weg. #TAG: p
+    ~ benutze = Ts_Nichts
+    ->e->Meta
++ [Zurück #TAG: p] {iwm("von der Lampe")}
 
 - ->->
