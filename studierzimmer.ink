@@ -164,7 +164,19 @@ Die Gravur zeigt das Symbol {modus == Dunkel:der Sonne|des Mondes}.
 
 = Globus
 
-hallo
+Auf dem Sockel des Globus gibt es einen Schalter mit folgenden Positionen: _Erdenwelt_, _Scheibenwelt_, _Studierzimmer_
+
++ {GlobusSchalter != GS_Erde} Ich schalte auf _Erdenwelt_.
+    ~ GlobusSchalter = GS_Erde
+    {GlobusBeschreibung()} ->e->Globus
++ {GlobusSchalter != GS_Scheibenwelt} Ich schalte auf _Scheibenwelt_.
+    ~ GlobusSchalter = GS_Scheibenwelt
+    {GlobusBeschreibung()} ->e->Globus
++ {GlobusSchalter != GS_Studierzimmer} Ich schalte auf _Studierzimmer_.
+    ~ GlobusSchalter = GS_Studierzimmer
+    {GlobusBeschreibung()} ->e->Globus
++ [{mw(Weta)}] ->e->Meta->e->Lampe
++ [Zurück] {iwm("von der Lampe")}
 
 - ->->
 
@@ -179,7 +191,9 @@ hallo
     - GS_Erde:
         Der Globus zeigt eine Karte der Erde in Ocker, Beige und vergibtem Blau.
     - GS_Scheibenwelt:
-        Aus dem Stockel des Globus ragt eine Stange, die sich in den Bauch einer Schildkröte bohrt. Vier Elefanten auf der Schildkröte tragen eine Scheibe. Ozeane, Berge, Ebenen und alles was eine Welt so braucht in aller polychrome Farbertracht bilden die Schreibe. Sie ist das echteste im ganzen Schreibzimmer - ein Moment - es über der Scheibe hängen Wolken und sie scheinen sich zu bewegen.
+        Aus dem Stockel des Globus ragt eine Stange, die sich in den Bauch einer Schildkröte bohrt. Vier Elefanten auf der Schildkröte tragen eine Scheibe. Ozeane, Berge, Ebenen und alles was eine Welt so braucht in spektakulärer polychromer Farbertracht bilden die Welt. Sie ist das echteste im ganzen Schreibzimmer - ein Moment - über der Scheibe hängen Wolken und sie scheinen sich zu bewegen.
+    - GS_Studierzimmer:
+        Der Globus zeigt dieses Zimmer in Puppenhausegrösse. Zwei Seiten und die Decke sind aus Glas, damit man das Innenleben betrachen kann. Darin stehe ich. Mit einer Lupe könnte ich wohl auch den Globus betrachen.
 }
 
 === Meta ===
