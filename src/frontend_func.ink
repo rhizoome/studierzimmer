@@ -1,32 +1,37 @@
+=== function debug_out(text) ===
+{debug:
+    - {text}
+}
+
 === function setTheme(theme) ===
-Setting theme to: {theme}
+~ debug_out("Setting theme to: {theme}'")
 
 === function keepSoundAlive ===
-Keep sound alive
+~ debug_out("Keep sound alive")
 
 === function createSlot(name, loop, groupList) ===
-Creating slot="{name}" loop={loop} groupList="{groupList}"
+~ debug_out("Creating slot='{name}' loop={loop} groupList='{groupList}'")
 
 === function loadSound(slot, sound, url) ===
-Laoding sound="{sound}" into slot="{slot}" from url="{url}"
+~ debug_out("Laoding sound='{sound}' into slot='{slot}' from url='{url}'")
 
 === function playSound(slot, sound, volume, crossFade) ===
-Playing sound="{sound}" in slot="{slot}" with volume={volume} and crossFade={crossFade}
+~ debug_out("Playing sound='{sound}' in slot='{slot}' with volume={volume} and crossFade={crossFade}")
 
 === function playSoundV(slot, sound, volume) ===
-Playing sound="{sound}" in slot="{slot}" with volume={volume}
+~ debug_out("Playing sound='{sound}' in slot='{slot}' with volume={volume}")
 
 === function playSoundS(slot, sound) ===
-Playing sound="{sound}" in slot="{slot}"
+~ debug_out("Playing sound='{sound}' in slot='{slot}'")
 
 === function stopSound(slot) ===
-Stop slot="{slot}"
+~ debug_out("Stop slot='{slot}'")
 
 === function stopGroup(group) ===
-Stop group="{group}"
+~ debug_out("Stop group='{group}'")
 
 === function currentSound(slot) ===
-Checking sound of slot="{slot}"
+~ debug_out("Checking sound of slot='{slot}'")
 ~ return ""
 
 === function hasFrontend() ===

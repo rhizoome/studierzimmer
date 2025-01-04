@@ -3,12 +3,13 @@
 # THEME: dark
 
 LIST Moden = Dunkel, Hell
-LIST Ton = Schwarz, Weiss, Duester, Sonne, Dunkl
+LIST Ton = Schwarz, Weiss, Duester, Sonne, Dunkl, Weta
 VAR modus = Dunkel
 VAR lampe_an = 0
 VAR audio_standuhr_gespielt = 0
 CONST ib = "Ich betrachte"
-CONST event_wahrscheinlichkeit = 44 // In prozent
+CONST event_wahrscheinlichkeit = 25 // In prozent
+CONST debug = 0
 
 INCLUDE src/frontend.ink
 
@@ -36,6 +37,7 @@ INCLUDE src/frontend_func.ink
 - Schwarz: {modus == Dunkel:schwarz|weiss}
 - Weiss: {modus == Dunkel:weiss|schwarz}
 - Duester: {modus == Dunkel:düster|hell}
+- Weta: {modus == Dunkel:Tasche|Tasche}
 - else: ERROR
 }
 
@@ -109,8 +111,11 @@ Im {modus == Dunkel:düstern|hellen} Studierzimmer sehe ich: _einen Schreibtisch
 + [Schreibtisch]
     {ib} den Schreibtisch. In die äusseren Ränder des Schreibtisches aus {mw(Schwarz)}em Marmor sind feine, organische Verzierungen gemeisselt. Der Rand der Tischplatte zeigt Gravuren, die an mystische Inschriften erinnern.
     ->e->Schreibtisch->e->Studierzimmer
++ [{mw(Weta)}]
+    ->e->Meta->e->Studierzimmer
 + TODO: Ausgang
     ->e->END
+    
 === Schreibtisch ===
 
 Auf dem Tisch sehe ich: _einen Knopf_, _eine Lampe_ und _einen Globus_.
@@ -122,9 +127,11 @@ Auf dem Tisch sehe ich: _einen Knopf_, _eine Lampe_ und _einen Globus_.
     {ib} die Lampe.
     Es ist eine Bankerlampe mit einem Schirm aus grellgrauem ungrünen Glas. Wie der Schirm in dieser Monochromen Welt so überzeugt grün sein kann, ist mir unerklärbar. ->e->Lampe->e->Schreibtisch
 // + [Globus]
++ [{mw(Weta)}]
+    ->e->Meta->e->Schreibtisch
 + [Zurück]
     {iwm("vom Schreibtisch")}
-    
+
 - ->->
 
 = Knopf
@@ -143,6 +150,8 @@ Die Gravur zeigt das Symbol {modus == Dunkel:der Sonne|des Mondes}.
             ~ setTheme("dark")
     }
     Urplötzlich ist alles was Schwarz ist Weiss und umgekehrt. Die abrupte Veränderung ist schwindelerregend. ->e->Leuchten->e->Knopf
++ [{mw(Weta)}]
+    ->e->Meta->e->Knopf
 + [Zurück]
     {iwm("vom Knopf")}
 
@@ -154,6 +163,8 @@ Die Gravur zeigt das Symbol {modus == Dunkel:der Sonne|des Mondes}.
     ~ playSoundS("events", "snap")
     ~ lampe_an = !lampe_an
      ->e->Leuchten->e->Lampe
++ [{mw(Weta)}]
+    ->e->Meta->e->Lampe
 + [Zurück]
     {iwm("von der Lampe")}
 
@@ -162,5 +173,12 @@ Die Gravur zeigt das Symbol {modus == Dunkel:der Sonne|des Mondes}.
 = Leuchten
 
 {lampe_an: {modus == Dunkel:Die Schreibtischlampe strahlt weisses, farbloses Licht aus.|Die Schreibtischlampe leuchtet nun Schwarz und saugt die Helligkeit auf.}}
+
+- ->->
+
+
+=== Meta ===
+
+In meiner Tasche ist: _nichts_
 
 - ->->
