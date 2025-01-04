@@ -11,8 +11,8 @@ VAR modus = Mo_Dunkel
 VAR lampe_an = 0
 VAR audio_standuhr_gespielt = 0
 VAR einfach = 0
-CONST ib = "Ich betrachte"
-CONST in = "Ich benutze"
+CONST ib = "❯ Ich betrachte"
+CONST in = "▲ Ich benutze"
 CONST event_wahrscheinlichkeit = 25 // In prozent
 CONST debug = 0
 
@@ -28,8 +28,9 @@ INCLUDE src/frontend.ink
 ~ loadSound("loops", "tick", "./163371__tick_reverse.mp3")
 ~ loadSound("events", "modus-switch", "./613405__modus-switch.mp3")
 ~ loadSound("events", "modus-switch-rev", "./613405__modus-switch-rev.mp3")
-~ loadSound("events", "chime", "./163371__chime_reverse.mp3")
+~ loadSound("events-fg", "chime", "./163371__chime_reverse.mp3")
 ~ loadSound("events", "snap", "./477519__snap-button.mp3")
+~ loadSound("events-fg", "giessen", "./243776__bastipictures__close-rain-and-thunder.mp3")
 
 ->Ankunft
 
@@ -66,14 +67,14 @@ INCLUDE src/frontend_func.ink
 }
 
 === function iwm(wort) ===
-Ich lenke meine Aufmerksamkeit {wort} weg.
+❮ Ich lenke meine Aufmerksamkeit {wort} weg.
 
 === function standuhr_schlagen() ===
 { 
     - !audio_standuhr_gespielt:
         ~ audio_standuhr_gespielt = 1
         ~ stopSound("loops")
-        ~ playSoundS("events", "chime")
+        ~ playSoundS("events-fg", "chime")
 }
 
 === function play_musicS(name) ===
@@ -147,7 +148,7 @@ Im {modus == Mo_Dunkel:düstern|hellen} Studierzimmer sehe ich: <b>einen Schreib
 
 + [Schreibtisch]
     {ib} <b>den Schreibtisch</b>. In die äusseren Ränder des Schreibtisches aus {mw(To_Schwarz)}em Marmor sind feine, organische Verzierungen gemeisselt. Der Rand der Tischplatte zeigt Gravuren, die an mystische Inschriften erinnern. ->e->Schreibtisch->e->Studierzimmer
-+ [{tw(Ts_Meta)}] ->e->Meta->e->Studierzimmer
++ [{tw(Ts_Meta)}] ❯ {tw(Ts_Meta)} ->e->Meta->e->Studierzimmer
 + TODO: Ausgang ->e->END
     
 === Schreibtisch ===
@@ -161,7 +162,7 @@ Auf dem Tisch sehe ich: <b>einen Knopf</b>, <b>eine Lampe</b> und <b>einen Globu
     {ib} <b>die Lampe</b>.
     Es ist eine Bankerlampe mit einem Schirm aus grellgrauem ungrünen Glas. Wie der Schirm in dieser Monochromen Welt so überzeugt grün sein kann, ist mir unerklärbar. ->e->Lampe->e->Schreibtisch
 + [Globus] {ib} <b>den Globus</b>. {GlobusBeschreibung()} ->e->Globus->e->Schreibtisch
-+ [{tw(Ts_Meta)}] ->e->Meta->e->Schreibtisch
++ [{tw(Ts_Meta)}] ❯ {tw(Ts_Meta)} ->e->Meta->e->Schreibtisch
 + [Zurück] {iwm("vom Schreibtisch")}
 
 - ->->
@@ -182,7 +183,7 @@ Die Gravur zeigt das Symbol {modus == Mo_Dunkel:der Sonne|des Mondes}.
             ~ setTheme("dark")
     }
     Urplötzlich ist alles was Schwarz ist Weiss und umgekehrt. Die abrupte Veränderung ist schwindelerregend. ->e->Leuchten->e->Knopf
-+ [{tw(Ts_Meta)}] ->e->Meta->e->Knopf
++ [{tw(Ts_Meta)}] ❯ {tw(Ts_Meta)} ->e->Meta->e->Knopf
 + [Zurück] {iwm("vom Knopf")}
 
 - ->->
@@ -193,7 +194,7 @@ Die Gravur zeigt das Symbol {modus == Mo_Dunkel:der Sonne|des Mondes}.
     ~ playSoundS("events", "snap")
     ~ lampe_an = !lampe_an
      ->e->Leuchten->e->Lampe
-+ [{tw(Ts_Meta)}] ->e->Meta->e->Lampe
++ [{tw(Ts_Meta)}] ❯ {tw(Ts_Meta)} ->e->Meta->e->Lampe
 + [Zurück] {iwm("von der Lampe")}
 
 - ->->
@@ -212,7 +213,9 @@ Auf dem Sockel des Globus gibt es einen Schalter mit folgenden Positionen: <b>Er
     ~ GlobusSchalter = GS_Studierzimmer
     {GlobusBeschreibung()} ->e->Globus
 + {bereit(Ts_Giesskanne) && GlobusSchalter == GS_Studierzimmer} Ich <b>begiesse</b> den Globus mit der Giesskanne.
-+ [{tw(Ts_Meta)}] ->e->Meta->e->Globus
+    In dem Moment beginnt ein Gewitter, ich höre den Regen auf das Studierzimmer prasseln. Diese Welt verwirrt selbst die Götter der Rekursion. Wie kann das sein?
+    {playSoundS("events-fg", "giessen")}
++ [{tw(Ts_Meta)}] ❯ {tw(Ts_Meta)} ->e->Meta->e->Globus
 + [Zurück] {iwm("von der Lampe")}
 
 - ->->
@@ -253,9 +256,27 @@ In meiner Tasche ist: #TAG: span
     {GiesskannBeschreibung()}
     {einfach == 0: {in} die Giesskanne.}
     ->e->Meta
-+ {benutze != Ts_Nichts && einfach == 0} Ich lege {taw(Ts_Giesskanne)} weg. #TAG: p
++ {benutze != Ts_Nichts && einfach == 0} ▼ Ich lege {taw(Ts_Giesskanne)} weg. #TAG: p
     ~ benutze = Ts_Nichts
     ->e->Meta
 + [Zurück #TAG: p] {iwm("von der Lampe")}
 
 - ->->
+
+/* Regeln
+- Nutze Pfeile
+- Sound von Events spielt nur einmal
+- Sound von Aktionen jedes mal
+- Musik stoppt Fordergrund
+*/
+
+/* Ideen
+
+- begiessen als music-once mit Musik
+- nach dem man begiesst hat, kann man "Dinge" in der grösse ändern in dem man Sie ins Modell des Zimmer legt oder daraus hinaus nimmt
+- gib eine Option zum begissen der anderen Globen, aber mache es nicht
+*/
+
+/* Todo
+- Entferne Giesskanne aus Tasche
+*/
