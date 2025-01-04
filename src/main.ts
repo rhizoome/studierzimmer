@@ -196,7 +196,7 @@ class StoryRunner {
             const el = elements.item(0);
             if (el) {
                 el.classList.remove("hide");
-                setTimeout(this.show.bind(this), 250);
+                setTimeout(this.show.bind(this), 200);
             }
         }
     }

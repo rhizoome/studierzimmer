@@ -29,7 +29,7 @@
 }
 
 html {
-    font-size: 18pt;
+    font-size: 9pt;
 }
 
 body {
@@ -50,7 +50,7 @@ body.switched {
     justify-content: space-between;
     background-color: var(--background-color);
     z-index: 4;
-    font-size: 0.5rem;
+    font-size: 1rem;
     padding-bottom: 6px;
     position: absolute;
     left: 0;
@@ -122,11 +122,11 @@ body.switched {
 }
 
 .modal ul {
-    font-size: 0.7rem;
+    font-size: 1.4rem;
 }
 
 .modal p {
-    font-size: 0.7rem;
+    font-size: 1.4rem;
 }
 
 .left, .center, .right {
@@ -153,6 +153,7 @@ body.switched {
 
 
 .choice {
+    font-size: 1.8rem;
     text-align: center;
 }
 
@@ -174,13 +175,13 @@ b {
 }
 
 h1 {
-    font-size: 2rem;;
+    font-size: 4rem;;
     margin-bottom: 10px;
     
 }
 
 h2 {
-    font-size: 1rem;
+    font-size: 2rem;
     font-style: italic;
 }
 
@@ -193,8 +194,9 @@ a {
 }
 
 p {
-    font-size: 0.9rem;
-    padding-top: 5px;
+    margin-top: 0.5em;
+    margin-bottom: 0.5em;
+    font-size: 1.8rem;
 }
 
 a:hover {
