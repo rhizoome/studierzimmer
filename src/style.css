@@ -16,13 +16,15 @@
 
 :root {
   --background-color: #ddd;
-  --text-color: #000;
+  --text-color: #333;
+  --bold-color: #111;
   --story-color: #888;
   --gold: #b97c2c;
 }
 
 .theme-dark {
   --text-color: #ddd;
+  --bold-color: #eee;
   --background-color: #000;
   --text-color: #fff;
 }
@@ -168,6 +170,9 @@ body.switched {
     opacity: 0.50;
 }
 
+b {
+    color: var(--bold-color);
+}
 
 h1 {
     font-size: 2rem;;

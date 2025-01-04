@@ -108,7 +108,7 @@ class StoryRunner {
             }
             const el = document.createElement('p');
             el.classList.add("blend");
-            el.innerHTML = paragraph;
+            el.innerHTML = this.markUp(paragraph);
             customClasses.forEach(cls => el.classList.add(cls));
             el.classList.add("hide");
             this.storyContainer.appendChild(el);
@@ -213,6 +213,10 @@ class StoryRunner {
         this.theme = theme;
     }
 
+    private markUp(input: string): string {
+        return input.replace(/_(.+?)_/g, (match, p1) => `<b>${p1}</b>`);
+    }
+
     // Bindings
 
     private keepSoundAlive(): void {
@@ -220,7 +224,7 @@ class StoryRunner {
     }
 
     private createSlot(name: string, loop: boolean = false, groupList: string = ""): void {
-        const list = groupList.split(":").map(item => item.trim());
+        const list = groupList.split(",").map(item => item.trim());
         this.mixer.createSlot(name, loop, list);
     }
 

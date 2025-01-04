@@ -269,7 +269,7 @@ class Mixer {
     public stopGroup(groupName: string): void {
         const group = this.groups[groupName];
         if (!group) {
-            console.error(`Slot "${groupName}" does not exist, please create it first.`);
+            console.error(`Group "${groupName}" does not exist, please create it first.`);
             return;
         } else {
             group.stop();
@@ -307,6 +307,7 @@ class Mixer {
         let group = this.groups[name];
         if (!group) {
             group = new Group(name, this.config);
+            this.groups[name] = group;
         }
         group.addSlot(slot);
     }

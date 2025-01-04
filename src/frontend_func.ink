@@ -22,6 +22,9 @@ Playing sound="{sound}" in slot="{slot}"
 === function stopSound(slot) ===
 Stop slot="{slot}"
 
+=== function stopGroup(group) ===
+Stop group="{group}"
+
 === function currentSound(slot) ===
 Checking sound of slot="{slot}"
 ~ return ""

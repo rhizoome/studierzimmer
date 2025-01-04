@@ -6,8 +6,6 @@ LIST Moden = Dunkel, Hell
 LIST Ton = Schwarz, Weiss, Duester, Sonne, Dunkl
 VAR modus = Dunkel
 VAR lampe_an = 0
-VAR tick_an = 0
-VAR tick_pause = 0
 VAR audio_standuhr_gespielt = 0
 CONST ib = "Ich betrachte"
 CONST event_wahrscheinlichkeit = 44 // In prozent
@@ -15,13 +13,15 @@ CONST event_wahrscheinlichkeit = 44 // In prozent
 INCLUDE src/frontend.ink
 
 ~ setTheme("dark")
-~ createSlot("loops", true, "loops")
-~ createSlot("music", true, "loops")
+~ createSlot("loops", true, "loop")
+~ createSlot("music-loop", true, "foreground, loop")
+~ createSlot("music-once", false, "foreground")
 ~ createSlot("events", false, "")
-~ loadSound("music", "teppich", "./teppich.mp3")
+~ createSlot("events-fg", false, "foreground")
+~ loadSound("music-loop", "teppich", "./teppich.mp3")
+~ loadSound("loops", "tick", "./163371__tick_reverse.mp3")
 ~ loadSound("events", "modus-switch", "./613405__modus-switch.mp3")
 ~ loadSound("events", "modus-switch-rev", "./613405__modus-switch-rev.mp3")
-~ loadSound("loops", "tick", "./163371__tick_reverse.mp3")
 ~ loadSound("events", "chime", "./163371__chime_reverse.mp3")
 ~ loadSound("events", "snap", "./477519__snap-button.mp3")
 
@@ -42,31 +42,28 @@ INCLUDE src/frontend_func.ink
 === function iwm(wort) ===
 Ich lenke meine Aufmerksamkeit {wort} weg.
 
-=== function ensure_tick() ===
-{
-    - !tick_an and !tick_pause:
-        ~ tick_an = 1
-        ~ playSoundV("loops", "tick", 0.02)
-    - tick_pause:
-        ~ tick_pause -= 1
-}
-
 === function standuhr_schlagen() ===
 { 
     - !audio_standuhr_gespielt:
         ~ audio_standuhr_gespielt = 1
         ~ stopSound("loops")
-        ~ tick_an = 0
-        ~ tick_pause = 5
         ~ playSoundS("events", "chime")
 }
 
+=== function play_musicS(name) ===
+~ stopGroup("foreground")
+~ playSoundS("music-once", name)
+
+=== function play_musicV(name, volume) ===
+~ stopGroup("foreground")
+~ playSoundV("music-once", name, volume)
+
 // ------ Events
 
-=== function music() ===
-{ hasFrontend() == 1:
-    { currentSound("music") != "teppich":
-        ~ playSoundV("music", "teppich", 0.02)
+=== function music_loop() ===
+{ hasFrontend() == 1 && currentSound("music-once") =="":
+    { currentSound("music-loop") != "teppich":
+        ~ playSoundV("music-loop", "teppich", 0.02)
     }
 }
 
@@ -79,8 +76,8 @@ Ich lenke meine Aufmerksamkeit {wort} weg.
         - {standuhr_schlagen()} Die grosse Standuhr aus {modus == Dunkel:dunkelm|hellem} Holz schlägt, darauf folgt ohrenbetäubende Stille. # CLASS: event
     }
 }
-~ ensure_tick()
-~ music()
+~ music_loop()
+
 - ->->
 
 // ------ Geschichte
@@ -90,7 +87,8 @@ Ich lenke meine Aufmerksamkeit {wort} weg.
 "Siehst Du, ich stecke meine Hand hinein und nichts passiert."
 
 * [Ich stecke die Hand nochmal hinein.]
-    ~ music()
+    ~ music_loop()
+    ~ playSoundV("loops", "tick", 0.02)
 - "Oh Schreck, wo bin ich?"
 
 Es riecht nach dem Raum zwischen den Gedanken, dieser Leere in der sich selbst Geruch einsam fühlt.
@@ -106,7 +104,7 @@ Es riecht nach dem Raum zwischen den Gedanken, dieser Leere in der sich selbst G
 
 === Studierzimmer ===
 
-Im {modus == Dunkel:düstern|hellen} Studierzimmer sehe ich: einen Schreibtisch.
+Im {modus == Dunkel:düstern|hellen} Studierzimmer sehe ich: _einen Schreibtisch_.
 
 + [Schreibtisch]
     {ib} den Schreibtisch. In die äusseren Ränder des Schreibtisches aus {mw(Schwarz)}em Marmor sind feine, organische Verzierungen gemeisselt. Der Rand der Tischplatte zeigt Gravuren, die an mystische Inschriften erinnern.
@@ -115,7 +113,7 @@ Im {modus == Dunkel:düstern|hellen} Studierzimmer sehe ich: einen Schreibtisch.
     ->e->END
 === Schreibtisch ===
 
-Auf dem Tisch sehe ich: einen Knopf, eine Lampe und einen Globus.
+Auf dem Tisch sehe ich: _einen Knopf_, _eine Lampe_ und _einen Globus_.
 
 + [Knopf]
     {ib} den Knopf.
@@ -127,7 +125,6 @@ Auf dem Tisch sehe ich: einen Knopf, eine Lampe und einen Globus.
 + [Zurück]
     {iwm("vom Schreibtisch")}
     
-
 - ->->
 
 = Knopf
