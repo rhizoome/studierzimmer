@@ -10,6 +10,7 @@ class StoryRunner {
     private firstTags: boolean = true;
     private mixer: Mixer = new Mixer();
     private loadPromises: Record<string, Promise<void>> = {};
+    private initDone: boolean = false;
 
     constructor(storyContent: any) {
         this.story = new inkjs.Story(storyContent);
@@ -24,8 +25,13 @@ class StoryRunner {
         this.story.BindExternalFunction("stopGroup", this.stopGroup.bind(this));
         this.story.BindExternalFunction("setFadeTime", this.setFadeTime.bind(this));
         this.story.BindExternalFunction("keepSoundAlive", this.keepSoundAlive.bind(this));
+        this.story.BindExternalFunction("initDone", this.setInitDone.bind(this));
         this.storyContainer = document.querySelector("#story") as HTMLElement;
         this.globalTags();
+    }
+
+    private setInitDone(): void {
+        this.initDone = true
     }
 
     private keepSoundAlive(): void {
@@ -78,7 +84,7 @@ class StoryRunner {
     public run(): void {
         this.renderParagraphs();
         this.renderChoices();
-        this.show()
+        this.show();
     }
 
     private globalTags(): void {
@@ -153,9 +159,9 @@ class StoryRunner {
             cel.classList.add("hide");
             this.storyContainer.appendChild(cel);
             cel.scrollIntoView({
-                behavior: 'smooth', // Smooth scrolling animation
-                block: 'center',    // Scroll so the element is centered in the viewport
-                inline: 'nearest',  // Default for horizontal scrolling
+                behavior: 'smooth',
+                block: 'center',
+                inline: 'nearest',
             });
             const ael = cel.querySelector("a");
             if (ael) {

@@ -6,6 +6,7 @@ EXTERNAL playSound(slot, sound, volume, crossFade)
 EXTERNAL playSoundV(slot, sound, volume)
 EXTERNAL playSoundS(slot, sound)
 EXTERNAL stopSound(slot)
+EXTERNAL initDone()
 
 === function setTheme(theme) ===
 Setting theme to: {theme}
@@ -30,3 +31,6 @@ Playing sound="{sound}" in slot="{slot}"
 
 === function stopSound(slot) ===
 Stop slot="{slot}"
+
+=== function initDone() ===
+Init done

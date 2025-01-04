@@ -22,12 +22,11 @@ CONST event_wahrscheinlichkeit = 44 // In prozent
 ~ loadSound("loops", "tick", "./163371__tick_reverse.mp3")
 ~ loadSound("events", "chime", "./163371__chime_reverse.mp3")
 ~ loadSound("events", "snap", "./477519__snap-button.mp3")
+~ initDone()
 
 ->Ankunft
 
 INCLUDE system.ink
-
-# INITDONE
 
 // ------ Funktionen
 
