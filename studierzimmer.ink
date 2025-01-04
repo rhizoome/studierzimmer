@@ -10,6 +10,7 @@ VAR benutze = Ts_Nichts
 VAR modus = Mo_Dunkel
 VAR lampe_an = 0
 VAR audio_standuhr_gespielt = 0
+VAR einfach = 0
 CONST ib = "Ich betrachte"
 CONST in = "Ich benutze"
 CONST event_wahrscheinlichkeit = 25 // In prozent
@@ -35,6 +36,12 @@ INCLUDE src/frontend.ink
 INCLUDE src/frontend_func.ink
 
 // ------ Funktionen
+
+=== function bereit(gegenstand) ===
+~ return Tasche == gegenstand && (einfach || benutze == gegenstand)
+
+=== function zeige(gegenstand) ===
+~ return Tasche == Ts_Giesskanne && (einfach || benutze != Ts_Giesskanne)
 
 === function mw(wort) ===
 { wort:
@@ -99,9 +106,22 @@ Ich lenke meine Aufmerksamkeit {wort} weg.
 
 - ->->
 
+=== Ankunft ===
+
+Benutze einen Kopfhörer. Zuerst wirst Du leise Klänge hören, stelle die Lautstärke so ein, dass Du diese nur leise hörst.
+
++ Ich will Rätsel lösen
+    ~ einfach = 0
++ Ich will die Fantasiewelt geniessen
+    ~ einfach = 1
+
+-
+
+-> Geschichte
+
 // ------ Geschichte
 
-=== Ankunft ===
+=== Geschichte ===
 
 "Siehst Du, ich stecke meine Hand hinein und nichts passiert."
 
@@ -123,24 +143,24 @@ Es riecht nach dem Raum zwischen den Gedanken, dieser Leere in der sich selbst G
 
 === Studierzimmer ===
 
-Im {modus == Mo_Dunkel:düstern|hellen} Studierzimmer sehe ich: _einen Schreibtisch_.
+Im {modus == Mo_Dunkel:düstern|hellen} Studierzimmer sehe ich: <b>einen Schreibtisch</b>.
 
 + [Schreibtisch]
-    {ib} _den Schreibtisch_. In die äusseren Ränder des Schreibtisches aus {mw(To_Schwarz)}em Marmor sind feine, organische Verzierungen gemeisselt. Der Rand der Tischplatte zeigt Gravuren, die an mystische Inschriften erinnern. ->e->Schreibtisch->e->Studierzimmer
+    {ib} <b>den Schreibtisch</b>. In die äusseren Ränder des Schreibtisches aus {mw(To_Schwarz)}em Marmor sind feine, organische Verzierungen gemeisselt. Der Rand der Tischplatte zeigt Gravuren, die an mystische Inschriften erinnern. ->e->Schreibtisch->e->Studierzimmer
 + [{tw(Ts_Meta)}] ->e->Meta->e->Studierzimmer
 + TODO: Ausgang ->e->END
     
 === Schreibtisch ===
 
-Auf dem Tisch sehe ich: _einen Knopf_, _eine Lampe_ und _einen Globus_.
+Auf dem Tisch sehe ich: <b>einen Knopf</b>, <b>eine Lampe</b> und <b>einen Globus</b>.
 
 + [Knopf]
-    {ib} _den Knopf_.
+    {ib} <b>den Knopf</b>.
     In der rechten äusseren Ecke des Schreibtischs ist ein Knopf eingelegt. ->e->Knopf->e->Schreibtisch
 + [Lampe]
-    {ib} _die Lampe_.
+    {ib} <b>die Lampe</b>.
     Es ist eine Bankerlampe mit einem Schirm aus grellgrauem ungrünen Glas. Wie der Schirm in dieser Monochromen Welt so überzeugt grün sein kann, ist mir unerklärbar. ->e->Lampe->e->Schreibtisch
-+ [Globus] {ib} _den Globus_. {GlobusBeschreibung()} ->e->Globus->e->Schreibtisch
++ [Globus] {ib} <b>den Globus</b>. {GlobusBeschreibung()} ->e->Globus->e->Schreibtisch
 + [{tw(Ts_Meta)}] ->e->Meta->e->Schreibtisch
 + [Zurück] {iwm("vom Schreibtisch")}
 
@@ -180,15 +200,15 @@ Die Gravur zeigt das Symbol {modus == Mo_Dunkel:der Sonne|des Mondes}.
 
 = Globus
 
-Auf dem Sockel des Globus gibt es einen Schalter mit folgenden Positionen: _Erdenwelt_, _Scheibenwelt_, _Studierzimmer_
+Auf dem Sockel des Globus gibt es einen Schalter mit folgenden Positionen: <b>Erdenwelt</b>, <b>Scheibenwelt</b>, <b>Studierzimmer</b>
 
-+ {GlobusSchalter != GS_Erde} Ich schalte den Globus auf _Erdenwelt_.
++ {GlobusSchalter != GS_Erde} Ich schalte den Globus auf <b>Erdenwelt</b>.
     ~ GlobusSchalter = GS_Erde
     {GlobusBeschreibung()} ->e->Globus
-+ {GlobusSchalter != GS_Scheibenwelt} Ich schalte den Globus auf _Scheibenwelt_.
++ {GlobusSchalter != GS_Scheibenwelt} Ich schalte den Globus auf <b>Scheibenwelt</b>.
     ~ GlobusSchalter = GS_Scheibenwelt
     {GlobusBeschreibung()} ->e->Globus
-+ {GlobusSchalter != GS_Studierzimmer} Ich schalte den Globus auf _Studierzimmer_.
++ {GlobusSchalter != GS_Studierzimmer} Ich schalte den Globus auf <b>Studierzimmer</b>.
     ~ GlobusSchalter = GS_Studierzimmer
     {GlobusBeschreibung()} ->e->Globus
 + [{tw(Ts_Meta)}] ->e->Meta->e->Lampe
@@ -202,6 +222,8 @@ Auf dem Sockel des Globus gibt es einen Schalter mit folgenden Positionen: _Erde
 
 - ->->
 
+// Beschreibungen
+
 === function GlobusBeschreibung() ===
 {GlobusSchalter:
     - GS_Erde:
@@ -212,14 +234,26 @@ Auf dem Sockel des Globus gibt es einen Schalter mit folgenden Positionen: _Erde
         Der Globus zeigt dieses Zimmer in Puppenhausegrösse. Zwei Seiten und die Decke sind aus Glas, damit man das Innenleben betrachen kann. Darin stehe ich. Mit einer Lupe könnte ich wohl auch den Globus betrachen.
 }
 
+=== function GiesskannBeschreibung() ===
+<b>Die Giesskanne von Cordelia Schmiersinn</b>
+
+Ihre Form, eine Symphonie von Natur und Traum,<br>Ein Tanz der Eleganz, so zart wie ein Baum.<br>Der Ausguss wie ein Schwanenhals, sanft geneigt,<br>Lebensstrom spendend, wo Blüte gedeiht.
+
+Der Korpus gleicht einem Tropfen so rein,<br>Gefangen in ewigem Raum und Sein.<br>Es spricht von einer Zeit, wo Kunst Seele lab,<br>Eine Giesskanne, die dem Garten Leben gab.
+
+So vieles hängt an ihr, die Leben uns bringt,<br>Die Jugendstil-Giesskanne, die Schönheit besingt.
+
+
 === Meta ===
 
 In meiner Tasche ist: #TAG: span
 
-+ {Tasche == Ts_Giesskanne && benutze != Ts_Giesskanne} [{cap(taw(Ts_Giesskanne))}]
++ {zeige(Ts_Giesskanne)} [{cap(taw(Ts_Giesskanne))}]
     ~ benutze = Ts_Giesskanne
-    {in} die Giesskanne. ->e->Meta
-+ {benutze != Ts_Nichts} Ich lege {taw(Ts_Giesskanne)} weg. #TAG: p
+    {GiesskannBeschreibung()}
+    {einfach == 0: {in} die Giesskanne.}
+    ->e->Meta
++ {benutze != Ts_Nichts && einfach == 0} Ich lege {taw(Ts_Giesskanne)} weg. #TAG: p
     ~ benutze = Ts_Nichts
     ->e->Meta
 + [Zurück #TAG: p] {iwm("von der Lampe")}
