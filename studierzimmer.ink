@@ -116,7 +116,7 @@ Benutze einen Kopfhörer. Zuerst wirst Du leise Klänge hören, stelle die Lauts
 + Ich will die Fantasiewelt geniessen
     ~ einfach = 1
 
--
+- ~ keepSoundAlive()
 
 -> Geschichte
 
