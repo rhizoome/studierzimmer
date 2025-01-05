@@ -58,7 +58,7 @@ INCLUDE src/frontend_func.ink
 === function tw(wort) ===
 { wort:
 - Ts_Giesskanne: ~ return "Giesskanne"
-- Ts_Meta: ~ return "Tasche"
+- Ts_Meta: ~ return "<b>Tasche</b>"
 - else: ~ return "ERROR"
 }
 
@@ -147,7 +147,9 @@ Es riecht nach dem Raum zwischen den Gedanken, dieser Leere in der sich selbst G
 
 Im {modus == Mo_Dunkel:düstern|hellen} Studierzimmer sehe ich: <b>einen Schreibtisch</b>.
 
-+ [<b>◉</b> Beschreibung] ->Schau->e->Studierzimmer
+-  (Basis)
+
++ [<b>◉</b> Beschreibung] ->Schau->e->Basis
 + [Schreibtisch] {ib} <b>den Schreibtisch</b>. ->e->Schreibtisch->e->Studierzimmer
 + [{tw(Ts_Meta)}] <b>❯</b> {tw(Ts_Meta)} ->e->Meta->e->Studierzimmer
 // + TODO: Ausgang ->e->END
@@ -160,9 +162,11 @@ Ein hoher {mw(To_Duester)}er Raum, leuchtet in den schrillsten Grautönen, die m
     
 === Schreibtisch ===
 
-Auf dem <b>Schreibtisch</b> sehe ich: <b>einen Knopf</b>, <b>eine Lampe</b> und <b>einen Globus</b>.
+Auf dem Schreibtisch sehe ich: <b>einen Knopf</b>, <b>eine Lampe</b> und <b>einen Globus</b>.
 
-+ [<b>◉</b> Beschreibung] In die äusseren Ränder des Schreibtisches aus {mw(To_Schwarz)}em Marmor sind feine, organische Verzierungen gemeisselt. Der Rand der Tischplatte zeigt Gravuren, die an mystische Inschriften erinnern. >e->Schreibtisch
+-  (Basis)
+
++ [<b>◉</b> Beschreibung] In die äusseren Ränder des Schreibtisches aus {mw(To_Schwarz)}em Marmor sind feine, organische Verzierungen gemeisselt. Der Rand der Tischplatte zeigt Gravuren, die an mystische Inschriften erinnern. ->e->Basis
 + [Knopf] {ib} <b>den Knopf</b>. ->e->Knopf->e->Schreibtisch
 + [Lampe] {ib} <b>die Lampe</b>. ->e->Lampe->e->Schreibtisch
 + [Globus] {ib} <b>den Globus</b>. ->e->Globus->e->Schreibtisch
@@ -175,7 +179,9 @@ Auf dem <b>Schreibtisch</b> sehe ich: <b>einen Knopf</b>, <b>eine Lampe</b> und 
 
 Die Gravur des Knopfs zeigt das Symbol {modus == Mo_Dunkel:der Sonne|des Mondes}.
 
-+ [<b>◉</b> Beschreibung] In der rechten äusseren Ecke des Schreibtischs ist ein Knopf eingelegt. ->e->Knopf
+-  (KnopfBasis)
+
++ [<b>◉</b> Beschreibung] In der rechten äusseren Ecke des Schreibtischs ist ein Knopf eingelegt. ->e->KnopfBasis
 + [Ich drücke auf {modus == Mo_Dunkel:die Sonne|den Mond}.]
     <b>↯</b> Ich drücke auf {modus == Mo_Dunkel:die Sonne|den Mond}.
     {
@@ -198,7 +204,9 @@ Die Gravur des Knopfs zeigt das Symbol {modus == Mo_Dunkel:der Sonne|des Mondes}
 
 Die Lampe ist {lampe_an:an|aus}.
 
-+ [<b>◉</b> Beschreibung] Es ist eine Bankerlampe mit einem Schirm aus grellgrauem ungrünen Glas. Wie der Schirm in dieser Monochromen Welt so überzeugt grün sein kann, ist mir unerklärbar. ->e->Lampe
+-  (LampeBasis)
+
++ [<b>◉</b> Beschreibung] Es ist eine Bankerlampe mit einem Schirm aus grellgrauem ungrünen Glas. Wie der Schirm in dieser Monochromen Welt so überzeugt grün sein kann, ist mir unerklärbar. ->e->LampeBasis
 + [Ich schalte Lampe {lampe_an:aus|an}.]
     <b>↯</b> Ich schalte Lampe {lampe_an:aus|an}
     ~ playSoundS("events", "snap")
@@ -213,16 +221,18 @@ Die Lampe ist {lampe_an:an|aus}.
 
 Auf dem Sockel des Globus gibt es einen Schalter mit folgenden Positionen: <b>Erdenwelt</b>, <b>Scheibenwelt</b>, <b>Studierzimmer</b>
 
-+ [<b>◉</b> Beschreibung] ->SchauGlobus->e->Globus
+-  (GlobusBasis)
+
++ [<b>◉</b> Beschreibung] ->SchauGlobus->e->GlobusBasis
 + {GlobusSchalter != GS_Erde} <b>↯</b> Ich schalte den Globus auf <b>Erdenwelt</b>.
     ~ GlobusSchalter = GS_Erde
-    ->SchauGlobus->e->Globus
+    ->SchauGlobus->e->GlobusBasis
 + {GlobusSchalter != GS_Scheibenwelt} <b>↯</b> Ich schalte den Globus auf <b>Scheibenwelt</b>.
     ~ GlobusSchalter = GS_Scheibenwelt
-    ->SchauGlobus->e->Globus
+    ->SchauGlobus->e->GlobusBasis
 + {GlobusSchalter != GS_Studierzimmer} <b>↯</b> Ich schalte den Globus auf <b>Studierzimmer</b>.
     ~ GlobusSchalter = GS_Studierzimmer
-    ->SchauGlobus->e->Globus
+    ->SchauGlobus->e->GlobusBasis
 + {bereit(Ts_Giesskanne) && GlobusSchalter == GS_Studierzimmer} [Ich <b>begiesse</b> den Globus mit der Giesskanne.]
     <b>↯</b> Ich <b>begiesse</b> den Globus mit der Giesskanne.
     In dem Moment beginnt ein Gewitter, ich höre den Regen auf das Studierzimmer prasseln. Diese Welt verwirrt selbst die Götter der Rekursion. Wie kann das sein?
@@ -267,7 +277,7 @@ So vieles hängt an ihr, die Leben uns bringt,<br>Die Jugendstil-Giesskanne, die
 
 === Meta ===
 
-In meiner Tasche ist: #TAG: span
+Meine Tasche enthäl:t #TAG: span
 
 + {zeige(Ts_Giesskanne)} [{cap(taw(Ts_Giesskanne))}] ->SchauGiesskanne->e->Meta
 + {benutzer(Ts_Giesskanne)} [(benutze) #FLAG: space]
@@ -283,7 +293,9 @@ In meiner Tasche ist: #TAG: span
 - ->->
 
 /* Regeln
-- Nutze Pfeile
+- Räume zeigen beim Betreten eine Zutandszeile, falls es keinen Zustand gibt, kann man auch nichts anzeigen, je nach geschack
+- Navigations- und Inhaltszeilen heben das wichtige Wort mit Fett hervor, anderer Text im Normalfall nicht
+- Nutze Symbole
 - Sound von Events spielt nur einmal
 - Sound von Aktionen jedes mal
 - Musik stoppt Fordergrund
