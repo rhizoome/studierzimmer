@@ -16,6 +16,7 @@
 
 :root {
   --background-color: #ddd;
+  --hr-color: #bbb;
   --text-color: #222;
   --story-color: #888;
   --bold-color: #666;
@@ -26,6 +27,7 @@
   --text-color: #ddd;
   --bold-color: #aaa;
   --background-color: #000;
+  --hr-color: #222;
 }
 
 html {
@@ -201,14 +203,20 @@ a {
     cursor: pointer;
 }
 
+a:hover {
+    color: var(--text-color);
+}
+
 p {
     margin-top: 0.7em;
     margin-bottom: 0.7em;
     font-size: 1.8rem;
 }
 
-a:hover {
-    color: var(--text-color);
+hr {
+    border: none;
+    border-top: 0.25px solid var(--hr-color);
+    margin: 0;
 }
 
 @media (max-width: 450px) {

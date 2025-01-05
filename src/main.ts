@@ -110,6 +110,8 @@ class StoryRunner {
     }
 
     private renderParagraphs(): void {
+        const hr = document.createElement('hr');
+        this.storyContainer.appendChild(hr);
         while (this.story.canContinue) {
             const paragraph = this.story.Continue();
             const customClasses: string[] = [];
@@ -119,9 +121,9 @@ class StoryRunner {
             }
             const el = document.createElement('p');
             el.classList.add("blend");
+            el.classList.add("hide");
             el.innerHTML = paragraph;
             customClasses.forEach(cls => el.classList.add(cls));
-            el.classList.add("hide");
             this.storyContainer.appendChild(el);
         }
     }
