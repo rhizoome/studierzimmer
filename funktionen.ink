@@ -1,5 +1,13 @@
 // ------ Funktionen
 
+=== function schalter_pos(schalter, position, text) ===
+{ schalter:
+- position:
+    ~ return "[{text}]"
+- else:
+    ~ return "{text}"
+}
+
 === function benutzer(gegenstand) ===
 ~ return einfach == 0 && Tasche == Ts_Giesskanne && (einfach || benutze != Ts_Giesskanne)
 

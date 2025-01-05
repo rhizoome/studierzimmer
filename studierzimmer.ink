@@ -173,7 +173,7 @@ Die Lampe ist {lampe_an:an|aus}.
 
 = Globus
 
-Auf dem Sockel des Globus gibt es einen Schalter mit folgenden Positionen: <b>Erdenwelt</b>, <b>Scheibenwelt</b>, <b>Studierzimmer</b>
+->GlobusBeschreibung->
 
 -  (GlobusBasis)
 
@@ -182,13 +182,13 @@ Auf dem Sockel des Globus gibt es einen Schalter mit folgenden Positionen: <b>Er
     ->SchauGlobus->e->GlobusBasis
 + {globus_untersucht && GlobusSchalter != GS_Erde} <b>↯</b> Ich schalte den Globus auf <b>Erdenwelt</b>.
     ~ GlobusSchalter = GS_Erde
-    ->SchauGlobus->e->GlobusBasis
+    ->SchauGlobus->e->Globus
 + {globus_untersucht && GlobusSchalter != GS_Scheibenwelt} <b>↯</b> Ich schalte den Globus auf <b>Scheibenwelt</b>.
     ~ GlobusSchalter = GS_Scheibenwelt
-    ->SchauGlobus->e->GlobusBasis
+    ->SchauGlobus->e->Globus
 + {globus_untersucht && GlobusSchalter != GS_Studierzimmer} <b>↯</b> Ich schalte den Globus auf <b>Studierzimmer</b>.
     ~ GlobusSchalter = GS_Studierzimmer
-    ->SchauGlobus->e->GlobusBasis
+    ->SchauGlobus->e->Globus
 + {bereit(Ts_Giesskanne) && GlobusSchalter == GS_Studierzimmer} <b>↯</b> Ich <b>begiesse</b> den Globus mit der Giesskanne.
     In dem Moment beginnt ein Gewitter, ich höre den Regen auf das Studierzimmer prasseln. Diese Welt verwirrt selbst die Götter der Rekursion. Wie kann das sein?
     ~ globus_begossen = 1
@@ -205,6 +205,12 @@ Auf dem Sockel des Globus gibt es einen Schalter mit folgenden Positionen: <b>Er
 
 - ->->
 
+= GlobusBeschreibung
+
+{globus_untersucht: Auf dem Sockel des Globus gibt es einen Schalter mit folgenden Positionen: <b>{schalter_pos(GlobusSchalter, GS_Erde, "Erdenwelt")}</b>, <b>{schalter_pos(GlobusSchalter, GS_Scheibenwelt, "Scheibenwelt")}</b>, <b>{schalter_pos(GlobusSchalter, GS_Studierzimmer, "Studierzimmer")}</b>}
+
+- ->->
+
 = SchauGlobus
 
 {GlobusSchalter:
@@ -216,7 +222,9 @@ Auf dem Sockel des Globus gibt es einen Schalter mit folgenden Positionen: <b>Er
         Der Globus zeigt dieses Zimmer in Puppenhausegrösse. Zwei Seiten und die Decke sind aus Glas, damit man das Innenleben betrachen kann. Darin stehe ich. Mit einer Lupe könnte ich wohl auch den Globus betrachen.
 }
 
-- ->->
+- ->GlobusBeschreibung
+
+->->
 
 // Globale Beschreibungen (meist Gegenstände)
 
