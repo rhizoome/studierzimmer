@@ -20,7 +20,7 @@
 === function tw(wort) ===
 { wort:
 - Ts_Giesskanne: ~ return "Giesskanne"
-- Ts_Meta: ~ return "<b>Tasche</b>"
+- Ts_Meta: ~ return "Tasche"
 - else: ~ return "ERROR"
 }
 
@@ -32,7 +32,7 @@
 }
 
 === function iwm(wort) ===
-<b>❮</b> Ich lenke meine Aufmerksamkeit {wort} weg.
+<b>❮</b> Ich lenke meine Aufmerksamkeit <b>{wort}</b> weg.
 
 === function standuhr_schlagen() ===
 { 

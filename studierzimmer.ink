@@ -97,7 +97,7 @@ Im {modus == Mo_Dunkel:düstern|hellen} Studierzimmer sehe ich: <b>einen Schreib
 
 + [<b>◉</b> Beschreibung] ->Schau->e->Basis
 + [Schreibtisch] {ib} <b>den Schreibtisch</b>. ->e->Schreibtisch->e->Studierzimmer
-+ [{tw(Ts_Meta)}] <b>❯</b> {tw(Ts_Meta)} ->e->Meta->e->Studierzimmer
++ [{tw(Ts_Meta)}] <b>❯ {tw(Ts_Meta)}</b> ->e->Meta->e->Studierzimmer
 // + TODO: Ausgang ->e->END
 
 = Schau
@@ -116,7 +116,7 @@ Auf dem Schreibtisch sehe ich: <b>einen Knopf</b>, <b>eine Lampe</b> und <b>eine
 + [Knopf] {ib} <b>den Knopf</b>. ->e->Knopf->e->Schreibtisch
 + [Lampe] {ib} <b>die Lampe</b>. ->e->Lampe->e->Schreibtisch
 + [Globus] {ib} <b>den Globus</b>. ->e->Globus->e->Schreibtisch
-+ [{tw(Ts_Meta)}] <b>❯</b> {tw(Ts_Meta)} ->e->Meta->e->Schreibtisch
++ [{tw(Ts_Meta)}] <b>❯ {tw(Ts_Meta)}</b> ->e->Meta->e->Schreibtisch
 + [<b>▼</b> Zurück] {iwm("vom Schreibtisch")}
 
 - ->->
@@ -140,8 +140,8 @@ Die Gravur des Knopfs zeigt das Symbol {modus == Mo_Dunkel:der Sonne|des Mondes}
             ~ modus = Mo_Dunkel
             ~ setTheme("dark")
     }
-    Urplötzlich ist alles was Schwarz ist Weiss und umgekehrt. Die abrupte Veränderung ist schwindelerregend. ->Leuchten->
-+ [{tw(Ts_Meta)}] <b>❯</b> {tw(Ts_Meta)} ->e->Meta->e->Knopf
+    Urplötzlich ist alles was Schwarz ist Weiss und umgekehrt. Die abrupte Veränderung ist schwindelerregend. ->Leuchten->e->KnopfBasis
++ [{tw(Ts_Meta)}] <b>❯ {tw(Ts_Meta)}</b> ->e->Meta->e->Knopf
 + [<b>▼</b> Zurück] {iwm("vom Knopf")}
 
 - ->->
@@ -157,8 +157,8 @@ Die Lampe ist {lampe_an:an|aus}.
     <b>↯</b> Ich schalte Lampe {lampe_an:aus|an}
     ~ playSoundS("events", "snap")
     ~ lampe_an = !lampe_an
-     ->Leuchten->
-+ [{tw(Ts_Meta)}] <b>❯</b> {tw(Ts_Meta)} ->e->Meta->e->Lampe
+     ->Leuchten->e->LampeBasis
++ [{tw(Ts_Meta)}] <b>❯ {tw(Ts_Meta)}</b> ->e->Meta->e->Lampe
 + [<b>▼</b> Zurück] {iwm("von der Lampe")}
 
 - ->->
@@ -189,7 +189,7 @@ Auf dem Sockel des Globus gibt es einen Schalter mit folgenden Positionen: <b>Er
     <b>↯</b> Ich <b>begiesse</b> den Globus mit der Giesskanne.
     In dem Moment beginnt ein Gewitter, ich höre den Regen auf das Studierzimmer prasseln. Diese Welt verwirrt selbst die Götter der Rekursion. Wie kann das sein?
     {playSoundS("events-fg", "giessen")}
-+ [{tw(Ts_Meta)}] <b>❯</b> {tw(Ts_Meta)} ->e->Meta->e->Globus
++ [{tw(Ts_Meta)}] <b>❯ {tw(Ts_Meta)}</b> ->e->Meta->e->Globus
 + [<b>▼</b> Zurück] {iwm("von der Lampe")}
 
 - ->->
@@ -223,17 +223,19 @@ So vieles hängt an ihr, die Leben uns bringt,<br>Die Jugendstil-Giesskanne, die
 
 === Meta ===
 
-Meine Tasche enthäl:t #TAG: span
+Meine Tasche enthält: #TAG: span
 
-+ {zeige(Ts_Giesskanne)} [{cap(taw(Ts_Giesskanne))}] ->SchauGiesskanne->e->Meta
+- (Basis)
+
++ {zeige(Ts_Giesskanne)} [{cap(taw(Ts_Giesskanne))}] ->SchauGiesskanne->e->Basis
 + {benutzer(Ts_Giesskanne)} [(benutze) #FLAG: space]
-    {einfach == 0: {in} die Giesskanne.}
+    {einfach == 0: {in} die <b>Giesskanne</b>.}
     ~ benutze = Ts_Giesskanne
-    ->e->Meta
+    ->e->Basis
 + {benutze != Ts_Nichts && einfach == 0} [Ich lege {taw(Ts_Giesskanne)} weg. #TAG: p]
-    <b>▼</b> Ich lege {taw(Ts_Giesskanne)} weg.
+    <b>▼</b> Ich lege <b>{taw(Ts_Giesskanne)}</b> weg.
     ~ benutze = Ts_Nichts
-    ->e->Meta
+    ->e->Basis
 + [<b>▼</b> Zurück #TAG: p] {iwm("von der Lampe")}
 
 - ->->
