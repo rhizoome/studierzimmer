@@ -207,7 +207,7 @@ Die Lampe ist {lampe_an:an|aus}.
 
 = GlobusBeschreibung
 
-{globus_untersucht: Auf dem Sockel des Globus gibt es einen Schalter mit folgenden Positionen: <b>{schalter_pos(GlobusSchalter, GS_Erde, "Erdenwelt")}</b>, <b>{schalter_pos(GlobusSchalter, GS_Scheibenwelt, "Scheibenwelt")}</b>, <b>{schalter_pos(GlobusSchalter, GS_Studierzimmer, "Studierzimmer")}</b>}
+{globus_untersucht: Auf dem Sockel des Globus ruht ein gravierter Schalter, der zwischen drei Welten wechselt: <b>{schalter_pos(GlobusSchalter, GS_Erde, "Erdenwelt")}</b>, <b>{schalter_pos(GlobusSchalter, GS_Scheibenwelt, "Scheibenwelt")}</b>, <b>{schalter_pos(GlobusSchalter, GS_Studierzimmer, "Studierzimmer")}</b>}
 
 - ->->
 
