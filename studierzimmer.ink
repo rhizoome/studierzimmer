@@ -141,16 +141,22 @@ Es riecht nach dem Raum zwischen den Gedanken, dieser Leere in der sich selbst G
  * "Träume ich?" [] {beschreibung} "DU TRÄUMST NICHT."
  * "Bin ich tot?" [] {beschreibung} "DU BIST NICHT TOT."
 
-- {StudierzimmerBeschreibung()} ->e->Studierzimmer
+- ->Studierzimmer.Schau->e->Studierzimmer
 
 === Studierzimmer ===
 
 Im {modus == Mo_Dunkel:düstern|hellen} Studierzimmer sehe ich: <b>einen Schreibtisch</b>.
 
-+ [<b>◉</b> Beschreibung] {StudierzimmerBeschreibung()} ->e->Studierzimmer
++ [<b>◉</b> Beschreibung] ->Schau->e->Studierzimmer
 + [Schreibtisch] {ib} <b>den Schreibtisch</b>. ->e->Schreibtisch->e->Studierzimmer
 + [{tw(Ts_Meta)}] <b>❯</b> {tw(Ts_Meta)} ->e->Meta->e->Studierzimmer
-+ TODO: Ausgang ->e->END
+// + TODO: Ausgang ->e->END
+
+= Schau
+
+Ein hoher {mw(To_Duester)}er Raum, leuchtet in den schrillsten Grautönen, die man sich nur vorstellen kann. Man fühlt mich wie in einem Comic von Frank Miller oder Mike Mignola. An den Wänden ragen majestätische Säulen, die verschlungene, mystische Ornamente kleiden.
+
+- ->->
     
 === Schreibtisch ===
 
@@ -182,7 +188,7 @@ Die Gravur des Knopfs zeigt das Symbol {modus == Mo_Dunkel:der Sonne|des Mondes}
             ~ modus = Mo_Dunkel
             ~ setTheme("dark")
     }
-    Urplötzlich ist alles was Schwarz ist Weiss und umgekehrt. Die abrupte Veränderung ist schwindelerregend. ->e->Leuchten->e->Knopf
+    Urplötzlich ist alles was Schwarz ist Weiss und umgekehrt. Die abrupte Veränderung ist schwindelerregend. ->Leuchten->
 + [{tw(Ts_Meta)}] <b>❯</b> {tw(Ts_Meta)} ->e->Meta->e->Knopf
 + [<b>▼</b> Zurück] {iwm("vom Knopf")}
 
@@ -190,12 +196,14 @@ Die Gravur des Knopfs zeigt das Symbol {modus == Mo_Dunkel:der Sonne|des Mondes}
 
 = Lampe
 
+Die Lampe ist {lampe_an:an|aus}.
+
 + [<b>◉</b> Beschreibung] Es ist eine Bankerlampe mit einem Schirm aus grellgrauem ungrünen Glas. Wie der Schirm in dieser Monochromen Welt so überzeugt grün sein kann, ist mir unerklärbar. ->e->Lampe
 + [Ich schalte Lampe {lampe_an:aus|an}.]
     <b>↯</b> Ich schalte Lampe {lampe_an:aus|an}
     ~ playSoundS("events", "snap")
     ~ lampe_an = !lampe_an
-     ->e->Leuchten->e->Lampe
+     ->Leuchten->
 + [{tw(Ts_Meta)}] <b>❯</b> {tw(Ts_Meta)} ->e->Meta->e->Lampe
 + [<b>▼</b> Zurück] {iwm("von der Lampe")}
 
@@ -205,16 +213,16 @@ Die Gravur des Knopfs zeigt das Symbol {modus == Mo_Dunkel:der Sonne|des Mondes}
 
 Auf dem Sockel des Globus gibt es einen Schalter mit folgenden Positionen: <b>Erdenwelt</b>, <b>Scheibenwelt</b>, <b>Studierzimmer</b>
 
-+ [<b>◉</b> Beschreibung] {GlobusBeschreibung()}
++ [<b>◉</b> Beschreibung] ->SchauGlobus->e->Globus
 + {GlobusSchalter != GS_Erde} <b>↯</b> Ich schalte den Globus auf <b>Erdenwelt</b>.
     ~ GlobusSchalter = GS_Erde
-    {GlobusBeschreibung()} ->e->Globus
+    ->SchauGlobus->e->Globus
 + {GlobusSchalter != GS_Scheibenwelt} <b>↯</b> Ich schalte den Globus auf <b>Scheibenwelt</b>.
     ~ GlobusSchalter = GS_Scheibenwelt
-    {GlobusBeschreibung()} ->e->Globus
+    ->SchauGlobus->e->Globus
 + {GlobusSchalter != GS_Studierzimmer} <b>↯</b> Ich schalte den Globus auf <b>Studierzimmer</b>.
     ~ GlobusSchalter = GS_Studierzimmer
-    {GlobusBeschreibung()} ->e->Globus
+    ->SchauGlobus->e->Globus
 + {bereit(Ts_Giesskanne) && GlobusSchalter == GS_Studierzimmer} [Ich <b>begiesse</b> den Globus mit der Giesskanne.]
     <b>↯</b> Ich <b>begiesse</b> den Globus mit der Giesskanne.
     In dem Moment beginnt ein Gewitter, ich höre den Regen auf das Studierzimmer prasseln. Diese Welt verwirrt selbst die Götter der Rekursion. Wie kann das sein?
@@ -230,12 +238,8 @@ Auf dem Sockel des Globus gibt es einen Schalter mit folgenden Positionen: <b>Er
 
 - ->->
 
-// Beschreibungen
+= SchauGlobus
 
-=== function StudierzimmerBeschreibung() ===
-Ein hoher {mw(To_Duester)}er Raum, leuchtet in den schrillsten Grautönen, die man sich nur vorstellen kann. Man fühlt mich wie in einem Comic von Frank Miller oder Mike Mignola. An den Wänden ragen majestätische Säulen, die verschlungene, mystische Ornamente kleiden.
-
-=== function GlobusBeschreibung() ===
 {GlobusSchalter:
     - GS_Erde:
         Der Globus zeigt eine Karte der Erde in Ocker, Beige und vergibtem Blau.
@@ -245,7 +249,12 @@ Ein hoher {mw(To_Duester)}er Raum, leuchtet in den schrillsten Grautönen, die m
         Der Globus zeigt dieses Zimmer in Puppenhausegrösse. Zwei Seiten und die Decke sind aus Glas, damit man das Innenleben betrachen kann. Darin stehe ich. Mit einer Lupe könnte ich wohl auch den Globus betrachen.
 }
 
-=== function GiesskannBeschreibung() ===
+- ->->
+
+// Globale Beschreibungen
+
+=== SchauGiesskanne ===
+
 <b>Die Giesskanne von Cordelia Schmiersinn</b>
 
 Ihre Form, eine Symphonie von Natur und Traum,<br>Ein Tanz der Eleganz, so zart wie ein Baum.<br>Der Ausguss wie ein Schwanenhals, sanft geneigt,<br>Lebensstrom spendend, wo die Blüte gedeiht.
@@ -254,12 +263,13 @@ Der Korpus gleicht einem Tropfen so rein,<br>Gefangen in ewigem Raum und Sein.<b
 
 So vieles hängt an ihr, die Leben uns bringt,<br>Die Jugendstil-Giesskanne, die Schönheit besingt.
 
+- ->->
+
 === Meta ===
 
 In meiner Tasche ist: #TAG: span
 
-+ {zeige(Ts_Giesskanne)} [{cap(taw(Ts_Giesskanne))}] {GiesskannBeschreibung()}
-    ->e->Meta
++ {zeige(Ts_Giesskanne)} [{cap(taw(Ts_Giesskanne))}] ->SchauGiesskanne->e->Meta
 + {benutzer(Ts_Giesskanne)} [(benutze) #FLAG: space]
     {einfach == 0: {in} die Giesskanne.}
     ~ benutze = Ts_Giesskanne
@@ -287,6 +297,5 @@ In meiner Tasche ist: #TAG: span
 */
 
 /* Todo
-- Alle Beschriebungen in schau und auto-schau beim ersten mal
 - Entferne Giesskanne aus Tasche
 */
