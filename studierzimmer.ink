@@ -171,7 +171,8 @@ Auf dem Tisch sehe ich: <b>einen Knopf</b>, <b>eine Lampe</b> und <b>einen Globu
 
 Die Gravur zeigt das Symbol {modus == Mo_Dunkel:der Sonne|des Mondes}.
 
-+ Ich drücke auf {modus == Mo_Dunkel:die Sonne|den Mond}.
++ [Ich drücke auf {modus == Mo_Dunkel:die Sonne|den Mond}.]
+    <b>↯</b>Ich drücke auf {modus == Mo_Dunkel:die Sonne|den Mond}.
     {
         - modus == Mo_Dunkel:
             ~ playSoundS("events", "modus-switch-rev")
@@ -190,7 +191,8 @@ Die Gravur zeigt das Symbol {modus == Mo_Dunkel:der Sonne|des Mondes}.
 
 = Lampe
 
-+ Ich schalte Lampe {lampe_an:aus|an}.
++ [Ich schalte Lampe {lampe_an:aus|an}.]
+    <b>↯</b> Ich schalte Lampe {lampe_an:aus|an}
     ~ playSoundS("events", "snap")
     ~ lampe_an = !lampe_an
      ->e->Leuchten->e->Lampe
@@ -212,7 +214,8 @@ Auf dem Sockel des Globus gibt es einen Schalter mit folgenden Positionen: <b>Er
 + {GlobusSchalter != GS_Studierzimmer} Ich schalte den Globus auf <b>Studierzimmer</b>.
     ~ GlobusSchalter = GS_Studierzimmer
     {GlobusBeschreibung()} ->e->Globus
-+ {bereit(Ts_Giesskanne) && GlobusSchalter == GS_Studierzimmer} Ich <b>begiesse</b> den Globus mit der Giesskanne.
++ {bereit(Ts_Giesskanne) && GlobusSchalter == GS_Studierzimmer} [Ich <b>begiesse</b> den Globus mit der Giesskanne.]
+    <b>↯</b> Ich <b>begiesse</b> den Globus mit der Giesskanne.
     In dem Moment beginnt ein Gewitter, ich höre den Regen auf das Studierzimmer prasseln. Diese Welt verwirrt selbst die Götter der Rekursion. Wie kann das sein?
     {playSoundS("events-fg", "giessen")}
 + [{tw(Ts_Meta)}] <b>❯</b> {tw(Ts_Meta)} ->e->Meta->e->Globus
@@ -256,7 +259,8 @@ In meiner Tasche ist: #TAG: span
     {GiesskannBeschreibung()}
     {einfach == 0: {in} die Giesskanne.}
     ->e->Meta
-+ {benutze != Ts_Nichts && einfach == 0} <b>▼</b> Ich lege {taw(Ts_Giesskanne)} weg. #TAG: p
++ {benutze != Ts_Nichts && einfach == 0} [Ich lege {taw(Ts_Giesskanne)} weg. #TAG: p]
+    <b>▼</b> Ich lege {taw(Ts_Giesskanne)} weg.
     ~ benutze = Ts_Nichts
     ->e->Meta
 + [Zurück #TAG: p] {iwm("von der Lampe")}
