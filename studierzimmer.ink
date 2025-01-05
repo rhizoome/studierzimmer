@@ -176,8 +176,9 @@ Auf dem Sockel des Globus gibt es einen Schalter mit folgenden Positionen: <b>Er
 
 -  (GlobusBasis)
 
-+ [<b>◉</b> Beschreibung]  ->SchauGlobus->e->GlobusBasis
++ [<b>◉</b> Beschreibung]
     ~ globus_untersucht = 1
+    ->SchauGlobus->e->GlobusBasis
 + {globus_untersucht && GlobusSchalter != GS_Erde} <b>↯</b> Ich schalte den Globus auf <b>Erdenwelt</b>.
     ~ GlobusSchalter = GS_Erde
     ->SchauGlobus->e->GlobusBasis
@@ -200,7 +201,7 @@ Auf dem Sockel des Globus gibt es einen Schalter mit folgenden Positionen: <b>Er
 
 {GlobusSchalter:
     - GS_Erde:
-        Der Globus zeigt eine Karte der Erde in Ocker, Beige und vergibtem Blau.
+        Der Globus zeigt eine Karte der Erde in vergibten Grautönen, das Meer ist irgendwie in einem blauen Grau gehalten.
     - GS_Scheibenwelt:
         Aus dem Stockel des Globus ragt eine Stange, die sich in den Bauch einer Schildkröte bohrt. Vier Elefanten auf der Schildkröte tragen eine Scheibe. Ozeane, Berge, Ebenen und alles was eine Welt so braucht in spektakulärer polychromer Farbertracht bilden die Welt. Sie ist das echteste im ganzen Schreibzimmer - ein Moment - über der Scheibe hängen Wolken und sie scheinen sich zu bewegen.
     - GS_Studierzimmer:
