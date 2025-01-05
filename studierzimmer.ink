@@ -31,6 +31,7 @@ VAR lampe_an = 0
 VAR audio_standuhr_gespielt = 0
 VAR einfach = 0
 VAR globus_untersucht = 0
+VAR globus_begossen = 0
 CONST ib = "<b>❯</b> Ich betrachte"
 CONST in = "<b>▲</b> Ich benutze"
 CONST event_wahrscheinlichkeit = 10 // In prozent
@@ -188,10 +189,17 @@ Auf dem Sockel des Globus gibt es einen Schalter mit folgenden Positionen: <b>Er
 + {globus_untersucht && GlobusSchalter != GS_Studierzimmer} <b>↯</b> Ich schalte den Globus auf <b>Studierzimmer</b>.
     ~ GlobusSchalter = GS_Studierzimmer
     ->SchauGlobus->e->GlobusBasis
-+ {bereit(Ts_Giesskanne) && GlobusSchalter == GS_Studierzimmer} [<b>↯</b> Ich <b>begiesse</b> den Globus mit der Giesskanne.]
-    <b>↯</b> Ich <b>begiesse</b> den Globus mit der Giesskanne.
++ {bereit(Ts_Giesskanne) && GlobusSchalter == GS_Studierzimmer} <b>↯</b> Ich <b>begiesse</b> den Globus mit der Giesskanne.
     In dem Moment beginnt ein Gewitter, ich höre den Regen auf das Studierzimmer prasseln. Diese Welt verwirrt selbst die Götter der Rekursion. Wie kann das sein?
+    ~ globus_begossen = 1
     {playSoundS("events-fg", "giessen")}
+    ->e->GlobusBasis
++ {globus_begossen && bereit(Ts_Giesskanne) && GlobusSchalter == GS_Erde} [<b>↯</b> Ich <b>begiesse</b> den Globus mit der Giesskanne.]
+    Halt! Nein, ich will keine Umweltkatastrophe auslösen. Wir haben schon genug Probleme mit dem Klima.
+    ->e->GlobusBasis
++ {globus_begossen && bereit(Ts_Giesskanne) && GlobusSchalter == GS_Scheibenwelt} [<b>↯</b> Ich <b>begiesse</b> den Globus mit der Giesskanne.]
+    Halt! Nein, ich will keine Umweltkatastrophe auslösen.
+    ->e->GlobusBasis
 + [{tw(Ts_Meta)}] <b>❯ {tw(Ts_Meta)}</b> ->e->Meta->e->Globus
 + [<b>▼</b> Zurück] {iwm("von der Lampe")}
 
