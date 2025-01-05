@@ -182,6 +182,18 @@ body.switched {
     opacity: 0.50;
 }
 
+.dropdown-select {
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    background-color: var(--background-color);
+    font-weight: 700;
+    font-size: 1rem;
+    color: var(--gold);
+    border: none;
+    cursor: pointer;
+}
+
 b {
     color: var(--bold-color);
 }
@@ -219,12 +231,22 @@ hr {
     margin: 0;
 }
 
+@media (max-width: 480px) {
+    .save-space {
+        display: none;
+    }
+}
+
 @media (max-width: 450px) {
     html {
         font-size: 8pt;
     }
     #controls {
         font-size: 1.125rem;
+    }
+    .dropdown-select {
+        font-size: 1.125rem;
+        font-weight: 700;
     }
 }
 
@@ -235,13 +257,17 @@ hr {
     #controls {
         font-size: 1.25rem;
     }
-    .save-space {
-        display: none;
+    .dropdown-select {
+        font-size: 1.25rem;
+        font-weight: 700;
+    }
+    .left {
+        white-space: normal;
+    }
+    .right {
+        white-space: normal;
     }
 }
 
 @media (max-width: 300px) {
-    .right {
-        white-space: normal;
-    }
 }
