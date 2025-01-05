@@ -30,6 +30,7 @@ VAR modus = Mo_Dunkel
 VAR lampe_an = 0
 VAR audio_standuhr_gespielt = 0
 VAR einfach = 0
+VAR globus_untersucht = 0
 CONST ib = "<b>❯</b> Ich betrachte"
 CONST in = "<b>▲</b> Ich benutze"
 CONST event_wahrscheinlichkeit = 10 // In prozent
@@ -175,14 +176,15 @@ Auf dem Sockel des Globus gibt es einen Schalter mit folgenden Positionen: <b>Er
 
 -  (GlobusBasis)
 
-+ [<b>◉</b> Beschreibung] ->SchauGlobus->e->GlobusBasis
-+ {GlobusSchalter != GS_Erde} <b>↯</b> Ich schalte den Globus auf <b>Erdenwelt</b>.
++ [<b>◉</b> Beschreibung]  ->SchauGlobus->e->GlobusBasis
+    ~ globus_untersucht = 1
++ {globus_untersucht && GlobusSchalter != GS_Erde} <b>↯</b> Ich schalte den Globus auf <b>Erdenwelt</b>.
     ~ GlobusSchalter = GS_Erde
     ->SchauGlobus->e->GlobusBasis
-+ {GlobusSchalter != GS_Scheibenwelt} <b>↯</b> Ich schalte den Globus auf <b>Scheibenwelt</b>.
++ {globus_untersucht && GlobusSchalter != GS_Scheibenwelt} <b>↯</b> Ich schalte den Globus auf <b>Scheibenwelt</b>.
     ~ GlobusSchalter = GS_Scheibenwelt
     ->SchauGlobus->e->GlobusBasis
-+ {GlobusSchalter != GS_Studierzimmer} <b>↯</b> Ich schalte den Globus auf <b>Studierzimmer</b>.
++ {globus_untersucht && GlobusSchalter != GS_Studierzimmer} <b>↯</b> Ich schalte den Globus auf <b>Studierzimmer</b>.
     ~ GlobusSchalter = GS_Studierzimmer
     ->SchauGlobus->e->GlobusBasis
 + {bereit(Ts_Giesskanne) && GlobusSchalter == GS_Studierzimmer} [<b>↯</b> Ich <b>begiesse</b> den Globus mit der Giesskanne.]
