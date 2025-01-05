@@ -104,7 +104,7 @@ Im {modus == Mo_Dunkel:düstern|hellen} Studierzimmer sehe ich: <b>einen Schreib
 
 = Schau
 
-Ein hoher {mw(To_Duester)}er Raum, leuchtet in den schrillsten Grautönen, die man sich nur vorstellen kann. Es fühlt sich an, als wäre ich in einem Comic von Frank Miller oder Mike Mignola. An den Wänden ragen majestätische Säulen, die verschlungene, mystische Ornamente kleiden.
+Ein hoher {mw(To_Duester)}er Raum leuchtet in den schrillsten Grautönen, die man sich nur vorstellen kann. Es fühlt sich an, als wäre ich in einem Comic von Frank Miller oder Mike Mignola. An den Wänden ragen majestätische Säulen, die verschlungene, mystische Ornamente kleiden.
 
 - ->->
     
