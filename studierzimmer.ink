@@ -185,7 +185,7 @@ Auf dem Sockel des Globus gibt es einen Schalter mit folgenden Positionen: <b>Er
 + {GlobusSchalter != GS_Studierzimmer} <b>↯</b> Ich schalte den Globus auf <b>Studierzimmer</b>.
     ~ GlobusSchalter = GS_Studierzimmer
     ->SchauGlobus->e->GlobusBasis
-+ {bereit(Ts_Giesskanne) && GlobusSchalter == GS_Studierzimmer} [Ich <b>begiesse</b> den Globus mit der Giesskanne.]
++ {bereit(Ts_Giesskanne) && GlobusSchalter == GS_Studierzimmer} [<b>↯</b> Ich <b>begiesse</b> den Globus mit der Giesskanne.]
     <b>↯</b> Ich <b>begiesse</b> den Globus mit der Giesskanne.
     In dem Moment beginnt ein Gewitter, ich höre den Regen auf das Studierzimmer prasseln. Diese Welt verwirrt selbst die Götter der Rekursion. Wie kann das sein?
     {playSoundS("events-fg", "giessen")}
