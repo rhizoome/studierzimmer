@@ -182,13 +182,13 @@ Die Lampe ist {lampe_an:an|aus}.
     ->SchauGlobus->e->GlobusBasis
 + {globus_untersucht && GlobusSchalter != GS_Erde} <b>↯</b> Ich schalte den Globus auf <b>Erdenwelt</b>.
     ~ GlobusSchalter = GS_Erde
-    ->SchauGlobus->e->Globus
+    ->SchauGlobus->e->GlobusBasis
 + {globus_untersucht && GlobusSchalter != GS_Scheibenwelt} <b>↯</b> Ich schalte den Globus auf <b>Scheibenwelt</b>.
     ~ GlobusSchalter = GS_Scheibenwelt
-    ->SchauGlobus->e->Globus
+    ->SchauGlobus->e->GlobusBasis
 + {globus_untersucht && GlobusSchalter != GS_Studierzimmer} <b>↯</b> Ich schalte den Globus auf <b>Studierzimmer</b>.
     ~ GlobusSchalter = GS_Studierzimmer
-    ->SchauGlobus->e->Globus
+    ->SchauGlobus->e->GlobusBasis
 + {bereit(Ts_Giesskanne) && GlobusSchalter == GS_Studierzimmer} <b>↯</b> Ich <b>begiesse</b> den Globus mit der Giesskanne.
     In dem Moment beginnt ein Gewitter, ich höre den Regen auf das Studierzimmer prasseln. Diese Welt verwirrt selbst die Götter der Rekursion. Wie kann das sein?
     ~ globus_begossen = 1
@@ -222,9 +222,9 @@ Die Lampe ist {lampe_an:an|aus}.
         Der Globus zeigt dieses Zimmer in Puppenhausegrösse. Zwei Seiten und die Decke sind aus Glas, damit man das Innenleben betrachen kann. Darin stehe ich. Mit einer Lupe könnte ich wohl auch den Globus betrachen.
 }
 
-- ->GlobusBeschreibung
+->GlobusBeschreibung
 
-->->
+- ->->
 
 // Globale Beschreibungen (meist Gegenstände)
 
