@@ -80,7 +80,8 @@ class StoryRunner {
         }
     }
 
-    private parseTags(tags: string[] | null, customClasses: string[]): void {
+    private parseTags(tags: string[] | null, customClasses: string[]): Set<string> {
+        const flags: Set<string> = new Set();
         if (tags) {
             tags.forEach((tag: string) => {
                 const { key, value } = this.processTag(tag);
@@ -90,6 +91,9 @@ class StoryRunner {
                         break;
                     case 'tag':
                         this.tag = value;
+                        break;
+                    case 'flag':
+                        flags.add(value.toLowerCase());
                         break;
                     // Ignore global tags - ink will repeat thems
                     case 'title':
@@ -101,6 +105,7 @@ class StoryRunner {
                 }
             });
         }
+        return flags;
     }
 
     private renderParagraphs(): void {
@@ -125,14 +130,16 @@ class StoryRunner {
         let lastTag: string | null = null;
         this.story.currentChoices.forEach((choice: any) => {
             const customClasses: string[] = [];
-            this.parseTags(choice.tags, customClasses);
-            console.log(choice.text, this.tag);
+            const flags = this.parseTags(choice.tags, customClasses);
 
             const cel = document.createElement(this.tag);
             cel.classList.add("blend");
             cel.classList.add("choice");
             let prefix = ""
-            if (this.tag == "span" && lastTag == "span") {
+            if (flags.has("space")) {
+                prefix = " ";
+            }
+            else if (this.tag == "span" && lastTag == "span") {
                 prefix = ", ";
             }
             lastTag = this.tag;

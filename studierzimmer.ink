@@ -38,6 +38,9 @@ INCLUDE src/frontend_func.ink
 
 // ------ Funktionen
 
+=== function benutzer(gegenstand) ===
+~ return einfach == 0 && Tasche == Ts_Giesskanne && (einfach || benutze != Ts_Giesskanne)
+
 === function bereit(gegenstand) ===
 ~ return Tasche == gegenstand && (einfach || benutze == gegenstand)
 
@@ -255,9 +258,11 @@ So vieles hängt an ihr, die Leben uns bringt,<br>Die Jugendstil-Giesskanne, die
 In meiner Tasche ist: #TAG: span
 
 + {zeige(Ts_Giesskanne)} [{cap(taw(Ts_Giesskanne))}]
-    ~ benutze = Ts_Giesskanne
     {GiesskannBeschreibung()}
+    ->e->Meta
++ {benutzer(Ts_Giesskanne)} [(benutze) #FLAG: space]
     {einfach == 0: {in} die Giesskanne.}
+    ~ benutze = Ts_Giesskanne
     ->e->Meta
 + {benutze != Ts_Nichts && einfach == 0} [Ich lege {taw(Ts_Giesskanne)} weg. #TAG: p]
     <b>▼</b> Ich lege {taw(Ts_Giesskanne)} weg.
