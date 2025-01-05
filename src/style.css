@@ -212,6 +212,21 @@ a:hover {
 }
 
 @media (max-width: 450px) {
+    html {
+        font-size: 8pt;
+    }
+    #controls {
+        font-size: 1.125rem;
+    }
+}
+
+@media (max-width: 400px) {
+    html {
+        font-size: 7pt;
+    }
+    #controls {
+        font-size: 1.25rem;
+    }
     .save-space {
         display: none;
     }

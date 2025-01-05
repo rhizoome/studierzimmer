@@ -32,7 +32,7 @@ VAR audio_standuhr_gespielt = 0
 VAR einfach = 0
 CONST ib = "<b>❯</b> Ich betrachte"
 CONST in = "<b>▲</b> Ich benutze"
-CONST event_wahrscheinlichkeit = 25 // In prozent
+CONST event_wahrscheinlichkeit = 10 // In prozent
 CONST debug = 0
 
 INCLUDE src/frontend.ink
@@ -223,9 +223,9 @@ So vieles hängt an ihr, die Leben uns bringt,<br>Die Jugendstil-Giesskanne, die
 
 === Meta ===
 
-Meine Tasche enthält: #TAG: span
+Meine Tasche enthält:
 
-- (Basis)
+- (Basis) #TAG: span
 
 + {zeige(Ts_Giesskanne)} [{cap(taw(Ts_Giesskanne))}] ->SchauGiesskanne->e->Basis
 + {benutzer(Ts_Giesskanne)} [(benutze) #FLAG: space]
