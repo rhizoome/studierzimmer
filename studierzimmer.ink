@@ -77,7 +77,7 @@ INCLUDE src/frontend_func.ink
     - !audio_standuhr_gespielt:
         ~ audio_standuhr_gespielt = 1
         ~ stopSound("loops")
-        ~ playSoundV("events-fg", "chime", 0.25)
+        ~ playSoundV("events-fg", "chime", 0.2)
 }
 
 === function play_musicS(name) ===
@@ -114,9 +114,9 @@ INCLUDE src/frontend_func.ink
 
 Benutze einen Kopfhörer. Zuerst wirst Du leise Klänge hören, stelle die Lautstärke so ein, dass Du diese nur leise hörst.
 
-+ Ich will Rätsel lösen
++ Ich will Rätsel lösen.
     ~ einfach = 0
-+ Ich will die Fantasiewelt geniessen
++ Ich will die Fantasiewelt geniessen.
     ~ einfach = 1
 
 - ~ keepSoundAlive()

@@ -135,11 +135,9 @@ class Slot {
             this.nodesSet.delete(this.nodes);
         }
         nodes.source.start(startStartTime);
-        if (context.state == "running") {
-            this.nodesSet.add(nodes);
-            this.nodes = nodes;
-            this.sound = sound;
-        }
+        this.nodesSet.add(nodes);
+        this.nodes = nodes;
+        this.sound = sound;
     }
 
     public stop(): number {

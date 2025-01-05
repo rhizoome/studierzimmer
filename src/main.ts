@@ -15,6 +15,7 @@ class StoryRunner {
     private loadPromises: Record<string, Promise<void>> = {};
     private activityTracker: Activity = new Activity();
     private tag: string = "p";
+    private trusted: boolean = false;
 
     constructor(storyContent: any) {
         this.story = new inkjs.Story(storyContent);
@@ -155,9 +156,9 @@ class StoryRunner {
             const ael = cel.querySelector("a");
             if (ael) {
                 ael.addEventListener("click", (event: MouseEvent) => {
+                    this.trusted = true;
                     this.removeAll(".choice");
                     this.story.ChooseChoiceIndex(choice.index);
-                    this.savePoint = this.story.state.toJson();
                     this.run();
                 });
             }
@@ -259,6 +260,9 @@ class StoryRunner {
     }
 
     private playSound(slotName: string, soundName: string, volume: number = 1, crossFade: boolean = true): void {
+        if (!this.trusted) {
+            return;
+        }
         (async () => {
             const name = slotName + soundName;
             await this.loadPromises[name];
