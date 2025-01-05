@@ -2,6 +2,25 @@
 # AUTHOR: Jean-Louis Fuchs
 # THEME: dark
 
+/* Regeln
+- Räume zeigen beim Betreten eine Zutandszeile, falls es keinen Zustand gibt, kann man auch nichts anzeigen, je nach Geschack
+- Navigations- und Inhaltszeilen heben das wichtige Wort mit Fett hervor, anderer Text im normalfall nicht
+- Nutze Symbole
+- Sound von Events spielt nur einmal
+- Sound von Aktionen jedes mal
+- Musik stoppt Vordergrund
+*/
+
+/* Ideen
+- begiessen als music-once mit Musik
+- nach dem man begiesst hat, kann man "Dinge" in der grösse ändern in dem man Sie ins Modell des Zimmer legt oder daraus hinaus nimmt
+- gib eine Option zum begissen der anderen Globen, aber mache es nicht: "Keine Umweltkatastrophe auslösen"
+*/
+
+/* Todo
+- Entferne Giesskanne aus Tasche
+*/
+
 LIST Moden = Mo_Dunkel, Mo_Hell
 LIST Ton = To_Schwarz, To_Weiss, To_Duester, To_Sonne, To_Dunkl
 LIST GlobusSchalter = (GS_Erde), GS_Scheibenwelt, GS_Studierzimmer
@@ -35,80 +54,7 @@ INCLUDE src/frontend.ink
 ->Ankunft
 
 INCLUDE src/frontend_func.ink
-
-// ------ Funktionen
-
-=== function benutzer(gegenstand) ===
-~ return einfach == 0 && Tasche == Ts_Giesskanne && (einfach || benutze != Ts_Giesskanne)
-
-=== function bereit(gegenstand) ===
-~ return Tasche == gegenstand && (einfach || benutze == gegenstand)
-
-=== function zeige(gegenstand) ===
-~ return Tasche == Ts_Giesskanne && (einfach || benutze != Ts_Giesskanne)
-
-=== function mw(wort) ===
-{ wort:
-- To_Schwarz: {modus == Mo_Dunkel:schwarz|weiss}
-- To_Weiss: {modus == Mo_Dunkel:weiss|schwarz}
-- To_Duester: {modus == Mo_Dunkel:düster|hell}
-- else: ERROR
-}
-
-=== function tw(wort) ===
-{ wort:
-- Ts_Giesskanne: ~ return "Giesskanne"
-- Ts_Meta: ~ return "<b>Tasche</b>"
-- else: ~ return "ERROR"
-}
-
-=== function taw(wort) ===
-{ wort:
-- Ts_Giesskanne: ~ return "die Giesskanne"
-- Ts_Meta: ~ return "die Tasche"
-- else: ~ return "ERROR"
-}
-
-=== function iwm(wort) ===
-<b>❮</b> Ich lenke meine Aufmerksamkeit {wort} weg.
-
-=== function standuhr_schlagen() ===
-{ 
-    - !audio_standuhr_gespielt:
-        ~ audio_standuhr_gespielt = 1
-        ~ stopSound("loops")
-        ~ playSoundV("events-fg", "chime", 0.2)
-}
-
-=== function play_musicS(name) ===
-~ stopGroup("foreground")
-~ playSoundS("music-once", name)
-
-=== function play_musicV(name, volume) ===
-~ stopGroup("foreground")
-~ playSoundV("music-once", name, volume)
-
-// ------ Events
-
-=== function music_loop() ===
-{ hasFrontend() == 1 && currentSound("music-once") == "":
-    { currentSound("music-loop") != "teppich":
-        ~ playSoundV("music-loop", "teppich", 0.02)
-    }
-}
-
-=== e ===
-~ keepSoundAlive()
-{
-    - RANDOM(0, 100) <= event_wahrscheinlichkeit:
-    { shuffle:
-        - Die letzen Sandkörner einer Sanduhr auf dem Regal links von mir läuft aus. Einen Moment später verschwindet die Sanduhr. # CLASS: event
-        - {standuhr_schlagen()} Die grosse Standuhr aus {modus == Mo_Dunkel:dunkelm|hellem} Holz schlägt, darauf folgt ohrenbetäubende Stille. # CLASS: event
-    }
-}
-~ music_loop()
-
-- ->->
+INCLUDE funktionen.ink
 
 === Ankunft ===
 
@@ -217,6 +163,12 @@ Die Lampe ist {lampe_an:an|aus}.
 
 - ->->
 
+= Leuchten
+
+{lampe_an: {modus == Mo_Dunkel:Die Schreibtischlampe strahlt weisses, farbloses Licht aus.|Die Schreibtischlampe leuchtet nun Schwarz und saugt die Helligkeit auf.}}
+
+- ->->
+
 = Globus
 
 Auf dem Sockel des Globus gibt es einen Schalter mit folgenden Positionen: <b>Erdenwelt</b>, <b>Scheibenwelt</b>, <b>Studierzimmer</b>
@@ -242,12 +194,6 @@ Auf dem Sockel des Globus gibt es einen Schalter mit folgenden Positionen: <b>Er
 
 - ->->
 
-= Leuchten
-
-{lampe_an: {modus == Mo_Dunkel:Die Schreibtischlampe strahlt weisses, farbloses Licht aus.|Die Schreibtischlampe leuchtet nun Schwarz und saugt die Helligkeit auf.}}
-
-- ->->
-
 = SchauGlobus
 
 {GlobusSchalter:
@@ -261,7 +207,7 @@ Auf dem Sockel des Globus gibt es einen Schalter mit folgenden Positionen: <b>Er
 
 - ->->
 
-// Globale Beschreibungen
+// Globale Beschreibungen (meist Gegenstände)
 
 === SchauGiesskanne ===
 
@@ -291,23 +237,3 @@ Meine Tasche enthäl:t #TAG: span
 + [<b>▼</b> Zurück #TAG: p] {iwm("von der Lampe")}
 
 - ->->
-
-/* Regeln
-- Räume zeigen beim Betreten eine Zutandszeile, falls es keinen Zustand gibt, kann man auch nichts anzeigen, je nach geschack
-- Navigations- und Inhaltszeilen heben das wichtige Wort mit Fett hervor, anderer Text im Normalfall nicht
-- Nutze Symbole
-- Sound von Events spielt nur einmal
-- Sound von Aktionen jedes mal
-- Musik stoppt Fordergrund
-*/
-
-/* Ideen
-
-- begiessen als music-once mit Musik
-- nach dem man begiesst hat, kann man "Dinge" in der grösse ändern in dem man Sie ins Modell des Zimmer legt oder daraus hinaus nimmt
-- gib eine Option zum begissen der anderen Globen, aber mache es nicht
-*/
-
-/* Todo
-- Entferne Giesskanne aus Tasche
-*/
