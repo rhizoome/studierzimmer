@@ -95,9 +95,10 @@ class Slot {
             console.error(`Sound "${name}" in slot "${this.name}" does not exist.`);
             return;
         }
+        const context = this.context;
         const buffer = await sound.getBuffer();
         const stopTime = this.stop();
-        const nodes = new SlotNodes(buffer, this.context);
+        const nodes = new SlotNodes(buffer, context);
         nodes.source.loop = this.loop;
         nodes.source.onended = () => {
             if (this.nodes === nodes) {
@@ -115,7 +116,7 @@ class Slot {
         let startTime;
         let startStartTime;
         if (crossFade) {
-            startTime = this.context.currentTime;
+            startTime = context.currentTime;
             // Safari Bug (delay) - otherweise we'd use startTime
             startStartTime = 0;
         } else {
@@ -134,9 +135,11 @@ class Slot {
             this.nodesSet.delete(this.nodes);
         }
         nodes.source.start(startStartTime);
-        this.nodesSet.add(nodes);
-        this.nodes = nodes;
-        this.sound = sound;
+        if (context.state == "running") {
+            this.nodesSet.add(nodes);
+            this.nodes = nodes;
+            this.sound = sound;
+        }
     }
 
     public stop(): number {

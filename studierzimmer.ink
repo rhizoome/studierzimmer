@@ -77,7 +77,7 @@ INCLUDE src/frontend_func.ink
     - !audio_standuhr_gespielt:
         ~ audio_standuhr_gespielt = 1
         ~ stopSound("loops")
-        ~ playSoundV("events-fg", "chime", 0.5)
+        ~ playSoundV("events-fg", "chime", 0.25)
 }
 
 === function play_musicS(name) ===
@@ -91,7 +91,7 @@ INCLUDE src/frontend_func.ink
 // ------ Events
 
 === function music_loop() ===
-{ hasFrontend() == 1 && currentSound("music-once") =="":
+{ hasFrontend() == 1 && currentSound("music-once") == "":
     { currentSound("music-loop") != "teppich":
         ~ playSoundV("music-loop", "teppich", 0.02)
     }
@@ -150,13 +150,14 @@ Es riecht nach dem Raum zwischen den Gedanken, dieser Leere in der sich selbst G
 Im {modus == Mo_Dunkel:düstern|hellen} Studierzimmer sehe ich: <b>einen Schreibtisch</b>.
 
 + [Schreibtisch]
-    {ib} <b>den Schreibtisch</b>. In die äusseren Ränder des Schreibtisches aus {mw(To_Schwarz)}em Marmor sind feine, organische Verzierungen gemeisselt. Der Rand der Tischplatte zeigt Gravuren, die an mystische Inschriften erinnern. ->e->Schreibtisch->e->Studierzimmer
+    {ib} <b>den Schreibtisch</b>.
+    In die äusseren Ränder des Schreibtisches aus {mw(To_Schwarz)}em Marmor sind feine, organische Verzierungen gemeisselt. Der Rand der Tischplatte zeigt Gravuren, die an mystische Inschriften erinnern. ->e->Schreibtisch->e->Studierzimmer
 + [{tw(Ts_Meta)}] <b>❯</b> {tw(Ts_Meta)} ->e->Meta->e->Studierzimmer
 + TODO: Ausgang ->e->END
     
 === Schreibtisch ===
 
-Auf dem Tisch sehe ich: <b>einen Knopf</b>, <b>eine Lampe</b> und <b>einen Globus</b>.
+Auf dem <b>Schreibtisch</b> sehe ich: <b>einen Knopf</b>, <b>eine Lampe</b> und <b>einen Globus</b>.
 
 + [Knopf]
     {ib} <b>den Knopf</b>.
