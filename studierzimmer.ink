@@ -226,6 +226,12 @@ Die Lampe ist {lampe_an:an|aus}.
 
 - ->->
 
+= SchauSchrank
+
+Der Schrank wurde von jemandem erbaut, der sonst nur Panzer baut. Die Konstruktion würde einen Bombenangriff überstehen. Dies muss auch dem Erbauer aufgefallen sein, denn er versuchte, mit filigranen Schnitzereien zu kompensieren. Jedoch muss er "filigran" ausschließlich aus dem Wörterbuch kennen, denn die Schnitzereien sind zwar fein, aber nicht zierlich. Vielmehr sind sie geometrisch und starr. Dieser Schrank ist das ideale Hochzeitsgeschenk für einen Borg.
+
+- ->->
+
 // Globale Beschreibungen (meist Gegenstände)
 
 === SchauGiesskanne ===

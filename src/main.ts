@@ -16,6 +16,7 @@ class StoryRunner {
     private activityTracker: Activity = new Activity();
     private tag: string = "p";
     private trusted: boolean = false;
+    private saveSlot: HTMLSelectElement;
 
     constructor(storyContent: any) {
         this.story = new inkjs.Story(storyContent);
@@ -37,6 +38,7 @@ class StoryRunner {
         this.storyContainer = document.querySelector("#target") as HTMLElement;
         this.rewindButton = document.querySelector("#rewind") as HTMLElement;
         this.saveButton = document.querySelector("#save") as HTMLElement;
+        this.saveSlot = document.querySelector("#saveSlot") as HTMLSelectElement;
         this.loadButton = document.querySelector("#load") as HTMLElement;
         const scroll = document.querySelector("#outerContainer") as HTMLElement;
         scroll.addEventListener("scroll", this.activityTracker.track.bind(this.activityTracker));
@@ -177,7 +179,6 @@ class StoryRunner {
             this.save();
         });
         this.loadButton.addEventListener("click", (event: MouseEvent) => {
-            this.load();
             this.init();
         });
     }
@@ -190,14 +191,16 @@ class StoryRunner {
     }
 
     public load(): void {
-        const savedState = window.localStorage.getItem('save-state');
+        const savedState = window.localStorage.getItem('save-state' + this.saveSlot.value);
         if (savedState) {
             this.story.state.LoadJson(savedState);
+        } else {
+            this.story.ResetState();
         }
     }
 
     private save(): void {
-        window.localStorage.setItem('save-state', this.savePoint);
+        window.localStorage.setItem('save-state' + this.saveSlot.value, this.savePoint);
     }
 
     private show(): void {
