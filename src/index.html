@@ -73,9 +73,17 @@
     <script defer>
         Studierzimmer.runStory();
     </script>
-    <noscript>
-        <img src="https://shn.1042.ch/ingress/2bb52056-76c0-4940-bc21-c44780a7e9b9/pixel.gif">
-    </noscript>
-    <script defer src="https://shn.1042.ch/ingress/2bb52056-76c0-4940-bc21-c44780a7e9b9/script.js"></script>
+    <script>
+    (function() {
+        const currentUrl = window.location.href;
+        if (!currentUrl.includes("127.0.0.1") && !currentUrl.includes("localhost")) {
+            const scriptElement = document.createElement('script');
+            scriptElement.defer = true;
+            scriptElement.src = "https://shn.1042.ch/ingress/2bb52056-76c0-4940-bc21-c44780a7e9b9/script.js";
+
+            document.body.appendChild(scriptElement);
+        }
+    })();
+</script>
 </body>
 </html>
