@@ -29,6 +29,7 @@ jobs:
           make
           rsync -a ./build/ ./output/stage/
           find ./output/stage/
+          cp ./build/favicon.png ./output
 
 
       - name: Build release
