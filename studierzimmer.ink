@@ -32,6 +32,7 @@ VAR audio_standuhr_gespielt = 0
 VAR einfach = 0
 VAR globus_untersucht = 0
 VAR globus_begossen = 0
+VAR schrank_offen = 0
 CONST ib = "<b>❯</b> Ich betrachte"
 CONST in = "<b>▲</b> Ich benutze"
 CONST event_wahrscheinlichkeit = 10 // In prozent
@@ -99,6 +100,7 @@ Im {modus == Mo_Dunkel:düstern|hellen} Studierzimmer sehe ich: <b>einen Schreib
 
 + [<b>◉</b> Beschreibung] ->Schau->e->Basis
 + [Schreibtisch] {ib} <b>den Schreibtisch</b>. ->e->Schreibtisch->e->Studierzimmer
++ [Schrank] {ib} <b>den Schrank</b>. ->e->Schrank->e->Studierzimmer
 + [{tw(Ts_Meta)}] <b>❯ {tw(Ts_Meta)}</b> ->e->Meta->e->Studierzimmer
 // + TODO: Ausgang ->e->END
 
@@ -107,7 +109,28 @@ Im {modus == Mo_Dunkel:düstern|hellen} Studierzimmer sehe ich: <b>einen Schreib
 Ein hoher {mw(To_Duester)}er Raum leuchtet in den schrillsten Grautönen, die man sich nur vorstellen kann. Es fühlt sich an, als wäre ich in einem Comic von Frank Miller oder Mike Mignola. An den Wänden ragen majestätische Säulen, die verschlungene, mystische Ornamente kleiden.
 
 - ->->
-    
+
+=== Schrank ===
+
+Die <b>Schranktüre</b> ist <b>{schrank_offen:offen|geschlossen}</b>.
+
+-  (Basis)
+
++ [<b>◉</b> Beschreibung]  ->Schau->e->Basis
++ <b>↯</b> Ich {schrank_offen:schliesse|öffne} den Schrank.
+    // TODO: sound
+    ~ schrank_offen = ! schrank_offen
+     ->Schrank
++ [<b>▼</b> Zurück] {iwm("vom Schrank")}
+
+- ->->
+
+= Schau
+
+Der Schrank wurde von jemandem erbaut, der sonst nur Panzer baut. Die Konstruktion würde einen Bombenangriff überstehen. Dies muss auch dem Erbauer aufgefallen sein, denn er versuchte, mit filigranen Schnitzereien zu kompensieren. Jedoch muss er "filigran" ausschließlich aus dem Wörterbuch kennen, denn die Schnitzereien sind zwar fein, aber nicht zierlich. Vielmehr sind sie geometrisch und starr. Dieser Schrank verkörpert das ideale Hochzeitsgeschenk für einen Borg.
+
+- ->->
+
 === Schreibtisch ===
 
 Auf dem Schreibtisch sehe ich: <b>einen Knopf</b>, <b>eine Lampe</b> und <b>einen Globus</b>.
@@ -130,8 +153,7 @@ Die Gravur des Knopfs zeigt das Symbol {modus == Mo_Dunkel:der Sonne|des Mondes}
 -  (KnopfBasis)
 
 + [<b>◉</b> Beschreibung] In der rechten äusseren Ecke des Schreibtischs ist ein Knopf eingelegt. ->e->KnopfBasis
-+ [Ich drücke auf {modus == Mo_Dunkel:die Sonne|den Mond}.]
-    <b>↯</b> Ich drücke auf {modus == Mo_Dunkel:die Sonne|den Mond}.
++ <b>↯</b> Ich drücke auf {modus == Mo_Dunkel:die Sonne|den Mond}.
     {
         - modus == Mo_Dunkel:
             ~ playSoundS("events", "modus-switch-rev")
@@ -155,8 +177,7 @@ Die Lampe ist {lampe_an:an|aus}.
 -  (LampeBasis)
 
 + [<b>◉</b> Beschreibung] Es ist eine Bankerlampe mit einem Schirm aus grellgrauem ungrünen Glas. Wie der Schirm in dieser Monochromen Welt so überzeugt grün sein kann, ist mir unerklärbar. ->e->LampeBasis
-+ [Ich schalte Lampe {lampe_an:aus|an}.]
-    <b>↯</b> Ich schalte Lampe {lampe_an:aus|an}
++ <b>↯</b> Ich schalte Lampe {lampe_an:aus|an}.
     ~ playSoundS("events", "snap")
     ~ lampe_an = !lampe_an
      ->Leuchten->e->LampeBasis
@@ -223,12 +244,6 @@ Die Lampe ist {lampe_an:an|aus}.
 }
 
 ->GlobusBeschreibung
-
-- ->->
-
-= SchauSchrank
-
-Der Schrank wurde von jemandem erbaut, der sonst nur Panzer baut. Die Konstruktion würde einen Bombenangriff überstehen. Dies muss auch dem Erbauer aufgefallen sein, denn er versuchte, mit filigranen Schnitzereien zu kompensieren. Jedoch muss er "filigran" ausschließlich aus dem Wörterbuch kennen, denn die Schnitzereien sind zwar fein, aber nicht zierlich. Vielmehr sind sie geometrisch und starr. Dieser Schrank stellt das ideale Hochzeitsgeschenk für einen Borg dar.
 
 - ->->
 
