@@ -24,7 +24,7 @@
 LIST Moden = Mo_Dunkel, Mo_Hell
 LIST Ton = To_Schwarz, To_Weiss, To_Duester, To_Sonne, To_Dunkl
 LIST GlobusSchalter = (GS_Erde), GS_Scheibenwelt, GS_Studierzimmer
-LIST Tasche = (Ts_Giesskanne), Ts_Nichts, Ts_Meta
+LIST Tasche = Ts_Giesskanne, Ts_Nichts, Ts_Meta
 VAR benutze = Ts_Nichts
 VAR modus = Mo_Dunkel
 VAR lampe_an = 0
@@ -114,9 +114,16 @@ Ein hoher {mw(To_Duester)}er Raum leuchtet in den schrillsten Grautönen, die ma
 
 Die <b>Schranktüre</b> ist <b>{schrank_offen:offen|geschlossen}</b>.
 
--  (Basis)
+-  (Basis) #TAG: span
 
-+ [<b>◉</b> Beschreibung]  ->Schau->e->Basis
+{schrank_offen: Der <b>Schrank</b> enthält:}
+
++ {schrank_offen && Tasche != Ts_Giesskanne} [{cap(taw(Ts_Giesskanne))}] ->SchauGiesskanne->e->Basis
++ {schrank_offen && Tasche != Ts_Giesskanne} [(nimm) #FLAG: space]
+    {einfach == 0: {in} die <b>Giesskanne</b>.}
+    ~ Tasche += Ts_Giesskanne
+    ->e->Basis
++ [<b>◉</b> Beschreibung #TAG: p] ->Schau->e->Basis
 + <b>↯</b> Ich {schrank_offen:schliesse|öffne} den Schrank.
     // TODO: sound
     ~ schrank_offen = ! schrank_offen
@@ -264,13 +271,15 @@ So vieles hängt an ihr, die Leben uns bringt,<br>Die Jugendstil-Giesskanne, die
 
 === Meta ===
 
-Meine Tasche enthält:
+// TODO huch wo kommt die Tasche her
 
 - (Basis) #TAG: span
 
+Meine Tasche enthält:
+
 + {zeige(Ts_Giesskanne)} [{cap(taw(Ts_Giesskanne))}] ->SchauGiesskanne->e->Basis
 + {benutzer(Ts_Giesskanne)} [(benutze) #FLAG: space]
-    {einfach == 0: {in} die <b>Giesskanne</b>.}
+    {in} die <b>Giesskanne</b>.
     ~ benutze = Ts_Giesskanne
     ->e->Basis
 + {benutze != Ts_Nichts && einfach == 0} [Ich lege {taw(Ts_Giesskanne)} weg. #TAG: p]
