@@ -121,6 +121,7 @@ Die <b>Schranktüre</b> ist <b>{schrank_offen:offen|geschlossen}</b>.
     // TODO: sound
     ~ schrank_offen = ! schrank_offen
      ->Schrank
++ [{tw(Ts_Meta)}] <b>❯ {tw(Ts_Meta)}</b> ->e->Meta->e->Schrank
 + [<b>▼</b> Zurück] {iwm("vom Schrank")}
 
 - ->->
