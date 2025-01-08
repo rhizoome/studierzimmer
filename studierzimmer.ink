@@ -31,6 +31,10 @@
     - Entwicklung (Shō): Der Spieler fängt an das Ziel zu verstehen und sammelt Information und Gegenstände um das Problem zu lösen.
     - Wendepunkt (Ten):  Das grosse Rätsel, dass das Problem löst.
     - Schlussfolgerung (Ketsu): Cinematischer humorfoller Abspann, vielleicht mit beiden TODen, die sich etwas necken.
+- Techniken
+    - Versuchen eine emergente Geschichte zu erzählen (ähnlich wie Myst), aber nicht zu strikt sein, wenn es klassisches Erzählen braucht, dann ist es halt so.
+    - Lasse den Spieler durch auswahl bestimmter Optionen den Charakter der Spielfigure definieren. Nicht versuchen dies in die Rätsel einfliess zu lassen, der Aufwand wäre zu gross. Aber wenn sich eine Kleinigkeit ergibt...
+    - Personen für Dialoge: Die kleine Person, Kosmische-Verwaltung übers "Telefon" mit Warteschlange und allen Schickanen die die Bürokratie zu bieten hat.
 */
 
 LIST Moden = Mo_Dunkel, Mo_Hell
