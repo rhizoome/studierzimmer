@@ -33,9 +33,10 @@ VAR einfach = 0
 VAR globus_untersucht = 0
 VAR globus_begossen = 0
 VAR schrank_offen = 0
+VAR tuer_gesehen = 0
 CONST ib = "<b>❯</b> Ich betrachte"
 CONST in = "<b>▲</b> Ich benutze"
-CONST event_wahrscheinlichkeit = 10 // In prozent
+CONST event_wahrscheinlichkeit = 100 // In prozent
 CONST debug = 0
 
 INCLUDE src/frontend.ink
@@ -94,13 +95,14 @@ Es riecht nach dem Raum zwischen den Gedanken, dieser Leere in der sich selbst G
 
 === Studierzimmer ===
 
-Im {modus == Mo_Dunkel:düstern|hellen} Studierzimmer sehe ich: <b>einen Schreibtisch</b>.
+Im {modus == Mo_Dunkel:düstern|hellen} Studierzimmer sehe ich: <b>einen Schreibtisch</b>, <b>einen Schrank</b>{tuer_gesehen: und <b>eine Tür</b>}.
 
 -  (Basis)
 
 + [<b>◉</b> Beschreibung] ->Schau->e->Basis
 + [Schreibtisch] {ib} <b>den Schreibtisch</b>. ->e->Schreibtisch->e->Studierzimmer
 + [Schrank] {ib} <b>den Schrank</b>. ->e->Schrank->e->Studierzimmer
++ {tuer_gesehen} [Tür] Huch, die Tür ist wieder verschwunden, nachdem die kleine Person den Raum verliess. ->e->Basis
 + [{tw(Ts_Meta)}] <b>❯ {tw(Ts_Meta)}</b> ->e->Meta->e->Studierzimmer
 // + TODO: Ausgang ->e->END
 
