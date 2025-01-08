@@ -22,6 +22,17 @@
 - Den "Eine Türe erscheint" Event irgendwann in der Geschichte bestimmt auslösen (nicht nur per Zufall)
 */
 
+/* Outline
+- Grosses Ziel: Der Spieler muss die Rätsel und Geheimnisse des Zimmers lösen, um ein kosmisches Gleichgewicht wiederherzustellen.
+    - Was ist passiert? Die Kosmische-Verwaltung (Bürokratie) von Scheibenwelt und Erdenwelt wurde aus Kostengründen zusammengelegt. Dabei wurde versehentlich auch TOD zusammengelegt. Jedoch ist dies nicht möglich, der humorvolle TOD der Scheibenwelt würde auf der Erdenwelt zu viel Chaos anrichten.
+    - Wie muss es wiederhergestellt werden? TOD muss wieder gespalten werden. Dabei wird wohl der Globus eine zentrale Rolle spielen. Vielleicht kann man einen Avatar von TOD und weitere Anspielungen auf Computertechnik (im Moment haben wir ja Rekursion, Dark/Light-Mode) dazu um TOD zu trennen.
+- Teile Kishōtenketsu
+    - Einführung (Ki)- Die Welt ohne jegliches Ziel erforschen. Soll mein ursprüngliches Ziel einer Simulation von TODs Studierzimmer entsprechen.
+    - Entwicklung (Shō): Der Spieler fängt an das Ziel zu verstehen und sammelt Information und Gegenstände um das Problem zu lösen.
+    - Wendepunkt (Ten):  Das grosse Rätsel, dass das Problem löst.
+    - Schlussfolgerung (Ketsu): Cinematischer humorfoller Abspann, vielleicht mit beiden TODen, die sich etwas necken.
+*/
+
 LIST Moden = Mo_Dunkel, Mo_Hell
 LIST Ton = To_Schwarz, To_Weiss, To_Duester, To_Sonne, To_Dunkl
 LIST GlobusSchalter = (GS_Erde), GS_Scheibenwelt, GS_Studierzimmer
