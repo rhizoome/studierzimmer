@@ -14,7 +14,7 @@ class StoryRunner {
     private mixer: Mixer = new Mixer();
     private loadPromises: Record<string, Promise<void>> = {};
     private activityTracker: Activity = new Activity();
-    private tag: string = "p";
+    private ctag: string = "p";
     private trusted: boolean = false;
     private saveSlot: HTMLSelectElement;
 
@@ -92,8 +92,8 @@ class StoryRunner {
                     case 'class':
                         customClasses.push(value);
                         break;
-                    case 'tag':
-                        this.tag = value;
+                    case 'ctag':
+                        this.ctag = value;
                         break;
                     case 'flag':
                         flags.add(value.toLowerCase());
@@ -131,23 +131,22 @@ class StoryRunner {
     }
 
     private renderChoices(): void {
-        const last = this.story.currentChoices.slice(-1)[0];
         let lastTag: string | null = null;
         this.story.currentChoices.forEach((choice: any) => {
             const customClasses: string[] = [];
             const flags = this.parseTags(choice.tags, customClasses);
 
-            const cel = document.createElement(this.tag);
+            const cel = document.createElement(this.ctag);
             cel.classList.add("blend");
             cel.classList.add("choice");
             let prefix = ""
             if (flags.has("space")) {
                 prefix = " ";
             }
-            else if (this.tag == "span" && lastTag == "span") {
+            else if (this.ctag == "span" && lastTag == "span") {
                 prefix = ", ";
             }
-            lastTag = this.tag;
+            lastTag = this.ctag;
             cel.innerHTML = prefix + `<a>${choice.text}</a>`;
             customClasses.forEach(cls => cel.classList.add(cls));
             cel.classList.add("hide");

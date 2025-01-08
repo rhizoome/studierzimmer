@@ -194,6 +194,13 @@ body.switched {
     cursor: pointer;
 }
 
+.title {
+    letter-spacing: 2px;
+    font-size: 2.5rem;
+    font-style: italic bold;
+    color: var(--text-color);
+}
+
 b {
     color: var(--bold-color);
 }

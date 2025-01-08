@@ -35,6 +35,7 @@
     - Versuchen eine emergente Geschichte zu erzählen (ähnlich wie Myst), aber nicht zu strikt sein, wenn es klassisches Erzählen braucht, dann ist es halt so.
     - Lasse den Spieler durch auswahl bestimmter Optionen den Charakter der Spielfigure definieren. Nicht versuchen dies in die Rätsel einfliess zu lassen, der Aufwand wäre zu gross. Aber wenn sich eine Kleinigkeit ergibt...
     - Personen für Dialoge: Die kleine Person, Kosmische-Verwaltung übers "Telefon" mit Warteschlange und allen Schickanen die die Bürokratie zu bieten hat.
+    - Wenn genügend Zeit vorhanden: Nutze psychoakustik (Eigen plugin) um Sound im Raum zu platzieren
 */
 
 LIST Moden = Mo_Dunkel, Mo_Hell
@@ -107,7 +108,9 @@ Es riecht nach dem Raum zwischen den Gedanken, dieser Leere in der sich selbst G
  * "Träume ich?" [] {beschreibung} "DU TRÄUMST NICHT."
  * "Bin ich tot?" [] {beschreibung} "DU BIST NICHT TOT."
 
-- ->Studierzimmer.Schau->e->Studierzimmer
+- Teil Eins - Entdeckung #CLASS: title
+
+->Studierzimmer.Schau->e->Studierzimmer
 
 === Studierzimmer ===
 
