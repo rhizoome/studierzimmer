@@ -56,12 +56,12 @@
 }
 
 === function globus_spielen() ===
-~ stopSound("music-loop")
 {audio_globus_lang_gespielt:
     {currentSound("events-fg") != "globus_lang":
         ~ playSoundS("events", "globus")
     }
 - else:
+    ~ stopSound("music-loop")
     ~ audio_globus_lang_gespielt = 1
     ~ playSoundS("events-fg", "globus_lang")
 }

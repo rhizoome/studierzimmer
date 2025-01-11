@@ -81,6 +81,7 @@ INCLUDE src/frontend.ink
 ~ loadSound("events", "giessen", "./243776__bastipictures__close-rain-and-thunder.mp3")
 ~ loadSound("events-fg", "globus_lang", "./717147__Globus.mp3")
 ~ loadSound("events", "globus", "./717147__Globus-Short.mp3")
+~ loadSound("events", "take", "./428748__taking.mp3")
 
 ->Ankunft
 
@@ -153,6 +154,7 @@ Die <b>Schranktüre</b> ist <b>{schrank_offen:offen|geschlossen}</b>.
 + {schrank_offen && Tasche != Ts_Giesskanne} [(nimm) #FLAG: space]
     {einfach == 0: {in} die <b>Giesskanne</b>.}
     ~ Tasche += Ts_Giesskanne
+    ~ playSoundV("events", "take", 0.25)
     ->e->Basis
 + [<b>◉</b> Beschreibung #CTAG: p] ->Schau->e->Basis
 + <b>↯</b> Ich {schrank_offen:schliesse|öffne} den Schrank.
@@ -335,10 +337,12 @@ Meine Tasche enthält:
 + {benutzer(Ts_Giesskanne)} [(benutze) #FLAG: space]
     {in} die <b>Giesskanne</b>.
     ~ benutze = Ts_Giesskanne
+    ~ playSoundV("events", "take", 0.25)
     ->e->Basis
 + {benutze != Ts_Nichts && einfach == 0} [Ich lege {taw(Ts_Giesskanne)} weg. #CTAG: p]
     <b>▼</b> Ich lege <b>{taw(Ts_Giesskanne)}</b> weg.
     ~ benutze = Ts_Nichts
+    ~ playSoundV("events", "take", 0.25)
     ->e->Basis
 + [<b>▼</b> Zurück #CTAG: p] {iwm("von der Lampe")}
 
