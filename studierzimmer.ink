@@ -72,6 +72,7 @@ INCLUDE src/frontend.ink
 ~ loadSound("events", "modus-switch-rev", "./613405__modus-switch-rev.mp3")
 ~ loadSound("events", "snap", "./477519__snap-button.mp3")
 ~ loadSound("events", "tasche", "./458372__Tasche.mp3")
+~ loadSound("events", "tasche-zu", "./467604__close-bag.mp3")
 ~ loadSound("events-fg", "chime", "./163371__chime_reverse.mp3")
 ~ loadSound("events-fg", "open-close", "./661997__Open-Close.mp3")
 ~ loadSound("events", "schrank-open", "./367423__108784__Schrank_Open.mp3")
@@ -326,7 +327,7 @@ So vieles hängt an ihr, die Leben uns bringt,<br>Die Jugendstil-Giesskanne, die
 
 // TODO huch wo kommt die Tasche her
 
-~ playSoundV("events", "tasche", 0.1)
+~ playSoundV("events", "tasche", 0.4)
 
 - (Basis) #CTAG: span
 
@@ -344,5 +345,7 @@ Meine Tasche enthält:
     ~ playSoundV("events", "take", 0.25)
     ->e->Basis
 + [<b>▼</b> Zurück #CTAG: p] {iwm("von der Lampe")}
+
+~ playSoundV("events", "tasche-zu", 0.1)
 
 - ->->
