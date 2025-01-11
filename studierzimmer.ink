@@ -55,7 +55,7 @@ VAR schrank_offen = 0
 VAR tuer_gesehen = 0
 CONST ib = "<b>❯</b> Ich betrachte"
 CONST in = "<b>▲</b> Ich benutze"
-CONST event_wahrscheinlichkeit = 20 // In prozent
+CONST event_wahrscheinlichkeit = 10 // In Prozent
 CONST debug = 1
 
 INCLUDE src/frontend.ink
