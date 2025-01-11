@@ -70,6 +70,8 @@ INCLUDE src/frontend.ink
 ~ loadSound("events", "modus-switch-rev", "./613405__modus-switch-rev.mp3")
 ~ loadSound("events-fg", "chime", "./163371__chime_reverse.mp3")
 ~ loadSound("events", "snap", "./477519__snap-button.mp3")
+~ loadSound("events", "schrank-open", "./367423__108784__Schrank_Open.mp3")
+~ loadSound("events", "schrank-close", "./367423__108784__Schrank_Close.mp3")
 ~ loadSound("events-fg", "giessen", "./243776__bastipictures__close-rain-and-thunder.mp3")
 
 ->Ankunft
@@ -98,7 +100,7 @@ Benutze einen Kopfhörer. Zuerst wirst Du leise Klänge hören, stelle die Lauts
 
 * [Ich stecke die Hand nochmal hinein.]
     ~ music_loop()
-    ~ playSoundV("loops", "tick", 0.02)
+    ~ playSoundV("loops", "tick", 0.015)
 - "Oh Schreck, wo bin ich?"
 
 Es riecht nach dem Raum zwischen den Gedanken, dieser Leere in der sich selbst Geruch einsam fühlt.
@@ -135,7 +137,7 @@ Ein hoher {mw(To_Duester)}er Raum leuchtet in den schrillsten Grautönen, die ma
 
 Die <b>Schranktüre</b> ist <b>{schrank_offen:offen|geschlossen}</b>.
 
--  (Basis) #TAG: span
+-  (Basis) #CTAG: span
 
 {schrank_offen: Der <b>Schrank</b> enthält:}
 
@@ -144,10 +146,15 @@ Die <b>Schranktüre</b> ist <b>{schrank_offen:offen|geschlossen}</b>.
     {einfach == 0: {in} die <b>Giesskanne</b>.}
     ~ Tasche += Ts_Giesskanne
     ->e->Basis
-+ [<b>◉</b> Beschreibung #TAG: p] ->Schau->e->Basis
++ [<b>◉</b> Beschreibung #CTAG: p] ->Schau->e->Basis
 + <b>↯</b> Ich {schrank_offen:schliesse|öffne} den Schrank.
     // TODO: sound
     ~ schrank_offen = ! schrank_offen
+    {schrank_offen:
+        ~ playSoundS("events", "schrank-open")
+    - else:
+        ~ playSoundS("events", "schrank-close")
+    }
      ->Schrank
 + [{tw(Ts_Meta)}] <b>❯ {tw(Ts_Meta)}</b> ->e->Meta->e->Schrank
 + [<b>▼</b> Zurück] {iwm("vom Schrank")}
@@ -306,7 +313,7 @@ So vieles hängt an ihr, die Leben uns bringt,<br>Die Jugendstil-Giesskanne, die
 
 // TODO huch wo kommt die Tasche her
 
-- (Basis) #TAG: span
+- (Basis) #CTAG: span
 
 Meine Tasche enthält:
 
@@ -315,10 +322,10 @@ Meine Tasche enthält:
     {in} die <b>Giesskanne</b>.
     ~ benutze = Ts_Giesskanne
     ->e->Basis
-+ {benutze != Ts_Nichts && einfach == 0} [Ich lege {taw(Ts_Giesskanne)} weg. #TAG: p]
++ {benutze != Ts_Nichts && einfach == 0} [Ich lege {taw(Ts_Giesskanne)} weg. #CTAG: p]
     <b>▼</b> Ich lege <b>{taw(Ts_Giesskanne)}</b> weg.
     ~ benutze = Ts_Nichts
     ->e->Basis
-+ [<b>▼</b> Zurück #TAG: p] {iwm("von der Lampe")}
++ [<b>▼</b> Zurück #CTAG: p] {iwm("von der Lampe")}
 
 - ->->
