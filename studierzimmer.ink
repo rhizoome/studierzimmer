@@ -71,6 +71,7 @@ INCLUDE src/frontend.ink
 ~ loadSound("events-fg", "chime", "./163371__chime_reverse.mp3")
 ~ loadSound("events", "snap", "./477519__snap-button.mp3")
 ~ loadSound("events", "tasche", "./458372__Tasche.mp3")
+~ loadSound("events", "open-close", "./661997__Open-Close.mp3")
 ~ loadSound("events", "schrank-open", "./367423__108784__Schrank_Open.mp3")
 ~ loadSound("events", "schrank-close", "./367423__108784__Schrank_Close.mp3")
 ~ loadSound("events-fg", "giessen", "./243776__bastipictures__close-rain-and-thunder.mp3")
@@ -299,6 +300,7 @@ So vieles hängt an ihr, die Leben uns bringt,<br>Die Jugendstil-Giesskanne, die
 - ->->
 
 === TuerErscheint ===
+~ playSoundS("events", "open-close")
 {tuer_gesehen == 0:
     - Eine Tür erscheint.
     Eine kleine Person mit spitzen Ohren tritt ins Studierzimmer, sieht Dich und gibt einen Aufschrei der Verwunderung von sich: "Oh nein, oh nein," und murmelt zu sich selbst, "das ist nicht der HERR. Welche wunderliche Idee hat ER nun wieder? Was soll ich nur machen? Das geht bestimmt nicht gut. Soll nun diese Person seine Aufgaben übernehmen? Oh nein, oh nein. Bestimmt darf ich am Ende das Raumzeitgefüge wiederherstellen. Was soll ich nur machen?". Für einen Moment scheint die kleine Figur Dich anzusprechen wollen, doch dann besinnt sie sich eines Bessern und verschwindet durch die Tür.
