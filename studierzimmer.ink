@@ -300,12 +300,12 @@ So vieles hängt an ihr, die Leben uns bringt,<br>Die Jugendstil-Giesskanne, die
 - ->->
 
 === TuerErscheint ===
-~ playSoundS("events", "open-close")
 {tuer_gesehen == 0:
-    - Eine Tür erscheint.
-    Eine kleine Person mit spitzen Ohren tritt ins Studierzimmer, sieht Dich und gibt einen Aufschrei der Verwunderung von sich: "Oh nein, oh nein," und murmelt zu sich selbst, "das ist nicht der HERR. Welche wunderliche Idee hat ER nun wieder? Was soll ich nur machen? Das geht bestimmt nicht gut. Soll nun diese Person seine Aufgaben übernehmen? Oh nein, oh nein. Bestimmt darf ich am Ende das Raumzeitgefüge wiederherstellen. Was soll ich nur machen?". Für einen Moment scheint die kleine Figur Dich anzusprechen wollen, doch dann besinnt sie sich eines Bessern und verschwindet durch die Tür.
+    ~ playSoundS("events", "open-close")
+    Eine Tür erscheint. #CLASS: event
+    Eine kleine Person mit spitzen Ohren tritt ins Studierzimmer, sieht Dich und gibt einen Aufschrei der Verwunderung von sich: "Oh nein, oh nein," und murmelt zu sich selbst, "das ist nicht der HERR. Welche wunderliche Idee hat ER nun wieder? Was soll ich nur machen? Das geht bestimmt nicht gut. Soll nun diese Person seine Aufgaben übernehmen? Oh nein, oh nein. Bestimmt darf ich am Ende das Raumzeitgefüge wiederherstellen. Was soll ich nur machen?". Für einen Moment scheint die kleine Figur Dich anzusprechen wollen, doch dann besinnt sie sich eines Bessern und verschwindet durch die Tür. #CLASS: event
     ~ tuer_gesehen = 1
-    - else:
+- else:
         ~ debug_out("Else for tuer_gesehen happened")
         ->e->
 }
