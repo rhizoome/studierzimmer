@@ -56,6 +56,7 @@
 }
 
 === function globus_spielen() ===
+~ stopSound("music-loop")
 {audio_globus_lang_gespielt:
     {currentSound("events-fg") != "globus_lang":
         ~ playSoundS("events", "globus")
