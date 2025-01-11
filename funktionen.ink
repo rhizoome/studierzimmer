@@ -43,11 +43,16 @@
 <b>❮</b> Ich lenke meine Aufmerksamkeit <b>{wort}</b> weg.
 
 === function standuhr_schlagen() ===
-{ 
-    - !audio_standuhr_gespielt:
-        ~ audio_standuhr_gespielt = 1
-        ~ stopSound("loops")
-        ~ playSoundV("events-fg", "chime", 0.2)
+{- !audio_standuhr_gespielt:
+    ~ audio_standuhr_gespielt = 1
+    ~ stopSound("loops")
+    ~ playSoundV("events-fg", "chime", 0.2)
+}
+
+=== function sanduhr_verschwinden() ===
+{- !audio_sanduhr_gespielt != 0:
+    ~ audio_sanduhr_gespielt = 1
+    ~ playSoundV("events-fg", "sanduhr", 0.2)
 }
 
 === function play_musicS(name) ===
@@ -72,7 +77,7 @@
 {
     - RANDOM(0, 100) <= event_wahrscheinlichkeit:
     { shuffle:
-        - Die letzen Sandkörner einer Sanduhr auf dem Regal links von mir läuft aus. Einen Moment später verschwindet die Sanduhr. #CLASS: event
+        - {sanduhr_verschwinden()} Die letzen Sandkörner einer Sanduhr auf dem Regal links von mir läuft aus. Einen Moment später verschwindet die Sanduhr. #CLASS: event
         - {standuhr_schlagen()} Die grosse Standuhr aus {modus == Mo_Dunkel:dunkelm|hellem} Holz schlägt, darauf folgt ohrenbetäubende Stille. #CLASS: event
         - ->TuerErscheint->
     }
