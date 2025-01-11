@@ -54,7 +54,7 @@ VAR tuer_gesehen = 0
 CONST ib = "<b>❯</b> Ich betrachte"
 CONST in = "<b>▲</b> Ich benutze"
 CONST event_wahrscheinlichkeit = 20 // In prozent
-CONST debug = 0
+CONST debug = 1
 
 INCLUDE src/frontend.ink
 
@@ -70,6 +70,7 @@ INCLUDE src/frontend.ink
 ~ loadSound("events", "modus-switch-rev", "./613405__modus-switch-rev.mp3")
 ~ loadSound("events-fg", "chime", "./163371__chime_reverse.mp3")
 ~ loadSound("events", "snap", "./477519__snap-button.mp3")
+~ loadSound("events", "tasche", "./458372__Tasche.mp3")
 ~ loadSound("events", "schrank-open", "./367423__108784__Schrank_Open.mp3")
 ~ loadSound("events", "schrank-close", "./367423__108784__Schrank_Close.mp3")
 ~ loadSound("events-fg", "giessen", "./243776__bastipictures__close-rain-and-thunder.mp3")
@@ -312,6 +313,8 @@ So vieles hängt an ihr, die Leben uns bringt,<br>Die Jugendstil-Giesskanne, die
 === Meta ===
 
 // TODO huch wo kommt die Tasche her
+
+~ playSoundV("events", "tasche", 0.1)
 
 - (Basis) #CTAG: span
 
