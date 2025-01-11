@@ -78,7 +78,7 @@
 // ------ Events
 
 === function music_loop() ===
-{ hasFrontend() == 1 && currentSound("music-once") == "":
+{ hasFrontend() == 1 && currentSound("music-once") == "" && currentSound("events-fg") == "":
     { currentSound("music-loop") != "teppich":
         ~ playSoundV("music-loop", "teppich", 0.02)
     }
