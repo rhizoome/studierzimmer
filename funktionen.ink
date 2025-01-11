@@ -52,7 +52,7 @@
 === function sanduhr_verschwinden() ===
 {- !audio_sanduhr_gespielt != 0:
     ~ audio_sanduhr_gespielt = 1
-    ~ playSoundV("events-fg", "sanduhr", 0.2)
+    ~ playSoundS("events-fg", "sanduhr")
 }
 
 === function play_musicS(name) ===
