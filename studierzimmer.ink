@@ -55,8 +55,8 @@ VAR schrank_offen = 0
 VAR tuer_gesehen = 0
 CONST ib = "<b>❯</b> Ich betrachte"
 CONST in = "<b>▲</b> Ich benutze"
-CONST event_wahrscheinlichkeit = 10 // In Prozent
-CONST debug = 1
+CONST event_wahrscheinlichkeit = 15 // In Prozent
+CONST debug = 0
 
 INCLUDE src/frontend.ink
 
@@ -66,7 +66,6 @@ INCLUDE src/frontend.ink
 ~ createSlot("music-once", false, "foreground")
 ~ createSlot("events", false, "")
 ~ createSlot("events-fg", false, "foreground")
-~ createSlot("events-pause", false, "foreground")
 ~ loadSound("music-loop", "teppich", "./teppich.mp3")
 ~ loadSound("loops", "tick", "./163371__tick_reverse.mp3")
 ~ loadSound("events", "modus-switch", "./613405__modus-switch.mp3")

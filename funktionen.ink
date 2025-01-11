@@ -61,7 +61,8 @@
         ~ playSoundS("events", "globus")
     }
 - else:
-    ~ stopSound("music-loop")
+    ~ stopGroup("foreground")
+    ~ stopGroup("loop")
     ~ audio_globus_lang_gespielt = 1
     ~ playSoundS("events-fg", "globus_lang")
 }
