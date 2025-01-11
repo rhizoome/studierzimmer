@@ -150,7 +150,7 @@ class Slot {
         if (this.loop) {
             stopAt = time + this.config.fadeTime;
         } else {
-            stopAt = time + 0.02;
+            stopAt = time + 0.1;
         }
         gain.gain.setValueAtTime(this.volume, time);
         gain.gain.linearRampToValueAtTime(0, stopAt);
