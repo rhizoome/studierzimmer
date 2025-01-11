@@ -47,6 +47,7 @@ VAR modus = Mo_Dunkel
 VAR lampe_an = 0
 VAR audio_standuhr_gespielt = 0
 VAR audio_sanduhr_gespielt = 0
+VAR audio_globus_lang_gespielt = 0
 VAR einfach = 0
 VAR globus_untersucht = 0
 VAR globus_begossen = 0
@@ -65,6 +66,7 @@ INCLUDE src/frontend.ink
 ~ createSlot("music-once", false, "foreground")
 ~ createSlot("events", false, "")
 ~ createSlot("events-fg", false, "foreground")
+~ createSlot("events-pause", false, "foreground")
 ~ loadSound("music-loop", "teppich", "./teppich.mp3")
 ~ loadSound("loops", "tick", "./163371__tick_reverse.mp3")
 ~ loadSound("events", "modus-switch", "./613405__modus-switch.mp3")
@@ -75,8 +77,10 @@ INCLUDE src/frontend.ink
 ~ loadSound("events-fg", "open-close", "./661997__Open-Close.mp3")
 ~ loadSound("events", "schrank-open", "./367423__108784__Schrank_Open.mp3")
 ~ loadSound("events", "schrank-close", "./367423__108784__Schrank_Close.mp3")
-~ loadSound("events-fg", "sanduhr", "416478__low-swoosh.mp3")
+~ loadSound("events-fg", "sanduhr", "./416478__low-swoosh.mp3")
 ~ loadSound("events", "giessen", "./243776__bastipictures__close-rain-and-thunder.mp3")
+~ loadSound("events-fg", "globus_lang", "./717147__Globus.mp3")
+~ loadSound("events", "globus", "./717147__Globus-Short.mp3")
 
 ->Ankunft
 
@@ -243,12 +247,15 @@ Die Lampe ist {lampe_an:an|aus}.
     ->SchauGlobus->e->GlobusBasis
 + {globus_untersucht && GlobusSchalter != GS_Erde} <b>↯</b> Ich schalte den Globus auf <b>Erdenwelt</b>.
     ~ GlobusSchalter = GS_Erde
+    ~ globus_spielen()
     ->SchauGlobus->e->GlobusBasis
 + {globus_untersucht && GlobusSchalter != GS_Scheibenwelt} <b>↯</b> Ich schalte den Globus auf <b>Scheibenwelt</b>.
     ~ GlobusSchalter = GS_Scheibenwelt
+    ~ globus_spielen()
     ->SchauGlobus->e->GlobusBasis
 + {globus_untersucht && GlobusSchalter != GS_Studierzimmer} <b>↯</b> Ich schalte den Globus auf <b>Studierzimmer</b>.
     ~ GlobusSchalter = GS_Studierzimmer
+    ~ globus_spielen()
     ->SchauGlobus->e->GlobusBasis
 + {bereit(Ts_Giesskanne) && GlobusSchalter == GS_Studierzimmer} <b>↯</b> Ich <b>begiesse</b> den Globus mit der Giesskanne.
     In dem Moment beginnt ein Gewitter, ich höre den Regen auf das Studierzimmer prasseln. Diese Welt verwirrt selbst die Götter der Rekursion. Wie kann das sein?

@@ -50,10 +50,21 @@
 }
 
 === function sanduhr_verschwinden() ===
-{- !audio_sanduhr_gespielt != 0:
+{- !audio_sanduhr_gespielt:
     ~ audio_sanduhr_gespielt = 1
     ~ playSoundS("events-fg", "sanduhr")
 }
+
+=== function globus_spielen() ===
+{audio_globus_lang_gespielt:
+    {currentSound("events-fg") != "globus_lang":
+        ~ playSoundS("events", "globus")
+    }
+- else:
+    ~ audio_globus_lang_gespielt = 1
+    ~ playSoundS("events-fg", "globus_lang")
+}
+
 
 === function play_musicS(name) ===
 ~ stopGroup("foreground")
