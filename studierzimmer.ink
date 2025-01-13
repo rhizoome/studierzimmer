@@ -1,6 +1,6 @@
-# TITLE: Studierzimmer
-# AUTHOR: Jean-Louis Fuchs
-# THEME: dark
+#TITLE: Studierzimmer
+#AUTHOR: Jean-Louis Fuchs
+#THEME: dark
 
 /* Regeln
 - Räume zeigen beim Betreten eine Zutandszeile, falls es keinen Zustand gibt, kann man auch nichts anzeigen, je nach Geschack
@@ -8,7 +8,6 @@
 - Nutze Symbole
 - Sound von Events spielt nur einmal
 - Sound von Aktionen jedes mal
-- Musik stoppt Vordergrund
 */
 
 /* Ideen
@@ -18,7 +17,6 @@
 */
 
 /* Todo
-- Entferne Giesskanne aus Tasche
 - Den "Eine Türe erscheint" Event irgendwann in der Geschichte bestimmt auslösen (nicht nur per Zufall)
 */
 
@@ -53,6 +51,7 @@ VAR globus_untersucht = 0
 VAR globus_begossen = 0
 VAR schrank_offen = 0
 VAR tuer_gesehen = 0
+VAR tasche_gesehen = 0
 CONST ib = "<b>❯</b> Ich betrachte"
 CONST in = "<b>▲</b> Ich benutze"
 CONST event_wahrscheinlichkeit = 15 // In Prozent
@@ -173,7 +172,7 @@ Die <b>Schranktüre</b> ist <b>{schrank_offen:offen|geschlossen}</b>.
 
 = Schau
 
-Der Schrank wurde von jemandem erbaut, der sonst nur Panzer baut. Die Konstruktion würde einen Bombenangriff überstehen. Dies muss auch dem Erbauer aufgefallen sein, denn er versuchte, mit filigranen Schnitzereien zu kompensieren. Jedoch muss er "filigran" ausschließlich aus dem Wörterbuch kennen, denn die Schnitzereien sind zwar fein, aber nicht zierlich. Vielmehr sind sie geometrisch und starr. Dieser Schrank verkörpert das ideale Hochzeitsgeschenk für einen Borg.
+Der Schrank wurde von jemandem erbaut, der sonst nur Panzer baut. Die Konstruktion würde einen Bombenangriff überstehen. Dies muss dem Erbauer auch aufgefallen sein, denn er versuchte, mit filigranen Schnitzereien zu kompensieren. Jedoch muss er das Wort "filigran" ausschliesslich aus dem Wörterbuch kennen, denn die Schnitzereien sind zwar fein, aber nicht zierlich. Vielmehr sind sie geometrisch und starr. Dieser Schrank verkörpert das ideale Hochzeitsgeschenk für einen Borg.
 
 - ->->
 
@@ -304,7 +303,7 @@ Die Lampe ist {lampe_an:an|aus}.
 
 Ihre Form, eine Symphonie von Natur und Traum,<br>Ein Tanz der Eleganz, so zart wie ein Baum.<br>Der Ausguss wie ein Schwanenhals, sanft geneigt,<br>Lebensstrom spendend, wo die Blüte gedeiht.
 
-Der Korpus gleicht einem Tropfen so rein,<br>Gefangen in ewigem Raum und Sein.<br>Es spricht von der Zeit, als Kunst die Seele lab,<br>Eine Giesskanne, die dem Garten das Leben gab.
+Der Körper wie ein Tropfen so rein,,<br>Gefangen in ewigem Raum und Sein.<br>Es spricht von der Zeit, als Kunst die Seele lab,<br>Eine Giesskanne, die dem Garten das Leben gab.
 
 So vieles hängt an ihr, die Leben uns bringt,<br>Die Jugendstil-Giesskanne, die Schönheit besingt.
 
@@ -325,7 +324,12 @@ So vieles hängt an ihr, die Leben uns bringt,<br>Die Jugendstil-Giesskanne, die
 
 === Meta ===
 
-// TODO huch wo kommt die Tasche her
+{tasche_gesehen == 0:
+    ~ tasche_gesehen = 1
+    Hoppla, seit wann trage ich eine Kuriertasche? Damit komme ich mir wie ein Archeologe vor. Oh, in der Tasche befindet sich ein Tagebuch.
+}
+
+// TODO Tagebuch zeigt Leistungen (Achievments)
 
 ~ playSoundV("events", "tasche", 0.4)
 
