@@ -56,7 +56,7 @@ VAR tasche_gesehen = 0
 VAR tee_erschienen = 0
 CONST ib = "<b>❯</b> Ich betrachte"
 CONST in = "<b>▲</b> Ich benutze"
-CONST event_wahrscheinlichkeit = 15 // In Prozent
+CONST event_wahrscheinlichkeit = 40 // In Prozent
 CONST debug = 0
 
 INCLUDE src/frontend.ink
