@@ -12,7 +12,7 @@ node_modules:
 	npm ci
 
 attribution_cli:
-	cd src/attribution/ && poetry install
+	cd src/attribution/ && poetry install --without dev,lsp
 
 attribution.json: | attribution_cli
 	cd src/attribution/ && poetry run attribution_cli read $(DIR)/static $(DIR)/attribution.json
@@ -34,4 +34,8 @@ build/main.js: $(TS_FILES) \
 
 .PHONY: clean
 clean:
+	rm -rf build/* temp/* dist/* node_modules
+
+.PHONY: clean_all
+clean_all:
 	rm -rf build/* temp/* dist/* README.md attribution.json node_modules

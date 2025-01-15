@@ -21,12 +21,15 @@ jobs:
         with:
           fetch-depth: 0
 
+      - name: Run image
+        uses: abatilo/actions-poetry@v3
+
       - name: Build stage
         run: |
           git fetch --depth=1 origin stage
           git checkout stage
           mkdir -p ./output/stage/
-          make
+          make clean all
           rsync -a ./build/ ./output/stage/
           find ./output/stage/
           cp ./build/favicon.png ./output
@@ -37,7 +40,7 @@ jobs:
           git fetch --depth=1 origin release
           git checkout release
           mkdir -p ./output/release/
-          make
+          make clean all
           rsync -a ./build/ ./output/release/
           find ./output/release/
 
