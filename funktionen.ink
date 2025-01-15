@@ -45,11 +45,14 @@
 === function iwm(wort) ===
 <b>❮</b> Ich lenke meine Aufmerksamkeit <b>{wort}</b> weg.
 
+=== function tee_giessen() ===
+~ stopSound("loops")
+~ playSoundV("events", "tee", 0.5)
+
 === function schach_spielen() ===
 {- !audio_schach_gespielt:
     ~ audio_schach_gespielt = 1
-    ~ stopSound("loops")
-    ~ playSoundV("events-fg", "schach", 0.5)
+    ~ playSoundV("events", "schach", 0.5)
 }
 
 === function standuhr_schlagen() ===
@@ -103,7 +106,7 @@
         - {sanduhr_verschwinden()} Die letzen Sandkörner einer Sanduhr auf dem Regal links von mir läuft aus. Einen Moment später verschwindet die Sanduhr. #CLASS: event
         - {standuhr_schlagen()} Die grosse Standuhr aus {mmd():dunkelm|hellem} Holz schlägt, darauf folgt ohrenbetäubende Stille. #CLASS: event
         - {schach_spielen()} Plötzlich nehme ich am Rande meines Blickfelds Bewegung wahr. Ich gehe hinüber zum Beistelltisch aus dunklem Holz mit ausladenden Schnitzereien im orientalischen Stil. Darauf steht ein Schachspiel, und die Figuren bewegen sich von selbst. Aber halt? Der Zug von Schwarz ist nicht erlaubt und der nächste Zug von Weiss genauso wenig. Beide Seiten mogeln!  #CLASS: event
-        - TODO Tee macht sich selbst
+        - ->TeeMachtSich->
         - ->TuerErscheint->
     }
 }

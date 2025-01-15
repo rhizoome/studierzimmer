@@ -53,6 +53,7 @@ VAR globus_begossen = 0
 VAR schrank_offen = 0
 VAR tuer_gesehen = 0
 VAR tasche_gesehen = 0
+VAR tee_erschienen = 0
 CONST ib = "<b>❯</b> Ich betrachte"
 CONST in = "<b>▲</b> Ich benutze"
 CONST event_wahrscheinlichkeit = 15 // In Prozent
@@ -80,9 +81,10 @@ INCLUDE src/frontend.ink
 ~ loadSound("events-fg", "sanduhr", "./416478__low-swoosh.mp3")
 ~ loadSound("events", "giessen", "./243776__close-rain-and-thunder.mp3")
 ~ loadSound("events-fg", "globus_lang", "./717147__Globus.mp3")
-~ loadSound("events-fg", "schach", "./733927__Chess.mp3")
+~ loadSound("events", "schach", "./733927__Chess.mp3")
 ~ loadSound("events", "globus", "./717147__Globus-Short.mp3")
 ~ loadSound("events", "take", "./428748__taking.mp3")
+~ loadSound("events", "tee", "./324937__Tea.mp3")
 
 ->Ankunft
 
@@ -320,6 +322,16 @@ So vieles hängt an ihr, die Leben uns bringt,<br>Die Jugendstil-Giesskanne, die
 - else:
         ~ debug_out("Else for tuer_gesehen happened")
         ->e->
+}
+
+- ->->
+
+=== TeeMachtSich ===
+{tee_erschienen == 0:
+    {tee_giessen()} Unvermittelt erscheint eine kleine {mmd():schwarze|weisse} gusseiserne japanische Teekanne. Aus dem Ausguss dampft ein herrlicher Duft von Pfefferminze. Daneben erschent eine {mmd():weisse|schwarze} Tasse mit der Aufschrift: "Unser TOD ist der Beste". Wie von Geisterhand wird der Tee eingeschenkt. #CLASS: event
+    ~ tee_erschienen = 1
+- else:
+    Der Tee wird langsam kalt. Mit einer ruckartigen Bewegung entleert sich die {mmd():weisse|schwarze} Tasse auf den Boden und die Teekanne giesst Tee nach. Merkwürdig, auf dem Boden ist kein Tee zu sehen.
 }
 
 - ->->

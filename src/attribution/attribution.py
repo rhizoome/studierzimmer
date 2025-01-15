@@ -138,7 +138,7 @@ def read(path, file):
     file = Path(file).absolute()
     ids = fetch_ids(path)
     lines = []
-    for id in ids:
+    for id in sorted(ids):
         url = extract_search_result_url(freesound_search_results(id))
         attribution = cache_get(f"{url}attribution/?ajax=1")
         lines.append(extract_html_attribution(attribution))
