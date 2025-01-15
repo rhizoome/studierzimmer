@@ -94,6 +94,10 @@ INCLUDE funktionen.ink
 
 Benutze einen Kopfhörer. Zuerst wirst Du leise Klänge hören, stelle die Lautstärke so ein, dass Du diese nur leise hörst.
 
+<b>Eine interaktive deutsche Fangeschichte.</b> Du kannst das Fandom selbst erraten. Eine interaktive deutsche Fangeschichte. Wenn Du schon einmal vom B-Raum gehört hast, dann schau doch rein.
+
+
+
 + Ich will Rätsel lösen.
     ~ einfach = 0
 + Ich will die Fantasiewelt geniessen.
