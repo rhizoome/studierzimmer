@@ -11,12 +11,11 @@
 */
 
 /* Ideen
-- begiessen als music-once mit Musik
 - nach dem man begiesst hat, kann man "Dinge" in der grösse ändern in dem man Sie ins Modell des Zimmer legt oder daraus hinaus nimmt
-- gib eine Option zum begissen der anderen Globen, aber mache es nicht: "Keine Umweltkatastrophe auslösen"
 */
 
 /* Todo
+- Hotline Rätsel Gegenstände
 - Den "Eine Türe erscheint" Event irgendwann in der Geschichte bestimmt auslösen (nicht nur per Zufall)
 */
 

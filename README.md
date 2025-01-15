@@ -1,3 +1,17 @@
+# Contributing (Beitragen)
+
+- Wenn du neue Inhalte vorschlagen möchtest, beschreibe bitte zuerst in einem
+  Issue, was Du vorhast. Beim Inhalt kann ich sehr sensibel sein, schliesslich ist
+  es meine Vision.
+- Rechtschreibfehler kannst Du jederzeit korrigieren. Bitte bedenke, dass ich
+  Schweizer bin und das Eszett nicht kenne. Eszett wird immer mit einem doppelten
+  S korrigiert.
+- Fehlerkorrekturen nehme ich im in der Regel an, wenn Du Dir unsicher
+  bist, eröffne lieber vorher ein Issue.
+- Anregungen und konstruktive Kritik als Issues sind sehr willkommen.
+- Wenn Dir die interaktive Geschichte nicht gefällt, kannst Du gerne den Code in
+  diesem Repository verwenden, um Deine eigene Geschichte zu erstellen.
+
 # License
 
 ## Story
