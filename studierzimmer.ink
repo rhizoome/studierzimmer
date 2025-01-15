@@ -11,10 +11,15 @@
 */
 
 /* Ideen
+- Nur im Hell Modus ist die Stimme an der Hotline gut gelaunt
+- Damit die Leute nicht im Hell Modus (visuell) sein müssen gibt es eine Inverterbrille
+- Die Inveterbrille ist weggeschlosen
+- Rätsel um etwas zu öffnen wo Zeugs drin ist
 - nach dem man begiesst hat, kann man "Dinge" in der grösse ändern in dem man Sie ins Modell des Zimmer legt oder daraus hinaus nimmt
 */
 
 /* Todo
+- Achievments
 - Hotline Rätsel Gegenstände
 - Den "Eine Türe erscheint" Event irgendwann in der Geschichte bestimmt auslösen (nicht nur per Zufall)
 */
@@ -53,6 +58,8 @@ VAR schrank_offen = 0
 VAR tuer_gesehen = 0
 VAR tasche_gesehen = 0
 VAR tee_erschienen = 0
+VAR bienen_bereit = 0
+VAR bienen_gesehen = 0
 CONST ib = "<b>❯</b> Ich betrachte"
 CONST in = "<b>▲</b> Ich benutze"
 CONST event_wahrscheinlichkeit = 40 // In Prozent
@@ -94,7 +101,7 @@ INCLUDE funktionen.ink
 
 Benutze einen Kopfhörer. Zuerst wirst Du leise Klänge hören, stelle die Lautstärke so ein, dass Du diese nur leise hörst.
 
-<b>Eine interaktive deutsche Fangeschichte.</b> Du kannst das Fandom selbst erraten. Eine interaktive deutsche Fangeschichte. Wenn Du schon einmal vom B-Raum gehört hast, dann schau doch rein.
+<b>Eine deutsche interaktive Fangeschichte.</b> Du kannst das Fandom selbst erraten. Eine interaktive deutsche Fangeschichte. Wenn Du schon einmal vom B-Raum gehört hast, dann schau doch rein.
 
 
 
@@ -164,7 +171,6 @@ Die <b>Schranktüre</b> ist <b>{schrank_offen:offen|geschlossen}</b>.
     ->e->Basis
 + [<b>◉</b> Beschreibung #CTAG: p] ->Schau->e->Basis
 + <b>↯</b> Ich {schrank_offen:schliesse|öffne} den Schrank.
-    // TODO: sound
     ~ schrank_offen = ! schrank_offen
     {schrank_offen:
         ~ playSoundS("events", "schrank-open")
@@ -268,6 +274,7 @@ Die Lampe ist {lampe_an:an|aus}.
 + {bereit(Ts_Giesskanne) && GlobusSchalter == GS_Studierzimmer} <b>↯</b> Ich <b>begiesse</b> den Globus mit der Giesskanne.
     In dem Moment beginnt ein Gewitter, ich höre den Regen auf das Studierzimmer prasseln. Diese Welt verwirrt selbst die Götter der Rekursion. Wie kann das sein?
     ~ globus_begossen = 1
+    ~ bienen_bereit = 1
     {playSoundS("events", "giessen")}
     ->e->GlobusBasis
 + {globus_begossen && bereit(Ts_Giesskanne) && GlobusSchalter == GS_Erde} [<b>↯</b> Ich <b>begiesse</b> den Globus mit der Giesskanne.]

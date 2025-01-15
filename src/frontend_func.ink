@@ -32,7 +32,7 @@
 
 === function currentSound(slot) ===
 ~ debug_out("Checking sound of slot='{slot}'")
-~ return ""
+~ return "none"
 
 === function hasFrontend() ===
 ~ return 0

@@ -1,6 +1,6 @@
 # Studierzimmer
 
-Eine interaktive deutsche Fangeschichte. Du kannst das Fandom selbst erraten.
+Eine deutsche interaktive Fangeschichte. Du kannst das Fandom selbst erraten.
 Wenn Du schon einmal vom B-Raum gehört hast, dann schau doch rein.
 
 ## Contributing (Beitragen)
