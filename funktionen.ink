@@ -1,5 +1,8 @@
 // ------ Funktionen
 
+===function mmd() ===
+~ return modus == Mo_Dunkel
+
 === function schalter_pos(schalter, position, text) ===
 { schalter:
 - position:
@@ -19,9 +22,9 @@
 
 === function mw(wort) ===
 { wort:
-- To_Schwarz: {modus == Mo_Dunkel:schwarz|weiss}
-- To_Weiss: {modus == Mo_Dunkel:weiss|schwarz}
-- To_Duester: {modus == Mo_Dunkel:düster|hell}
+- To_Schwarz: {mmd():schwarz|weiss}
+- To_Weiss: {mmd():weiss|schwarz}
+- To_Duester: {mmd():düster|hell}
 - else: ERROR
 }
 
@@ -41,6 +44,13 @@
 
 === function iwm(wort) ===
 <b>❮</b> Ich lenke meine Aufmerksamkeit <b>{wort}</b> weg.
+
+=== function schach_spielen() ===
+{- !audio_schach_gespielt:
+    ~ audio_schach_gespielt = 1
+    ~ stopSound("loops")
+    ~ playSoundV("events-fg", "schach", 0.5)
+}
 
 === function standuhr_schlagen() ===
 {- !audio_standuhr_gespielt:
@@ -91,8 +101,8 @@
     - RANDOM(0, 100) <= event_wahrscheinlichkeit:
     { shuffle:
         - {sanduhr_verschwinden()} Die letzen Sandkörner einer Sanduhr auf dem Regal links von mir läuft aus. Einen Moment später verschwindet die Sanduhr. #CLASS: event
-        - {standuhr_schlagen()} Die grosse Standuhr aus {modus == Mo_Dunkel:dunkelm|hellem} Holz schlägt, darauf folgt ohrenbetäubende Stille. #CLASS: event
-        - TODO Schach
+        - {standuhr_schlagen()} Die grosse Standuhr aus {mmd():dunkelm|hellem} Holz schlägt, darauf folgt ohrenbetäubende Stille. #CLASS: event
+        - {schach_spielen()} Plötzlich nehme ich am Rande meines Blickfelds Bewegung wahr. Ich gehe hinüber zum Beistelltisch aus dunklem Holz mit ausladenden Schnitzereien im orientalischen Stil. Darauf steht ein Schachspiel, und die Figuren bewegen sich von selbst. Aber halt? Der Zug von Schwarz ist nicht erlaubt und der nächste Zug von Weiss genauso wenig. Beide Seiten mogeln!  #CLASS: event
         - TODO Tee macht sich selbst
         - ->TuerErscheint->
     }

@@ -46,6 +46,7 @@ VAR lampe_an = 0
 VAR audio_standuhr_gespielt = 0
 VAR audio_sanduhr_gespielt = 0
 VAR audio_globus_lang_gespielt = 0
+VAR audio_schach_gespielt = 0
 VAR einfach = 0
 VAR globus_untersucht = 0
 VAR globus_begossen = 0
@@ -77,8 +78,9 @@ INCLUDE src/frontend.ink
 ~ loadSound("events", "schrank-open", "./367423__108784__Schrank_Open.mp3")
 ~ loadSound("events", "schrank-close", "./367423__108784__Schrank_Close.mp3")
 ~ loadSound("events-fg", "sanduhr", "./416478__low-swoosh.mp3")
-~ loadSound("events", "giessen", "./243776__bastipictures__close-rain-and-thunder.mp3")
+~ loadSound("events", "giessen", "./243776__close-rain-and-thunder.mp3")
 ~ loadSound("events-fg", "globus_lang", "./717147__Globus.mp3")
+~ loadSound("events-fg", "schach", "./733927__Chess.mp3")
 ~ loadSound("events", "globus", "./717147__Globus-Short.mp3")
 ~ loadSound("events", "take", "./428748__taking.mp3")
 
@@ -124,7 +126,7 @@ Es riecht nach dem Raum zwischen den Gedanken, dieser Leere in der sich selbst G
 
 === Studierzimmer ===
 
-Im {modus == Mo_Dunkel:düstern|hellen} Studierzimmer sehe ich: <b>einen Schreibtisch</b>, <b>einen Schrank</b>{tuer_gesehen: und <b>eine Tür</b>}.
+Im {mmd():düstern|hellen} Studierzimmer sehe ich: <b>einen Schreibtisch</b>, <b>einen Schrank</b>{tuer_gesehen: und <b>eine Tür</b>}.
 
 -  (Basis)
 
@@ -193,14 +195,14 @@ Auf dem Schreibtisch sehe ich: <b>einen Knopf</b>, <b>eine Lampe</b> und <b>eine
 
 = Knopf
 
-Die Gravur des Knopfs zeigt das Symbol {modus == Mo_Dunkel:der Sonne|des Mondes}.
+Die Gravur des Knopfs zeigt das Symbol {mmd():der Sonne|des Mondes}.
 
 -  (KnopfBasis)
 
 + [<b>◉</b> Beschreibung] In der rechten äusseren Ecke des Schreibtischs ist ein Knopf eingelegt. ->e->KnopfBasis
-+ <b>↯</b> Ich drücke auf {modus == Mo_Dunkel:die Sonne|den Mond}.
++ <b>↯</b> Ich drücke auf {mmd():die Sonne|den Mond}.
     {
-        - modus == Mo_Dunkel:
+        - mmd():
             ~ playSoundS("events", "modus-switch-rev")
             ~ modus = Mo_Hell
             ~ setTheme("light")
@@ -233,7 +235,7 @@ Die Lampe ist {lampe_an:an|aus}.
 
 = Leuchten
 
-{lampe_an: {modus == Mo_Dunkel:Die Schreibtischlampe strahlt weisses, farbloses Licht aus.|Die Schreibtischlampe leuchtet nun Schwarz und saugt die Helligkeit auf.}}
+{lampe_an: {mmd():Die Schreibtischlampe strahlt weisses, farbloses Licht aus.|Die Schreibtischlampe leuchtet nun Schwarz und saugt die Helligkeit auf.}}
 
 - ->->
 
@@ -286,7 +288,7 @@ Die Lampe ist {lampe_an:an|aus}.
     - GS_Erde:
         Der Globus zeigt eine Karte der Erde in vergibten Grautönen, das Meer ist irgendwie in einem blauen Grau gehalten.
     - GS_Scheibenwelt:
-        Aus dem Stockel des Globus ragt eine Stange, die sich in den Bauch einer Schildkröte bohrt. Vier Elefanten auf der Schildkröte tragen eine Scheibe. Ozeane, Berge, Ebenen und alles was eine Welt so braucht in spektakulärer polychromer Farbertracht bilden die Welt. Sie ist das echteste im ganzen Schreibzimmer - ein Moment - über der Scheibe hängen Wolken und sie scheinen sich zu bewegen.
+        Aus dem Sockel des Globus ragt eine Stange, die sich in den Bauch einer Schildkröte bohrt. Vier Elefanten auf der Schildkröte tragen eine Scheibe. Ozeane, Berge, Ebenen und alles, was eine Welt so braucht, erstrahlen in spektakulär polychromer Farbenpracht. Sie ist das Echteste im ganzen Schreibzimmer. Ein Moment - über der Scheibe hängen Wolken und sie scheinen sich zu bewegen.
     - GS_Studierzimmer:
         Der Globus zeigt dieses Zimmer in Puppenhausegrösse. Zwei Seiten und die Decke sind aus Glas, damit man das Innenleben betrachen kann. Darin stehe ich. Mit einer Lupe könnte ich wohl auch den Globus betrachen.
 }
@@ -303,7 +305,7 @@ Die Lampe ist {lampe_an:an|aus}.
 
 Ihre Form, eine Symphonie von Natur und Traum,<br>Ein Tanz der Eleganz, so zart wie ein Baum.<br>Der Ausguss wie ein Schwanenhals, sanft geneigt,<br>Lebensstrom spendend, wo die Blüte gedeiht.
 
-Der Körper wie ein Tropfen so rein,,<br>Gefangen in ewigem Raum und Sein.<br>Es spricht von der Zeit, als Kunst die Seele lab,<br>Eine Giesskanne, die dem Garten das Leben gab.
+Der Körper steht fällt ein Tropfen so rein,,<br>Gefangen in ewigem Raum und Sein.<br>Es spricht von der Zeit, als Kunst die Seele lab,<br>Eine Giesskanne, die dem Garten das Leben gab.
 
 So vieles hängt an ihr, die Leben uns bringt,<br>Die Jugendstil-Giesskanne, die Schönheit besingt.
 

@@ -5,3 +5,4 @@
 .DS_Store
 auto-backups
 **/bounce/.counts/**
+__pycache__

@@ -23,4 +23,16 @@ This is standard rust-lang style dual-licensing. Google what it means if you wan
 
 ## Third party assets
 
-See [Attribution](./Attribution.md)
+- <a href="https://freesound.org/people/SoundFlakes/sounds/416478/">Low_Swoosh - 7.wav</a> by <a href="https://freesound.org/people/SoundFlakes/">SoundFlakes</a> | License: <a href="https://creativecommons.org/licenses/by/4.0/">Attribution 4.0</a>
+- <a href="https://freesound.org/people/bastipictures/sounds/243776/">close rain and thunder</a> by <a href="https://freesound.org/people/bastipictures/">bastipictures</a> | License: <a href="http://creativecommons.org/publicdomain/zero/1.0/">Creative Commons 0</a>
+- <a href="https://freesound.org/people/joedeshon/sounds/163371/">grandfather_clock_chime_one_quarter.wav</a> by <a href="https://freesound.org/people/joedeshon/">joedeshon</a> | License: <a href="https://creativecommons.org/licenses/by/4.0/">Attribution 4.0</a>
+- <a href="https://freesound.org/people/TriqyStudio/sounds/467604/">OpenBag.wav</a> by <a href="https://freesound.org/people/TriqyStudio/">TriqyStudio</a> | License: <a href="https://creativecommons.org/licenses/by/4.0/">Attribution 4.0</a>
+- <a href="https://freesound.org/people/tim.kahn/sounds/108784/">cupboard door squeaks.wav</a> by <a href="https://freesound.org/people/tim.kahn/">tim.kahn</a> | License: <a href="https://creativecommons.org/licenses/by/4.0/">Attribution 4.0</a>
+- <a href="https://freesound.org/people/Joao_Janz/sounds/477519/">Amplifier Snap Button 1_9</a> by <a href="https://freesound.org/people/Joao_Janz/">Joao_Janz</a> | License: <a href="http://creativecommons.org/publicdomain/zero/1.0/">Creative Commons 0</a>
+- <a href="https://freesound.org/people/JJTaynos/sounds/733927/">Chess Pieces Move (Close)</a> by <a href="https://freesound.org/people/JJTaynos/">JJTaynos</a> | License: <a href="http://creativecommons.org/publicdomain/zero/1.0/">Creative Commons 0</a>
+- <a href="https://freesound.org/people/staticdistance/sounds/717147/">Short Sand Beach: Waves 4</a> by <a href="https://freesound.org/people/staticdistance/">staticdistance</a> | License: <a href="http://creativecommons.org/publicdomain/zero/1.0/">Creative Commons 0</a>
+- <a href="https://freesound.org/people/giddster/sounds/661997/">Door opening and closing (basement outer door)</a> by <a href="https://freesound.org/people/giddster/">giddster</a> | License: <a href="http://creativecommons.org/publicdomain/zero/1.0/">Creative Commons 0</a>
+- <a href="https://freesound.org/people/pauliperez1999/sounds/428748/">taking a paper 2</a> by <a href="https://freesound.org/people/pauliperez1999/">pauliperez1999</a> | License: <a href="http://creativecommons.org/licenses/by/3.0/">Attribution 3.0</a>
+- <a href="https://freesound.org/people/magedu/sounds/367423/">door_lock_open.wav</a> by <a href="https://freesound.org/people/magedu/">magedu</a> | License: <a href="https://creativecommons.org/licenses/by/4.0/">Attribution 4.0</a>
+- <a href="https://freesound.org/people/detamine/sounds/458372/">Bag_04.wav</a> by <a href="https://freesound.org/people/detamine/">detamine</a> | License: <a href="http://creativecommons.org/publicdomain/zero/1.0/">Creative Commons 0</a>
+- <a href="https://freesound.org/people/josheb_policarpio/sounds/613405/">Button 6</a> by <a href="https://freesound.org/people/josheb_policarpio/">josheb_policarpio</a> | License: <a href="https://creativecommons.org/licenses/by/4.0/">Attribution 4.0</a>
