@@ -102,11 +102,14 @@
 ~ keepSoundAlive()
 ~ music_loop()
 ~ temp mach_events = 1
-{bienen_bereit && currentSound("events") != "giessen":
+{bienen_bereit > 1:
+    ~ bienen_bereit -= 1
+}
+{bienen_bereit == 1 || (bienen_bereit > 2 && bienen_bereit < 6 && currentSound("events-fg") != "giessen"):
     ~ mach_events = 0
     ~ bienen_bereit = 0
     ~ bienen_gesehen = 1
-    Aufgrund des schlechten Wetters kehrt ein Schwarm Bienen in den Bienenkorb direkt neben dem Schrank zurück. Die Bienen fliegen die Formation Sense. Sie bestehen eigentlich nur aus ihren {mmd():pechschwarzen|schneeweissen} Streifen und einer {mmd():schneeweissen|pechschwarzen} Wolke darin. "Der TOD der Bienen", denke ich unweigerlich. Aus einer unendlichen Entfernung - die so weit weg ist, dass es sich wie aus jedem meiner Knochen anfühlt - höre ich: "MIT VERLAUB, DER TOD DES SCHWARMS."
+    {playSoundS("events-fg2", "bienen")} Aufgrund des schlechten Wetters kehrt ein Schwarm Bienen in den Bienenkorb direkt neben dem Schrank zurück. Die Bienen fliegen die Formation Sense. Sie bestehen eigentlich nur aus ihren {mmd():pechschwarzen|schneeweissen} Streifen und einer {mmd():schneeweissen|pechschwarzen} Wolke darin. "Der TOD der Bienen", denke ich unweigerlich. Aus einer unendlichen Entfernung - die so weit weg ist, dass es sich wie aus jedem meiner Knochen anfühlt - höre ich: "MIT VERLAUB, DER TOD DES SCHWARMS."  #CLASS: event
 }
 {
     - mach_events && RANDOM(0, 100) <= event_wahrscheinlichkeit:

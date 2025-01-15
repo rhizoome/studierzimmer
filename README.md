@@ -1,13 +1,16 @@
 # Studierzimmer
 
-Eine interaktive deutsche Fangeschichte. Du kannst das Fandom selbst erraten.
+Eine deutsche interaktive Fangeschichte. Du kannst das Fandom selbst erraten.
 Wenn Du schon einmal vom B-Raum gehört hast, dann schau doch rein.
 
 ## Contributing (Beitragen)
 
-- Wenn Du neue Inhalte vorschlagen möchtest, beschreibe bitte zuerst in einem
-  Issue, was Du vorhast. Beim Inhalt kann ich sehr sensibel sein, schliesslich ist
-  es meine Vision.
+Spiele am besten erst die Geschichte durch, bevor du ans Beitragen denkst, sonst
+verdirbst Du Dir den Spass.
+
+- Wenn Du neue Inhalte bauen möchtest, beschreibe bitte zuerst in einem
+  Issue, was Du vorhast. Beim Inhalt kann ich sehr sensibel sein. Ich empfehle
+  stattdessen nur einen Vorschlag zu machen, schliesslich ist es meine Vision.
 - Rechtschreibfehler kannst Du jederzeit korrigieren. Bitte bedenke, dass ich
   Schweizer bin und das Eszett nicht kenne. Eszett wird immer mit einem doppelten
   S korrigiert.
@@ -55,4 +58,5 @@ This is standard rust-lang style dual-licensing. Google what it means if you wan
 - <a href="https://freesound.org/people/josheb_policarpio/sounds/613405/">Button 6</a> by <a href="https://freesound.org/people/josheb_policarpio/">josheb_policarpio</a> | License: <a href="https://creativecommons.org/licenses/by/4.0/">Attribution 4.0</a>
 - <a href="https://freesound.org/people/giddster/sounds/661997/">Door opening and closing (basement outer door)</a> by <a href="https://freesound.org/people/giddster/">giddster</a> | License: <a href="http://creativecommons.org/publicdomain/zero/1.0/">Creative Commons 0</a>
 - <a href="https://freesound.org/people/staticdistance/sounds/717147/">Short Sand Beach: Waves 4</a> by <a href="https://freesound.org/people/staticdistance/">staticdistance</a> | License: <a href="http://creativecommons.org/publicdomain/zero/1.0/">Creative Commons 0</a>
+- <a href="https://freesound.org/people/Benboncan/sounds/73370/">Bees.wav</a> by <a href="https://freesound.org/people/Benboncan/">Benboncan</a> | License: <a href="https://creativecommons.org/licenses/by/4.0/">Attribution 4.0</a>
 - <a href="https://freesound.org/people/JJTaynos/sounds/733927/">Chess Pieces Move (Close)</a> by <a href="https://freesound.org/people/JJTaynos/">JJTaynos</a> | License: <a href="http://creativecommons.org/publicdomain/zero/1.0/">Creative Commons 0</a>

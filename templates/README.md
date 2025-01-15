@@ -5,9 +5,12 @@ Wenn Du schon einmal vom B-Raum gehört hast, dann schau doch rein.
 
 ## Contributing (Beitragen)
 
-- Wenn Du neue Inhalte vorschlagen möchtest, beschreibe bitte zuerst in einem
-  Issue, was Du vorhast. Beim Inhalt kann ich sehr sensibel sein, schliesslich ist
-  es meine Vision.
+Spiele am besten erst die Geschichte durch, bevor du ans Beitragen denkst, sonst
+verdirbst Du Dir den Spass.
+
+- Wenn Du neue Inhalte bauen möchtest, beschreibe bitte zuerst in einem
+  Issue, was Du vorhast. Beim Inhalt kann ich sehr sensibel sein. Ich empfehle
+  stattdessen nur einen Vorschlag zu machen, schliesslich ist es meine Vision.
 - Rechtschreibfehler kannst Du jederzeit korrigieren. Bitte bedenke, dass ich
   Schweizer bin und das Eszett nicht kenne. Eszett wird immer mit einem doppelten
   S korrigiert.
