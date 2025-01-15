@@ -16,6 +16,8 @@
 - Die Inveterbrille ist weggeschlosen
 - Rätsel um etwas zu öffnen wo Zeugs drin ist
 - nach dem man begiesst hat, kann man "Dinge" in der grösse ändern in dem man Sie ins Modell des Zimmer legt oder daraus hinaus nimmt
+- Auf dem Bienstock gibt es eine Pinzette
+- Damit kann man einen Safe verkleinern und vergrössern
 */
 
 /* Todo
@@ -43,7 +45,7 @@
 LIST Moden = Mo_Dunkel, Mo_Hell
 LIST Ton = To_Schwarz, To_Weiss, To_Duester, To_Sonne, To_Dunkl
 LIST GlobusSchalter = (GS_Erde), GS_Scheibenwelt, GS_Studierzimmer
-LIST Tasche = Ts_Giesskanne, Ts_Nichts, Ts_Meta
+LIST Tasche = Ts_Giesskanne, Ts_Pinzette, Ts_Nichts, Ts_Meta
 VAR benutze = Ts_Nichts
 VAR modus = Mo_Dunkel
 VAR lampe_an = 0
@@ -62,6 +64,7 @@ VAR bienen_bereit = 0
 VAR bienen_gesehen = 0
 CONST ib = "<b>❯</b> Ich betrachte"
 CONST in = "<b>▲</b> Ich benutze"
+CONST inn = "<b>▲</b> Ich nehme"
 CONST event_wahrscheinlichkeit = 20 // In Prozent
 CONST debug = 0
 
@@ -149,6 +152,7 @@ Im {mmd():düstern|hellen} Studierzimmer sehe ich: <b>einen Schreibtisch</b>, <b
 + [Schreibtisch] {ib} <b>den Schreibtisch</b>. ->e->Schreibtisch->e->Studierzimmer
 + [Schrank] {ib} <b>den Schrank</b>. ->e->Schrank->e->Studierzimmer
 + {tuer_gesehen} [Tür] Huch, die Tür ist wieder verschwunden, nachdem die kleine Person den Raum verliess. ->e->Basis
++ {bienen_gesehen} [Bienenkorb] {ib} <b>Bienenkorb</b> ->e->Bienenkorb->Studierzimmer
 + [{tw(Ts_Meta)}] <b>❯ {tw(Ts_Meta)}</b> ->e->Meta->e->Studierzimmer
 // + TODO: Ausgang ->e->END
 
@@ -166,12 +170,12 @@ Die <b>Schranktüre</b> ist <b>{schrank_offen:offen|geschlossen}</b>.
 
 {schrank_offen: Der <b>Schrank</b> enthält:}
 
-+ {schrank_offen && Tasche != Ts_Giesskanne} [{cap(taw(Ts_Giesskanne))}] ->SchauGiesskanne->e->Basis
-+ {schrank_offen && Tasche != Ts_Giesskanne} [(nimm) #FLAG: space]
-    {einfach == 0: {in} die <b>Giesskanne</b>.}
++ {schrank_offen && Tasche !? Ts_Giesskanne} [Eine Giesskanne]  ->SchauGiesskanne->e->Basis
++ {schrank_offen && Tasche !? Ts_Giesskanne} [(nimm) #FLAG: space] {inn} die <b>Giesskanne</b>.
     ~ Tasche += Ts_Giesskanne
     ~ playSoundV("events", "take", 0.25)
     ->e->Basis
++ {schrank_offen && Tasche ? Ts_Giesskanne} [Nichts #FLAG: no_click]
 + [<b>◉</b> Beschreibung #CTAG: p] ->Schau->e->Basis
 + <b>↯</b> Ich {schrank_offen:schliesse|öffne} den Schrank.
     ~ schrank_offen = ! schrank_offen
@@ -312,7 +316,31 @@ Die Lampe ist {lampe_an:an|aus}.
 
 - ->->
 
+=== Bienenkorb ===
+
+Neben dem Bienenkorb liegt:
+
+-  (Basis) #CTAG: span
+
++ {Tasche !? Ts_Pinzette} [Eine Pinzette] ->SchauPinzette->e->Basis
++ {Tasche !? Ts_Pinzette} [(nimm) #FLAG: space] {inn} die <b>Pinzette</b>.
+    ~ Tasche += Ts_Pinzette
+    ~ playSoundV("events", "take", 0.25)
+    ->e->Basis
++ {Tasche ? Ts_Pinzette} [Nichts #FLAG: no_click]
++ [<b>◉</b> Beschreibung #CTAG: p] TODO ->e->Basis
++ [{tw(Ts_Meta)}] <b>❯ {tw(Ts_Meta)}</b> ->e->Meta->e->Schreibtisch
++ [<b>▼</b> Zurück] {iwm("vom Schreibtisch")}
+
+- ->->
+
 // Globale Beschreibungen (meist Gegenstände)
+
+=== SchauPinzette ===
+
+A TODO Pinzette
+
+- ->->
 
 === SchauGiesskanne ===
 
@@ -364,14 +392,20 @@ So vieles hängt an ihr, die Leben uns bringt,<br>Die Jugendstil-Giesskanne, die
 
 Meine Tasche enthält:
 
-+ {zeige(Ts_Giesskanne)} [{cap(taw(Ts_Giesskanne))}] ->SchauGiesskanne->e->Basis
++ {zeige(Ts_Giesskanne)} [Eine Gieskanne] ->SchauGiesskanne->e->Basis
 + {benutzer(Ts_Giesskanne)} [(benutze) #FLAG: space]
     {in} die <b>Giesskanne</b>.
     ~ benutze = Ts_Giesskanne
     ~ playSoundV("events", "take", 0.25)
     ->e->Basis
-+ {benutze != Ts_Nichts && einfach == 0} [Ich lege {taw(Ts_Giesskanne)} weg. #CTAG: p]
-    <b>▼</b> Ich lege <b>{taw(Ts_Giesskanne)}</b> weg.
++ {zeige(Ts_Pinzette)} [Eine Pinzette] ->SchauPinzette->e->Basis
++ {benutzer(Ts_Pinzette)} [(benutze) #FLAG: space]
+    {in} die <b>Pinzette</b>.
+    ~ benutze = Ts_Pinzette
+    ~ playSoundV("events", "take", 0.25)
+    ->e->Basis
++ {einfach == 0 && benutze != Ts_Nichts} [Ich lege {taw(benutze)} weg. #CTAG: p]
+    <b>▼</b> Ich lege <b>{taw(benutze)}</b> weg.
     ~ benutze = Ts_Nichts
     ~ playSoundV("events", "take", 0.25)
     ->e->Basis

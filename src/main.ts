@@ -157,7 +157,8 @@ class StoryRunner {
                 inline: 'nearest',
             });
             const ael = cel.querySelector("a");
-            if (ael) {
+            if (ael && !flags.has("no_click")) {
+                ael.classList.add("link");
                 ael.addEventListener("click", (event: MouseEvent) => {
                     this.trusted = true;
                     this.removeAll(".choice");

@@ -219,10 +219,13 @@ a {
     color: var(--gold);
     font-family: 'Open Sans', sans-serif;
     text-decoration: none;
+}
+
+a.link {
     cursor: pointer;
 }
 
-a:hover {
+a.link:hover {
     color: var(--text-color);
 }
 

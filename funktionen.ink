@@ -12,13 +12,13 @@
 }
 
 === function benutzer(gegenstand) ===
-~ return einfach == 0 && Tasche == Ts_Giesskanne && (einfach || benutze != Ts_Giesskanne)
+~ return einfach == 0 && Tasche ? gegenstand && (einfach || benutze != gegenstand)
 
 === function bereit(gegenstand) ===
-~ return Tasche == gegenstand && (einfach || benutze == gegenstand)
+~ return Tasche ? gegenstand && (einfach || benutze == gegenstand)
 
 === function zeige(gegenstand) ===
-~ return Tasche == Ts_Giesskanne && (einfach || benutze != Ts_Giesskanne)
+~ return Tasche ? gegenstand && (einfach || benutze != gegenstand)
 
 === function mw(wort) ===
 {wort:
@@ -30,6 +30,7 @@
 
 === function tw(wort) ===
 {wort:
+- Ts_Pinzette: ~ return "Pinzette"
 - Ts_Giesskanne: ~ return "Giesskanne"
 - Ts_Meta: ~ return "Tasche"
 - else: ~ return "ERROR"
@@ -37,6 +38,7 @@
 
 === function taw(wort) ===
 {wort:
+- Ts_Pinzette: ~ return "die Pinzette"
 - Ts_Giesskanne: ~ return "die Giesskanne"
 - Ts_Meta: ~ return "die Tasche"
 - else: ~ return "ERROR"
