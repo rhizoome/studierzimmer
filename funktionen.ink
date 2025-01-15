@@ -105,7 +105,7 @@
 {bienen_bereit > 1:
     ~ bienen_bereit -= 1
 }
-{bienen_bereit == 1 || (bienen_bereit > 2 && bienen_bereit < 6 && currentSound("events-fg") != "giessen"):
+{bienen_gesehen == 0 && (bienen_bereit == 1 || (bienen_bereit > 1 && bienen_bereit < 6 && currentSound("events-fg3") != "giessen")):
     ~ mach_events = 0
     ~ bienen_bereit = 0
     ~ bienen_gesehen = 1

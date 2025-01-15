@@ -74,6 +74,7 @@ INCLUDE src/frontend.ink
 ~ createSlot("events", false, "")
 ~ createSlot("events-fg", false, "foreground")
 ~ createSlot("events-fg2", false, "foreground")
+~ createSlot("events-fg3", false, "foreground")
 ~ loadSound("music-loop", "teppich", "./teppich.mp3")
 ~ loadSound("loops", "tick", "./163371__tick_reverse.mp3")
 ~ loadSound("events", "modus-switch", "./613405__modus-switch.mp3")
@@ -86,7 +87,7 @@ INCLUDE src/frontend.ink
 ~ loadSound("events", "schrank-open", "./367423__108784__Schrank_Open.mp3")
 ~ loadSound("events", "schrank-close", "./367423__108784__Schrank_Close.mp3")
 ~ loadSound("events-fg", "sanduhr", "./416478__low-swoosh.mp3")
-~ loadSound("events-fg", "giessen", "./243776__close-rain-and-thunder.mp3")
+~ loadSound("events-fg3", "giessen", "./243776__close-rain-and-thunder.mp3")
 ~ loadSound("events-fg", "globus_lang", "./717147__Globus.mp3")
 ~ loadSound("events", "schach", "./733927__Chess.mp3")
 ~ loadSound("events", "globus", "./717147__Globus-Short.mp3")
@@ -277,7 +278,7 @@ Die Lampe ist {lampe_an:an|aus}.
     In dem Moment beginnt ein Gewitter, ich höre den Regen auf das Studierzimmer prasseln. Diese Welt verwirrt selbst die Götter der Rekursion. Wie kann das sein?
     ~ globus_begossen = 1
     ~ bienen_bereit = 7
-    {playSoundV("events-fg", "giessen", 0.6)}
+    {playSoundV("events-fg3", "giessen", 0.3)}
     ->e->GlobusBasis
 + {globus_begossen && bereit(Ts_Giesskanne) && GlobusSchalter == GS_Erde} [<b>↯</b> Ich <b>begiesse</b> den Globus mit der Giesskanne.]
     Halt! Nein, ich will keine Umweltkatastrophe auslösen. Wir haben schon genug Probleme mit dem Klima.

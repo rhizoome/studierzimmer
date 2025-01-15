@@ -172,12 +172,15 @@ class StoryRunner {
 
     private wireButtons(): void {
         this.rewindButton.addEventListener("click", (event: MouseEvent) => {
+            this.trusted = true;
             this.restart();
         });
         this.saveButton.addEventListener("click", (event: MouseEvent) => {
+            this.trusted = true;
             this.save();
         });
         this.loadButton.addEventListener("click", (event: MouseEvent) => {
+            this.trusted = true;
             this.init();
         });
     }
