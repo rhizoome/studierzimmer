@@ -62,7 +62,7 @@ VAR bienen_bereit = 0
 VAR bienen_gesehen = 0
 CONST ib = "<b>❯</b> Ich betrachte"
 CONST in = "<b>▲</b> Ich benutze"
-CONST event_wahrscheinlichkeit = 40 // In Prozent
+CONST event_wahrscheinlichkeit = 20 // In Prozent
 CONST debug = 0
 
 INCLUDE src/frontend.ink
@@ -88,7 +88,7 @@ INCLUDE src/frontend.ink
 ~ loadSound("events", "schrank-close", "./367423__108784__Schrank_Close.mp3")
 ~ loadSound("events-fg", "sanduhr", "./416478__low-swoosh.mp3")
 ~ loadSound("events-fg3", "giessen", "./243776__close-rain-and-thunder.mp3")
-~ loadSound("events-fg", "globus_lang", "./717147__Globus.mp3")
+~ loadSound("events-fg2", "globus_lang", "./717147__Globus.mp3")
 ~ loadSound("events", "schach", "./733927__Chess.mp3")
 ~ loadSound("events", "globus", "./717147__Globus-Short.mp3")
 ~ loadSound("events", "take", "./428748__taking.mp3")

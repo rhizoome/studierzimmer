@@ -70,14 +70,14 @@
 
 === function globus_spielen() ===
 {audio_globus_lang_gespielt:
-    {currentSound("events-fg") != "globus_lang":
+    {currentSound("events-fg2") != "globus_lang":
         ~ playSoundS("events", "globus")
     }
 - else:
     ~ stopGroup("foreground")
     ~ stopGroup("loop")
     ~ audio_globus_lang_gespielt = 1
-    ~ playSoundS("events-fg", "globus_lang")
+    ~ playSoundS("events-fg2", "globus_lang")
 }
 
 
