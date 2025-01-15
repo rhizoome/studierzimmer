@@ -168,14 +168,13 @@ Die <b>Schranktüre</b> ist <b>{schrank_offen:offen|geschlossen}</b>.
 
 -  (Basis) #CTAG: span
 
-{schrank_offen: Der <b>Schrank</b> enthält:}
+{schrank_offen:Der <b>Schrank</b> enthält{Tasche ? Ts_Giesskanne: nichts.|:}}
 
 + {schrank_offen && Tasche !? Ts_Giesskanne} [Eine Giesskanne]  ->SchauGiesskanne->e->Basis
 + {schrank_offen && Tasche !? Ts_Giesskanne} [(nimm) #FLAG: space] {inn} die <b>Giesskanne</b>.
     ~ Tasche += Ts_Giesskanne
     ~ playSoundV("events", "take", 0.25)
     ->e->Basis
-+ {schrank_offen && Tasche ? Ts_Giesskanne} [Nichts #FLAG: no_click]
 + [<b>◉</b> Beschreibung #CTAG: p] ->Schau->e->Basis
 + <b>↯</b> Ich {schrank_offen:schliesse|öffne} den Schrank.
     ~ schrank_offen = ! schrank_offen
@@ -318,7 +317,7 @@ Die Lampe ist {lampe_an:an|aus}.
 
 === Bienenkorb ===
 
-Neben dem Bienenkorb liegt:
+{Tasche ? Ts_Pinzette:Ein Bienenkorb|Neben dem Bienenkorb liegt:}
 
 -  (Basis) #CTAG: span
 
@@ -327,7 +326,6 @@ Neben dem Bienenkorb liegt:
     ~ Tasche += Ts_Pinzette
     ~ playSoundV("events", "take", 0.25)
     ->e->Basis
-+ {Tasche ? Ts_Pinzette} [Nichts #FLAG: no_click]
 + [<b>◉</b> Beschreibung #CTAG: p] TODO ->e->Basis
 + [{tw(Ts_Meta)}] <b>❯ {tw(Ts_Meta)}</b> ->e->Meta->e->Schreibtisch
 + [<b>▼</b> Zurück] {iwm("vom Schreibtisch")}
