@@ -12,7 +12,7 @@
 }
 
 === function benutzer(gegenstand) ===
-~ return einfach == 0 && Tasche ? gegenstand && (einfach || benutze != gegenstand)
+~ return einfach == 0 && Tasche ? gegenstand && benutze != gegenstand
 
 === function bereit(gegenstand) ===
 ~ return Tasche ? gegenstand && (einfach || benutze == gegenstand)
@@ -30,6 +30,7 @@
 
 === function tw(wort) ===
 {wort:
+- Ts_Hammer: ~ return "Hammer"
 - Ts_Pinzette: ~ return "Pinzette"
 - Ts_Giesskanne: ~ return "Giesskanne"
 - Ts_Meta: ~ return "Tasche"
@@ -38,6 +39,7 @@
 
 === function taw(wort) ===
 {wort:
+- Ts_Hammer: ~ return "den Hammer"
 - Ts_Pinzette: ~ return "die Pinzette"
 - Ts_Giesskanne: ~ return "die Giesskanne"
 - Ts_Meta: ~ return "die Tasche"
@@ -107,13 +109,17 @@
 {bienen_bereit > 1:
     ~ bienen_bereit -= 1
 }
+{teil_zwei == 0 && Tasche ? (Ts_Giesskanne, Ts_Pinzette, Ts_Hammer):
+    ~ teil_zwei = 1
+    ~ mach_events = 0
+    Teil Zwei - Verwicklung und Entwicklung #CLASS: title
+}
 {bienen_gesehen == 0 && (bienen_bereit == 1 || (bienen_bereit > 1 && bienen_bereit < 6 && currentSound("events-fg3") != "giessen")):
     ~ mach_events = 0
     ~ bienen_bereit = 0
     ~ bienen_gesehen = 1
     ~ playSoundS("events-fg2", "bienen")
-    Teil Zwei - Verwicklungen und Entwicklung #CLASS: title
-    Aufgrund des schlechten Wetters kehrt ein Schwarm Bienen in den Bienenkorb gegenüber dem Schrank zurück. Die Bienen fliegen die Formation Sense. Sie bestehen eigentlich nur aus ihren {mmd():pechschwarzen|schneeweissen} Streifen und einer {mmd():schneeweissen|pechschwarzen} Wolke darin. "Der TOD der Bienen", denke ich unweigerlich. Aus einer unendlichen Entfernung - die so weit weg ist, dass es sich wie aus jedem meiner Knochen anfühlt - höre ich: "MIT VERLAUB, DER TOD DER BIENENSCHWÄRME."  #CLASS: event
+    Aufgrund des schlechten Wetters kehrt ein Schwarm Bienen in den Bienenkorb gegenüber dem Schrank zurück. Die Bienen fliegen die Formation Sense. Sie bestehen eigentlich nur aus ihren {mmd():pechschwarzen|schneeweissen} Streifen und einer {mmd():schneeweissen|pechschwarzen} Wolke darin. "Der TOD der Bienen", denke ich unweigerlich. {bienen_beschreibung} "MIT VERLAUB, DER TOD DER BIENENSCHWÄRME."  #CLASS: event
 
 }
 {

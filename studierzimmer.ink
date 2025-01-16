@@ -11,6 +11,8 @@
 */
 
 /* Ideen
+- Safe aus Porzelan
+- Verwaltung erst verärgern
 - Nur im Hell Modus ist die Stimme an der Hotline gut gelaunt
 - Damit die Leute nicht im Hell Modus (visuell) sein müssen gibt es eine Inverterbrille
 - Die Inveterbrille ist weggeschlosen
@@ -44,7 +46,7 @@
 LIST Moden = Mo_Dunkel, Mo_Hell
 LIST Ton = To_Schwarz, To_Weiss, To_Duester, To_Sonne, To_Dunkl
 LIST GlobusSchalter = (GS_Erde), GS_Scheibenwelt, GS_Studierzimmer
-LIST Tasche = Ts_Giesskanne, Ts_Pinzette, Ts_Nichts, Ts_Meta
+LIST Tasche = Ts_Hammer, Ts_Giesskanne, Ts_Pinzette, Ts_Nichts, Ts_Meta
 VAR benutze = Ts_Nichts
 VAR modus = Mo_Dunkel
 VAR lampe_an = 0
@@ -57,17 +59,21 @@ VAR einfach = 0
 VAR globus_untersucht = 0
 VAR globus_begossen = 0
 VAR schrank_offen = 0
+VAR schrank_gesehen = 0
 VAR tuer_gesehen = 0
 VAR tasche_gesehen = 0
 VAR tee_erschienen = 0
 VAR bienen_bereit = 0
 VAR bienen_gesehen = 0
+VAR teil_zwei = 0
+VAR einschlagen_versuch = 0
 CONST ib = "<b>❯</b> Ich betrachte"
 CONST in = "<b>▲</b> Ich benutze"
 CONST inn = "<b>▲</b> Ich nehme"
 CONST event_wahrscheinlichkeit = 20 // In Prozent
 CONST debug = 0
 CONST cheats = 1
+CONST bienen_beschreibung = "Aus einer unendlichen Entfernung - die so weit weg ist, dass es sich wie aus jedem meiner Knochen anfühlt - höre ich donnernd und vibrierend:"
 
 INCLUDE src/frontend.ink
 
@@ -138,10 +144,8 @@ Benutze einen Kopfhörer. Zuerst wirst Du leise Klänge hören, stelle die Lauts
 
 Es riecht nach dem Raum zwischen den Gedanken, dieser Leere in der sich selbst Geruch einsam fühlt.
 
-~ temp beschreibung = "Aus einer unendlichen Entfernung - die so weit weg ist, dass es sich wie aus jedem meiner Knochen anfühlt - höre ich donnernd und vibrierend:"
-
- * "Träume ich?" [] {beschreibung} "DU TRÄUMST NICHT."
- * "Bin ich tot?" [] {beschreibung} "DU BIST NICHT TOT."
+ * "Träume ich?" [] {bienen_beschreibung} "DU TRÄUMST NICHT."
+ * "Bin ich tot?" [] {bienen_beschreibung} "DU BIST NICHT TOT."
 
 - Teil Eins - Entdeckung #CLASS: title
 
@@ -157,7 +161,8 @@ Im {mmd():düstern|hellen} Studierzimmer sehe ich: <b>einen Schreibtisch</b>, <b
 + [Schreibtisch] {ib} <b>den Schreibtisch</b>. ->e->Schreibtisch->e->Studierzimmer
 + [Schrank] {ib} <b>den Schrank</b>. ->e->Schrank->e->Studierzimmer
 + {tuer_gesehen} [Tür] Huch, die Tür ist wieder verschwunden, nachdem die kleine Person den Raum verliess. ->e->Basis
-+ {bienen_gesehen} [Bienenkorb] {ib} <b>Bienenkorb</b> ->e->Bienenkorb->Studierzimmer
++ {bienen_gesehen} [Bienenkorb] {ib} <b>den Bienenkorb</b> ->e->Bienenkorb->Studierzimmer
++ {schrank_gesehen} [Panzerschrank] {ib} <b>den Panzerschrank</b> ->e->Panzerschrank->Studierzimmer
 + [{tw(Ts_Meta)}] <b>❯ {tw(Ts_Meta)}</b> ->e->Meta->e->Studierzimmer
 // + TODO: Ausgang ->e->END
 
@@ -173,11 +178,16 @@ Die <b>Schranktüre</b> ist <b>{schrank_offen:offen|geschlossen}</b>.
 
 -  (Basis) #CTAG: span
 
-{schrank_offen:Der <b>Schrank</b> enthält{Tasche ? Ts_Giesskanne: nichts.|:}}
+{schrank_offen:Der <b>Schrank</b> enthält{Tasche ? (Ts_Giesskanne, Ts_Hammer): nichts.|:}}
 
 + {schrank_offen && Tasche !? Ts_Giesskanne} [Eine Giesskanne]  ->SchauGiesskanne->e->Basis
 + {schrank_offen && Tasche !? Ts_Giesskanne} [(nimm) #FLAG: space] {inn} die <b>Giesskanne</b>.
     ~ Tasche += Ts_Giesskanne
+    ~ playSoundV("events", "take", 0.25)
+    ->e->Basis
++ {schrank_offen && Tasche !? Ts_Hammer} [Ein Hammer]  ->SchauHammer->e->Basis
++ {schrank_offen && Tasche !? Ts_Hammer} [(nimm) #FLAG: space] {inn} die <b>Giesskanne</b>.
+    ~ Tasche += Ts_Hammer
     ~ playSoundV("events", "take", 0.25)
     ->e->Basis
 + [<b>◉</b> Beschreibung #CTAG: p] ->Schau->e->Basis
@@ -197,6 +207,11 @@ Die <b>Schranktüre</b> ist <b>{schrank_offen:offen|geschlossen}</b>.
 = Schau
 
 Der Schrank wurde von jemandem erbaut, der sonst nur Panzer baut. Die Konstruktion würde einen Bombenangriff überstehen. Dies muss dem Erbauer auch aufgefallen sein, denn er versuchte, mit filigranen Schnitzereien zu kompensieren. Jedoch muss er das Wort "filigran" ausschliesslich aus dem Wörterbuch kennen, denn die Schnitzereien sind zwar fein, aber nicht zierlich. Vielmehr sind sie geometrisch und starr. Dieser Schrank verkörpert das ideale Hochzeitsgeschenk für einen Borg.
+
+{schrank_gesehen == 0:
+    ~ schrank_gesehen = 1
+    An der gegenüberliegen Wand steht ein Panzerschrank, der unerklärlicher Weise das Gegenteil des Schrank darstellt. Er ist aus Porzellan. Verwirrt schüttle ich den Kopf.
+}
 
 - ->->
 
@@ -335,7 +350,7 @@ Die Lampe ist {lampe_an:an|aus}.
     ~ Tasche += Ts_Pinzette
     ~ playSoundV("events", "take", 0.25)
     ->e->Basis
-+ [<b>◉</b> Beschreibung #CTAG: p] Bei näherer Betrachtung stelle ich fest, die Bienen bewegen sich wie Teilchen. Zwei kleine Bienen verbinden sich zu einer grossen Biene und trennen sich wieder zu zwei kleinen Bienen. Aus dem Nichts taucht eine Biene auf, fliegt für zwanzig Zentimeter und verschwindet wieder. "Bienen aus Vakuumenergie!", denke ich unvermittelt. Aus einer unendlichen Entfernung - die so weit weg ist, dass es sich wie aus jedem meiner Knochen anfühlt - höre ich: "DAS VAKUUM BESTEHT AUS MIR!". Ich wünschte, diese Bienen wären nicht dauernd in meinem Kopf. Mit Schrecken stelle ich fest, dass die Bienen durch ihre Fähigkeiten tatsächlich in meinen Kopf eindringen können. Postwendend höre ich ein Brummen in meinem Kopf. ->e->Basis
++ [<b>◉</b> Beschreibung #CTAG: p] Bei näherer Betrachtung stelle ich fest, die Bienen bewegen sich wie Teilchen. Zwei kleine Bienen verbinden sich zu einer grossen Biene und trennen sich wieder zu zwei kleinen Bienen. Aus dem Nichts taucht eine Biene auf, fliegt für zwanzig Zentimeter weit und verschwindet wieder. "Bienen aus Vakuumenergie!", denke ich unvermittelt. {bienen_beschreibung} "DAS VAKUUM BESTEHT AUS MIR!". Ich wünschte, diese Bienen wären nicht dauernd in meinem Kopf. Mit Schrecken stelle ich fest, dass die Bienen durch ihre Fähigkeiten tatsächlich in meinen Kopf eindringen können. Postwendend höre ich ein Brummen in meinem Kopf. ->e->Basis
 + [{tw(Ts_Meta)}] <b>❯ {tw(Ts_Meta)}</b> ->e->Meta->e->Bienenkorb
 + [<b>▼</b> Zurück] {iwm("vom Bienenkorb")}
     ~ musik_an = 1
@@ -344,7 +359,36 @@ Die Lampe ist {lampe_an:an|aus}.
 
 - ->->
 
+=== Panzerschrank ===
+
+Der Panzerschrank ist verschlossen.
+
+- (Basis) #CTAG: span
+
++ [<b>◉</b> Beschreibung #CTAG: p] ->e->Schau->Basis
++ {einschlagen_versuch < 2 && bereit(Ts_Hammer)} <b>↯</b> Ich schlage den Panzerschrank {einschlagen_versuch:<b>trotzdem</b>} mit dem Hammer ein.
+    {einschlagen_versuch != 1:Nein, das kann ich nicht tun, um alles in der Welt das ist Porzellan!}
+    {einschlagen_versuch == 1:Autsch!! Der Schlag meines Hammers wird vom Panzerschrank abrupt gestoppt. Der Hammerschlag gab nicht einmal ein Geräusch von sich, wie durch eine unsichtbare Kraft wurde ihm jeglicher Impuls genommen. Mein Arm und meine Hand haben das leider nicht mitbekommen, es schmerzt sehr, ich werde es nicht noch einmal versuchen. Am Panzerschrank kann ich nicht einmal einen Kratzer entdecken.}
+    ~ einschlagen_versuch += 1
+    ->e->Basis
++ [{tw(Ts_Meta)}] <b>❯ {tw(Ts_Meta)}</b> ->e->Meta->e->Panzerschrank
++ [<b>▼</b> Zurück] {iwm("vom Panzerschrank")}
+
+- ->->
+
+= Schau
+
+Dieser Panzerschrank aus feinstem {mmd():weissem|schwarzen} Meissner Porzellan ist das Zierlichste, was ich je gesehen habe. Ein wunderschönes Dekor in bezaubernder Kobaltmalerei ergänzt die Goldverzierungen an den Rändern, auch wenn es sich dabei um Graugold handelt. In die Tür ist ein Schloss aus 925er Sterlingsilber eingelassen. Von ihm geht ein silberner Zierbeschlag aus, der an keltische zoomorphe Ornamente erinnert. Horst Lichter würde vor Entzücken in Ohnmacht fallen. "Der Panzerschrank wird kaum geeignet sein, um Wertsachen darin einzuschliessen", stelle ich nachdenklich fest. Verlegen wird mir klar, dass ich zu oft Trödelshows anschaue.
+
+- ->->
+
 // Globale Beschreibungen (meist Gegenstände)
+
+=== SchauHammer ===
+
+Ein beeindruckender Hammer. Er scheint einen eisernen Willen in seinem {mmd():schwarzen|weissen} Kopf zu haben.
+
+- ->->
 
 === SchauPinzette ===
 
@@ -415,13 +459,19 @@ Meine Tasche enthält:
     ~ benutze = Ts_Pinzette
     ~ playSoundV("events", "take", 0.25)
     ->e->Basis
++ {zeige(Ts_Hammer)} [Ein Hammer] ->SchauHammer->e->Basis
++ {benutzer(Ts_Hammer)} [(benutze) #FLAG: space]
+    {in} den <b>Hammer</b>.
+    ~ benutze = Ts_Hammer
+    ~ playSoundV("events", "take", 0.25)
+    ->e->Basis
 + {einfach == 0 && benutze != Ts_Nichts} [Ich lege {taw(benutze)} weg. #CTAG: p]
     <b>▼</b> Ich lege <b>{taw(benutze)}</b> weg.
     ~ benutze = Ts_Nichts
     ~ playSoundV("events", "take", 0.25)
     ->e->Basis
 + {cheats} [Cheats #CTAG: p] ->Cheats->e->Basis
-+ {cheats} [{einfach:Rätselmode|Geniessmode}]
++ {cheats} [{einfach:Rätselmode|Genussmode}]
     ~ einfach = !einfach
     ->e->Basis
 + [<b>▼</b> Zurück #CTAG: p] {iwm("von der Tasche")}
@@ -436,7 +486,8 @@ Psst, möchtest Du mogeln?
 
 + Zum Bienenkorb
     ~ bienen_gesehen = 1
-    ~ Tasche += (Ts_Giesskanne, Ts_Pinzette)
+    ~ schrank_gesehen = 1
+    ~ Tasche += (Ts_Giesskanne, Ts_Pinzette, Ts_Hammer)
     ->Studierzimmer
 + Nein, danke
 
