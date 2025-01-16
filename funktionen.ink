@@ -111,7 +111,10 @@
     ~ mach_events = 0
     ~ bienen_bereit = 0
     ~ bienen_gesehen = 1
-    {playSoundS("events-fg2", "bienen")} Aufgrund des schlechten Wetters kehrt ein Schwarm Bienen in den Bienenkorb gegenüber dem Schrank zurück. Die Bienen fliegen die Formation Sense. Sie bestehen eigentlich nur aus ihren {mmd():pechschwarzen|schneeweissen} Streifen und einer {mmd():schneeweissen|pechschwarzen} Wolke darin. "Der TOD der Bienen", denke ich unweigerlich. Aus einer unendlichen Entfernung - die so weit weg ist, dass es sich wie aus jedem meiner Knochen anfühlt - höre ich: "MIT VERLAUB, DER TOD DER BIENENSCHWÄRME."  #CLASS: event
+    ~ playSoundS("events-fg2", "bienen")
+    Teil Zwei - Verwicklungen und Entwicklung #CLASS: title
+    Aufgrund des schlechten Wetters kehrt ein Schwarm Bienen in den Bienenkorb gegenüber dem Schrank zurück. Die Bienen fliegen die Formation Sense. Sie bestehen eigentlich nur aus ihren {mmd():pechschwarzen|schneeweissen} Streifen und einer {mmd():schneeweissen|pechschwarzen} Wolke darin. "Der TOD der Bienen", denke ich unweigerlich. Aus einer unendlichen Entfernung - die so weit weg ist, dass es sich wie aus jedem meiner Knochen anfühlt - höre ich: "MIT VERLAUB, DER TOD DER BIENENSCHWÄRME."  #CLASS: event
+
 }
 {
     - mach_events && RANDOM(0, 100) <= event_wahrscheinlichkeit:
