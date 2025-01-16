@@ -349,7 +349,7 @@ Die Lampe ist {lampe_an:an|aus}.
 
 === SchauPinzette ===
 
-A TODO Pinzette
+Eine hochwertige Pinzette aus Edelstahl und einer {mmd():schwarzen|weissen} Karbonspitze. Modernstes Design - sie passt in diese Welt wie ein Teleprompter auf die Titanic. Darauf eingraviert kann ich lesen: "Für Terry, Du gabst mir die Perspektive, die ich brauchte - JLF". Dieser JLF muss die Pinzette absichtlich hier platziert haben.
 
 - ->->
 
