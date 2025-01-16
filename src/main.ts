@@ -176,14 +176,17 @@ class StoryRunner {
             this.trusted = true;
             this.restart();
         });
+        this.rewindButton.classList.add("link");
         this.saveButton.addEventListener("click", (event: MouseEvent) => {
             this.trusted = true;
             this.save();
         });
+        this.saveButton.classList.add("link");
         this.loadButton.addEventListener("click", (event: MouseEvent) => {
             this.trusted = true;
             this.init();
         });
+        this.loadButton.classList.add("link");
     }
 
     private restart(): void {
