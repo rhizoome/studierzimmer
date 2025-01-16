@@ -111,6 +111,10 @@ Benutze einen Kopfhörer. Zuerst wirst Du leise Klänge hören, stelle die Lauts
 
 <b>Eine deutsche interaktive Fangeschichte.</b> Du kannst das Fandom selbst erraten. Eine interaktive deutsche Fangeschichte. Wenn Du schon einmal vom B-Raum gehört hast, dann schau doch rein.
 
+{cheats:
+    ~ keepSoundAlive()
+    ->Cheats->
+}
 
 + Ich will Rätsel lösen.
     ~ einfach = 0
@@ -119,11 +123,7 @@ Benutze einen Kopfhörer. Zuerst wirst Du leise Klänge hören, stelle die Lauts
 
 - ~ keepSoundAlive()
 
-{cheats:
-    ->Cheats->Geschichte
-    - else:
-    -> Geschichte
-}
+-> Geschichte
 
 // ------ Geschichte
 
@@ -378,6 +378,7 @@ So vieles hängt an ihr, die Leben uns bringt,<br>Die Jugendstil-Giesskanne, die
 - ->->
 
 === TeeMachtSich ===
+
 {tee_erschienen == 0:
     {tee_giessen()} Unvermittelt erscheint eine kleine {mmd():schwarze|weisse} gusseiserne japanische Teekanne. Aus dem Ausguss dampft ein herrlicher Duft von Pfefferminze. Daneben erschent eine {mmd():weisse|schwarze} Tasse mit der Aufschrift: "Unser TOD ist der Beste". Wie von Geisterhand wird der Tee eingeschenkt. #CLASS: event
     ~ tee_erschienen = 1
@@ -418,6 +419,10 @@ Meine Tasche enthält:
     <b>▼</b> Ich lege <b>{taw(benutze)}</b> weg.
     ~ benutze = Ts_Nichts
     ~ playSoundV("events", "take", 0.25)
+    ->e->Basis
++ {cheats} [Cheats #CTAG: p] ->Cheats->e->Basis
++ {cheats} [{einfach:Rätselmode|Geniessmode}]
+    ~ einfach = !einfach
     ->e->Basis
 + [<b>▼</b> Zurück #CTAG: p] {iwm("von der Tasche")}
 
