@@ -49,6 +49,7 @@ LIST Tasche = Ts_Giesskanne, Ts_Pinzette, Ts_Nichts, Ts_Meta
 VAR benutze = Ts_Nichts
 VAR modus = Mo_Dunkel
 VAR lampe_an = 0
+VAR musik_an = 1
 VAR audio_standuhr_gespielt = 0
 VAR audio_sanduhr_gespielt = 0
 VAR audio_globus_lang_gespielt = 0
@@ -322,6 +323,7 @@ Die Lampe ist {lampe_an:an|aus}.
 
 === Bienenkorb ===
 
+~ musik_an = 0
 ~ stopSound("music-loop")
 ~ playSoundV("loops", "bienenkorb", 0.20)
 
@@ -335,8 +337,9 @@ Die Lampe ist {lampe_an:an|aus}.
     ~ playSoundV("events", "take", 0.25)
     ->e->Basis
 + [<b>◉</b> Beschreibung #CTAG: p] TODO ->e->Basis
-+ [{tw(Ts_Meta)}] <b>❯ {tw(Ts_Meta)}</b> ->e->Meta->e->Schreibtisch
++ [{tw(Ts_Meta)}] <b>❯ {tw(Ts_Meta)}</b> ->e->Meta->e->Bienenkorb
 + [<b>▼</b> Zurück] {iwm("vom Bienenkorb")}
+    ~ musik_an = 1
     ~ stopSound("loops")
     ~ music_loop()
 
