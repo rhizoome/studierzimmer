@@ -16,7 +16,6 @@
 - Die Inveterbrille ist weggeschlosen
 - Rätsel um etwas zu öffnen wo Zeugs drin ist
 - nach dem man begiesst hat, kann man "Dinge" in der grösse ändern in dem man Sie ins Modell des Zimmer legt oder daraus hinaus nimmt
-- Auf dem Bienstock gibt es eine Pinzette
 - Damit kann man einen Safe verkleinern und vergrössern
 */
 
@@ -336,7 +335,7 @@ Die Lampe ist {lampe_an:an|aus}.
     ~ Tasche += Ts_Pinzette
     ~ playSoundV("events", "take", 0.25)
     ->e->Basis
-+ [<b>◉</b> Beschreibung #CTAG: p] TODO ->e->Basis
++ [<b>◉</b> Beschreibung #CTAG: p] Bei näherer Betrachtung stelle ich fest, die Bienen bewegen sich wie Teilchen. Zwei kleine Bienen verbinden sich zu einer grossen Biene und trennen sich wieder zu zwei kleinen Bienen. Aus dem Nichts taucht eine Biene auf, fliegt für zwanzig Zentimeter und verschwindet wieder. "Bienen aus Vakuumenergie!", denke ich unvermittelt. Aus einer unendlichen Entfernung - die so weit weg ist, dass es sich wie aus jedem meiner Knochen anfühlt - höre ich: "DAS VAKUUM BESTEHT AUS MIR!". Ich wünschte, diese Bienen wären nicht dauernd in meinem Kopf. Mit Schrecken stelle ich fest, dass die Bienen durch ihre Fähigkeiten tatsächlich in meinen Kopf eindringen können. Postwendend höre ich ein Brummen in meinem Kopf. ->e->Basis
 + [{tw(Ts_Meta)}] <b>❯ {tw(Ts_Meta)}</b> ->e->Meta->e->Bienenkorb
 + [<b>▼</b> Zurück] {iwm("vom Bienenkorb")}
     ~ musik_an = 1
@@ -349,7 +348,7 @@ Die Lampe ist {lampe_an:an|aus}.
 
 === SchauPinzette ===
 
-Eine hochwertige Pinzette aus Edelstahl und einer {mmd():schwarzen|weissen} Karbonspitze. Modernstes Design - sie passt in diese Welt wie ein Teleprompter auf die Titanic. Darauf eingraviert kann ich lesen: "Für Terry, Du gabst mir die Perspektive, die ich brauchte - JLF". Dieser JLF muss die Pinzette absichtlich hier platziert haben.
+Eine hochwertige Pinzette aus Edelstahl mit einer {mmd():schwarzen|weissen} Karbonspitze. Modernstes Design - sie passt in diese Welt wie ein Teleprompter auf die Titanic. Darauf eingraviert kann ich lesen: "Für Terry, Du gabst mir die Perspektive, die ich brauchte - JLF". Dieser JLF muss die Pinzette absichtlich {Tasche ? Ts_Pinzette:beim Bienenkorb|hier} platziert haben.
 
 - ->->
 
