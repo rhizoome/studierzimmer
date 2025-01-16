@@ -67,6 +67,7 @@ CONST in = "<b>▲</b> Ich benutze"
 CONST inn = "<b>▲</b> Ich nehme"
 CONST event_wahrscheinlichkeit = 20 // In Prozent
 CONST debug = 0
+CONST cheats = 1
 
 INCLUDE src/frontend.ink
 
@@ -97,6 +98,7 @@ INCLUDE src/frontend.ink
 ~ loadSound("events", "take", "./428748__taking.mp3")
 ~ loadSound("events", "tee", "./324937__Tea.mp3")
 ~ loadSound("events-fg2", "bienen", "./73370__Bienen.mp3")
+~ loadSound("loops", "bienenkorb", "./73370__Bienenkorb.mp3")
 
 ->Ankunft
 
@@ -110,7 +112,6 @@ Benutze einen Kopfhörer. Zuerst wirst Du leise Klänge hören, stelle die Lauts
 <b>Eine deutsche interaktive Fangeschichte.</b> Du kannst das Fandom selbst erraten. Eine interaktive deutsche Fangeschichte. Wenn Du schon einmal vom B-Raum gehört hast, dann schau doch rein.
 
 
-
 + Ich will Rätsel lösen.
     ~ einfach = 0
 + Ich will die Fantasiewelt geniessen.
@@ -118,7 +119,11 @@ Benutze einen Kopfhörer. Zuerst wirst Du leise Klänge hören, stelle die Lauts
 
 - ~ keepSoundAlive()
 
--> Geschichte
+{cheats:
+    ->Cheats->Geschichte
+    - else:
+    -> Geschichte
+}
 
 // ------ Geschichte
 
@@ -317,7 +322,10 @@ Die Lampe ist {lampe_an:an|aus}.
 
 === Bienenkorb ===
 
-{Tasche ? Ts_Pinzette:Ein Bienenkorb|Neben dem Bienenkorb liegt:}
+~ stopSound("music-loop")
+~ playSoundV("loops", "bienenkorb", 0.20)
+
+{Tasche ? Ts_Pinzette:Ein Bienenkorb.|Neben dem Bienenkorb liegt:}
 
 -  (Basis) #CTAG: span
 
@@ -328,7 +336,9 @@ Die Lampe ist {lampe_an:an|aus}.
     ->e->Basis
 + [<b>◉</b> Beschreibung #CTAG: p] TODO ->e->Basis
 + [{tw(Ts_Meta)}] <b>❯ {tw(Ts_Meta)}</b> ->e->Meta->e->Schreibtisch
-+ [<b>▼</b> Zurück] {iwm("vom Schreibtisch")}
++ [<b>▼</b> Zurück] {iwm("vom Bienenkorb")}
+    ~ stopSound("loops")
+    ~ music_loop()
 
 - ->->
 
@@ -407,8 +417,20 @@ Meine Tasche enthält:
     ~ benutze = Ts_Nichts
     ~ playSoundV("events", "take", 0.25)
     ->e->Basis
-+ [<b>▼</b> Zurück #CTAG: p] {iwm("von der Lampe")}
++ [<b>▼</b> Zurück #CTAG: p] {iwm("von der Tasche")}
 
 ~ playSoundV("events", "tasche-zu", 0.1)
+
+- ->->
+
+=== Cheats ===
+
+Psst, möchtest Du mogeln?
+
++ Zum Bienenkorb
+    ~ bienen_gesehen = 1
+    ~ Tasche += (Ts_Giesskanne, Ts_Pinzette)
+    ->Studierzimmer
++ Nein, danke
 
 - ->->
