@@ -47,7 +47,7 @@
 LIST Moden = Mo_Dunkel, Mo_Hell
 LIST Ton = To_Schwarz, To_Weiss, To_Duester, To_Sonne, To_Dunkl
 LIST GlobusSchalter = (GS_Erde), GS_Scheibenwelt, GS_Studierzimmer
-LIST Tasche = Ts_Gletscherbrille, Ts_Hammer, Ts_Giesskanne, Ts_Pinzette, Ts_Nichts, Ts_Meta
+LIST Tasche = Ts_Schluessel, Ts_Gletscherbrille, Ts_Hammer, Ts_Giesskanne, Ts_Pinzette, Ts_Nichts, Ts_Meta
 VAR benutze = Ts_Nichts
 VAR modus = Mo_Dunkel
 VAR lampe_an = 0
@@ -346,6 +346,8 @@ Die Lampe ist {lampe_an:an|aus}.
 ~ stopSound("music-loop")
 ~ playSoundV("loops", "bienenkorb", 0.20)
 
+{Tasche !? Ts_Schluessel:An einem Nagel am Bienenkorb hängt ein silberner Schlüssel.}
+
 {Tasche ? Ts_Pinzette:Ein Bienenkorb.|Neben dem Bienenkorb liegt:}
 
 -  (Basis) #CTAG: span
@@ -355,7 +357,9 @@ Die Lampe ist {lampe_an:an|aus}.
     ~ Tasche += Ts_Pinzette
     ~ playSoundV("events", "take", 0.25)
     ->e->Basis
-+ [<b>◉</b> Beschreibung #CTAG: p] Bei näherer Betrachtung stelle ich fest, die Bienen bewegen sich wie Teilchen. Zwei kleine Bienen verbinden sich zu einer grossen Biene und trennen sich wieder zu zwei kleinen Bienen. Aus dem Nichts taucht eine Biene auf, fliegt zwanzig Zentimeter weit und verschwindet wieder. "Bienen aus Vakuumenergie!", denke ich unvermittelt. {bienen_beschreibung} "DAS VAKUUM BESTEHT AUS MIR!". Ich wünschte, diese Bienen wären nicht dauernd in meinem Kopf. Mit Schrecken stelle ich fest, dass die Bienen durch ihre Fähigkeiten tatsächlich in meinen Kopf eindringen können. Postwendend höre ich ein Brummen in meinem Kopf. ->e->Basis
++ [<b>◉</b> Beschreibung #CTAG: p] Bei näherer Betrachtung stelle ich fest, die Bienen bewegen sich wie Teilchen. Zwei kleine Bienen verbinden sich zu einer grossen Biene und trennen sich wieder zu zwei kleinen Bienen. Aus dem Nichts taucht eine Biene auf, fliegt zwanzig Zentimeter weit und verschwindet wieder. "Bienen aus Vakuumenergie!", denke ich unvermittelt. {bienen_beschreibung} "DAS VAKUUM BESTEHT AUS MIR!". Ich wünschte, diese Bienen wären nicht dauernd in meinem Kopf. Mit Schrecken stelle ich fest, dass die Bienen durch ihre Fähigkeiten tatsächlich in meinen Kopf eindringen können. Postwendend höre ich ein Brummen in meinem Kopf.->e->Basis
++ {Tasche !? Ts_Schluessel} <b>↯</b> Ich nehme den Schlüssel
+    ->NimmDialog->e->Basis
 + [{tw(Ts_Meta)}] <b>❯ {tw(Ts_Meta)}</b> ->e->Meta->e->Bienenkorb
 + [<b>▼</b> Zurück] {iwm("vom Bienenkorb")}
     ~ musik_an = 1
@@ -363,6 +367,25 @@ Die Lampe ist {lampe_an:an|aus}.
     ~ music_loop()
 
 - ->->
+
+= NimmDialog
+
+Die Bienen werden nervös, fliegen immer schneller, bis der Bienenkorb in eine art Energiefeld eingehüllt ist.
+
+- (NimmBasis)
+
+* <b>↯</b> Ich nehme den Schlüssel trotzdem
+    Hui, das kribbelt. Ich brauche immer mehr Kraft, bis ich schliesslich feststecke. Keine Chance.
+* Ich versuche nicht an den Schlüssel zu denken.
+    Die Bienen werden ruhig und das Feld verschwindet.
+    ** <b>↯</b> Ich nehme den Schlüssel
+    Die Bienen fliegen wieder schneller. Hui, das kribbelt. Ich brauche immer mehr Kraft, bis ich schliesslich feststecke. Keine Chance.
++ <b>▼</b> Ich gebe auf
+    ->->
+
+- ->NimmBasis->e
+
+->->
 
 === Panzerschrank ===
 

@@ -39,6 +39,7 @@
 
 === function tw(wort) ===
 {wort:
+- Ts_Schluessel: ~ return "Schlüssel"
 - Ts_Gletscherbrille: ~ return "Gletscherbrille"
 - Ts_Hammer: ~ return "Hammer"
 - Ts_Pinzette: ~ return "Pinzette"
@@ -49,6 +50,7 @@
 
 === function taw(wort) ===
 {wort:
+- Ts_Schluessel: ~ return "den Schlüssel"
 - Ts_Gletscherbrille: ~ return "die Gletscherbrille"
 - Ts_Hammer: ~ return "den Hammer"
 - Ts_Pinzette: ~ return "die Pinzette"
