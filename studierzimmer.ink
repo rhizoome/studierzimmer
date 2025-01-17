@@ -28,6 +28,7 @@
 */
 
 /* Outline
+- TODs Reich basiert nun zum Teil aus der Logik der Physik und zum Teil aus der alten Scheibenwelt Logik. Es ist als ob TOD einige Physikbücher gelesen hätte um sein Reich den neuen Gegebenheiten anzupassen. Wie üblich versteht er so einiges falsch oder zu Wörtlich.
 - Grosses Ziel: Der Spieler muss die Rätsel und Geheimnisse des Zimmers lösen, um ein kosmisches Gleichgewicht wiederherzustellen.
     - Was ist passiert? Die Kosmische-Verwaltung (Bürokratie) von Scheibenwelt und Erdenwelt wurde aus Kostengründen zusammengelegt. Dabei wurde versehentlich auch TOD zusammengelegt. Jedoch ist dies nicht möglich, der humorvolle TOD der Scheibenwelt würde auf der Erdenwelt zu viel Chaos anrichten.
     - Wie muss es wiederhergestellt werden? TOD muss wieder gespalten werden. Dabei wird wohl der Globus eine zentrale Rolle spielen. Vielleicht kann man einen Avatar von TOD und weitere Anspielungen auf Computertechnik (im Moment haben wir ja Rekursion, Dark/Light-Mode) dazu um TOD zu trennen.
@@ -46,7 +47,7 @@
 LIST Moden = Mo_Dunkel, Mo_Hell
 LIST Ton = To_Schwarz, To_Weiss, To_Duester, To_Sonne, To_Dunkl
 LIST GlobusSchalter = (GS_Erde), GS_Scheibenwelt, GS_Studierzimmer
-LIST Tasche = Ts_Hammer, Ts_Giesskanne, Ts_Pinzette, Ts_Nichts, Ts_Meta
+LIST Tasche = Ts_Gletscherbrille, Ts_Hammer, Ts_Giesskanne, Ts_Pinzette, Ts_Nichts, Ts_Meta
 VAR benutze = Ts_Nichts
 VAR modus = Mo_Dunkel
 VAR lampe_an = 0
@@ -67,7 +68,6 @@ VAR bienen_bereit = 0
 VAR bienen_gesehen = 0
 VAR teil_zwei = 0
 VAR einschlagen_versuch = 0
-CONST ib = "<b>❯</b> Ich betrachte"
 CONST in = "<b>▲</b> Ich benutze"
 CONST inn = "<b>▲</b> Ich nehme"
 CONST event_wahrscheinlichkeit = 20 // In Prozent
@@ -158,11 +158,11 @@ Im {mmd():düstern|hellen} Studierzimmer sehe ich: <b>einen Schreibtisch</b>, <b
 -  (Basis)
 
 + [<b>◉</b> Beschreibung] ->Schau->e->Basis
-+ [Schreibtisch] {ib} <b>den Schreibtisch</b>. ->e->Schreibtisch->e->Studierzimmer
-+ [Schrank] {ib} <b>den Schrank</b>. ->e->Schrank->e->Studierzimmer
++ [Schreibtisch] {ib()} <b>den Schreibtisch</b>. ->e->Schreibtisch->e->Studierzimmer
++ [Schrank] {ib()} <b>den Schrank</b>. ->e->Schrank->e->Studierzimmer
 + {tuer_gesehen} [Tür] Huch, die Tür ist wieder verschwunden, nachdem die kleine Person den Raum verliess. ->e->Basis
-+ {bienen_gesehen} [Bienenkorb] {ib} <b>den Bienenkorb</b> ->e->Bienenkorb->Studierzimmer
-+ {schrank_gesehen} [Panzerschrank] {ib} <b>den Panzerschrank</b> ->e->Panzerschrank->Studierzimmer
++ {bienen_gesehen} [Bienenkorb] {ib()} <b>den Bienenkorb</b> ->e->Bienenkorb->Studierzimmer
++ {schrank_gesehen} [Panzerschrank] {ib()} <b>den Panzerschrank</b> ->e->Panzerschrank->Studierzimmer
 + [{tw(Ts_Meta)}] <b>❯ {tw(Ts_Meta)}</b> ->e->Meta->e->Studierzimmer
 // + TODO: Ausgang ->e->END
 
@@ -222,9 +222,9 @@ Auf dem Schreibtisch sehe ich: <b>einen Knopf</b>, <b>eine Lampe</b> und <b>eine
 -  (Basis)
 
 + [<b>◉</b> Beschreibung] In die äusseren Ränder des Schreibtisches aus {mw(To_Schwarz)}em Marmor sind feine, organische Verzierungen gemeisselt. Der Rand der Tischplatte zeigt Gravuren, die an mystische Inschriften erinnern. ->e->Basis
-+ [Knopf] {ib} <b>den Knopf</b>. ->e->Knopf->e->Schreibtisch
-+ [Lampe] {ib} <b>die Lampe</b>. ->e->Lampe->e->Schreibtisch
-+ [Globus] {ib} <b>den Globus</b>. ->e->Globus->e->Schreibtisch
++ [Knopf] {ib()} <b>den Knopf</b>. ->e->Knopf->e->Schreibtisch
++ [Lampe] {ib()} <b>die Lampe</b>. ->e->Lampe->e->Schreibtisch
++ [Globus] {ib()} <b>den Globus</b>. ->e->Globus->e->Schreibtisch
 + [{tw(Ts_Meta)}] <b>❯ {tw(Ts_Meta)}</b> ->e->Meta->e->Schreibtisch
 + [<b>▼</b> Zurück] {iwm("vom Schreibtisch")}
 
@@ -350,7 +350,7 @@ Die Lampe ist {lampe_an:an|aus}.
     ~ Tasche += Ts_Pinzette
     ~ playSoundV("events", "take", 0.25)
     ->e->Basis
-+ [<b>◉</b> Beschreibung #CTAG: p] Bei näherer Betrachtung stelle ich fest, die Bienen bewegen sich wie Teilchen. Zwei kleine Bienen verbinden sich zu einer grossen Biene und trennen sich wieder zu zwei kleinen Bienen. Aus dem Nichts taucht eine Biene auf, fliegt für zwanzig Zentimeter weit und verschwindet wieder. "Bienen aus Vakuumenergie!", denke ich unvermittelt. {bienen_beschreibung} "DAS VAKUUM BESTEHT AUS MIR!". Ich wünschte, diese Bienen wären nicht dauernd in meinem Kopf. Mit Schrecken stelle ich fest, dass die Bienen durch ihre Fähigkeiten tatsächlich in meinen Kopf eindringen können. Postwendend höre ich ein Brummen in meinem Kopf. ->e->Basis
++ [<b>◉</b> Beschreibung #CTAG: p] Bei näherer Betrachtung stelle ich fest, die Bienen bewegen sich wie Teilchen. Zwei kleine Bienen verbinden sich zu einer grossen Biene und trennen sich wieder zu zwei kleinen Bienen. Aus dem Nichts taucht eine Biene auf, fliegt zwanzig Zentimeter weit und verschwindet wieder. "Bienen aus Vakuumenergie!", denke ich unvermittelt. {bienen_beschreibung} "DAS VAKUUM BESTEHT AUS MIR!". Ich wünschte, diese Bienen wären nicht dauernd in meinem Kopf. Mit Schrecken stelle ich fest, dass die Bienen durch ihre Fähigkeiten tatsächlich in meinen Kopf eindringen können. Postwendend höre ich ein Brummen in meinem Kopf. ->e->Basis
 + [{tw(Ts_Meta)}] <b>❯ {tw(Ts_Meta)}</b> ->e->Meta->e->Bienenkorb
 + [<b>▼</b> Zurück] {iwm("vom Bienenkorb")}
     ~ musik_an = 1
@@ -465,6 +465,12 @@ Meine Tasche enthält:
     ~ benutze = Ts_Hammer
     ~ playSoundV("events", "take", 0.25)
     ->e->Basis
++ {zeige(Ts_Gletscherbrille)} [Eine Gletscherbrille] ->SchauHammer->e->Basis
++ {benutzer(Ts_Gletscherbrille)} [(aufsetzen) #FLAG: space]
+    Ich setze die <b>Gletscherbrille</b> auf. Nanu, die Gläser der Gletscherbrille sind undurchsichtig. Ich bin total blind.
+    ~ benutze = Ts_Gletscherbrille
+    ~ playSoundV("events", "take", 0.25)
+    ->e->Basis
 + {einfach == 0 && benutze != Ts_Nichts} [Ich lege {taw(benutze)} weg. #CTAG: p]
     <b>▼</b> Ich lege <b>{taw(benutze)}</b> weg.
     ~ benutze = Ts_Nichts
@@ -474,8 +480,7 @@ Meine Tasche enthält:
 + {cheats} [{einfach:Rätselmode|Genussmode}]
     ~ einfach = !einfach
     ->e->Basis
-+ [<b>▼</b> Zurück #CTAG: p] {iwm("von der Tasche")}
-
++ [<b>▼</b> Zurück #CTAG: p] <b>❮</b> Ich lenke meine Aufmerksamkeit von <b>der Tasche</b> weg.
 ~ playSoundV("events", "tasche-zu", 0.1)
 
 - ->->
@@ -487,7 +492,7 @@ Psst, möchtest Du mogeln?
 + Zum Bienenkorb
     ~ bienen_gesehen = 1
     ~ schrank_gesehen = 1
-    ~ Tasche += (Ts_Giesskanne, Ts_Pinzette, Ts_Hammer)
+    ~ Tasche += (Ts_Giesskanne, Ts_Pinzette, Ts_Hammer, Ts_Gletscherbrille)
     ->Studierzimmer
 + Nein, danke
 

@@ -1,5 +1,14 @@
 // ------ Funktionen
 
+=== function ib() ===
+{benutze == Ts_Gletscherbrille:
+    ~ benutze = Ts_Nichts
+    <b>❯</b> Ich lege die Gletscherbrille ab und betrachte
+    - else:
+    <b>❯</b> Ich betrachte
+}
+
+
 ===function mmd() ===
 ~ return modus == Mo_Dunkel
 
@@ -30,6 +39,7 @@
 
 === function tw(wort) ===
 {wort:
+- Ts_Gletscherbrille: ~ return "Gletscherbrille"
 - Ts_Hammer: ~ return "Hammer"
 - Ts_Pinzette: ~ return "Pinzette"
 - Ts_Giesskanne: ~ return "Giesskanne"
@@ -39,6 +49,7 @@
 
 === function taw(wort) ===
 {wort:
+- Ts_Gletscherbrille: ~ return "die Gletscherbrille"
 - Ts_Hammer: ~ return "den Hammer"
 - Ts_Pinzette: ~ return "die Pinzette"
 - Ts_Giesskanne: ~ return "die Giesskanne"
@@ -47,7 +58,13 @@
 }
 
 === function iwm(wort) ===
-<b>❮</b> Ich lenke meine Aufmerksamkeit <b>{wort}</b> weg.
+{benutze == Ts_Gletscherbrille:
+    ~ benutze = Ts_Nichts
+    <b>❮</b> Ich lege die Gletscherbrille ab und lenke meine Aufmerksamkeit <b>{wort}</b> weg.
+    - else:
+    <b>❮</b> Ich lenke meine Aufmerksamkeit <b>{wort}</b> weg.
+}
+
 
 === function tee_giessen() ===
 ~ stopSound("loops")
