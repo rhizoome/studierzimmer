@@ -190,6 +190,11 @@ Die <b>Schranktüre</b> ist <b>{schrank_offen:offen|geschlossen}</b>.
     ~ Tasche += Ts_Hammer
     ~ playSoundV("events", "take", 0.25)
     ->e->Basis
++ {schrank_offen && Tasche !? Ts_Gletscherbrille} [Eine Gletscherbrille]  ->SchauGletscherbrille->e->Basis
++ {schrank_offen && Tasche !? Ts_Gletscherbrille} [(nimm) #FLAG: space] {inn} die <b>Gletscherbrille</b>.
+    ~ Tasche += Ts_Gletscherbrille
+    ~ playSoundV("events", "take", 0.25)
+    ->e->Basis
 + [<b>◉</b> Beschreibung #CTAG: p] ->Schau->e->Basis
 + <b>↯</b> Ich {schrank_offen:schliesse|öffne} den Schrank.
     ~ schrank_offen = ! schrank_offen
@@ -384,6 +389,12 @@ Dieser Panzerschrank aus feinstem {mmd():weissem|schwarzen} Meissner Porzellan i
 
 // Globale Beschreibungen (meist Gegenstände)
 
+=== SchauGletscherbrille ===
+
+Eine Gletscherbrille aus dem 19. Jahrhundert mit {mmd():schwarzen|weissen} Gläsern. Das Fehlen jeglicher Eleganz - nein die ungeheure negative Eleganz - lässt alles im um die der Brille herum elegant erscheinen. Ein netter Trick, so kann man in Trainerhosen an einen Ball gehen. Wenigstens fällt die Trainerhose dann nicht auf.
+
+- ->->
+
 === SchauHammer ===
 
 Ein beeindruckender Hammer. Er scheint einen eisernen Willen in seinem {mmd():schwarzen|weissen} Kopf zu haben.
@@ -465,7 +476,7 @@ Meine Tasche enthält:
     ~ benutze = Ts_Hammer
     ~ playSoundV("events", "take", 0.25)
     ->e->Basis
-+ {zeige(Ts_Gletscherbrille)} [Eine Gletscherbrille] ->SchauHammer->e->Basis
++ {zeige(Ts_Gletscherbrille)} [Eine Gletscherbrille] ->SchauGletscherbrille->e->Basis
 + {benutzer(Ts_Gletscherbrille)} [(aufsetzen) #FLAG: space]
     Ich setze die <b>Gletscherbrille</b> auf. Nanu, die Gläser der Gletscherbrille sind undurchsichtig. Ich bin total blind.
     ~ benutze = Ts_Gletscherbrille

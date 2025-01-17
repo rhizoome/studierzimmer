@@ -126,7 +126,7 @@
 {bienen_bereit > 1:
     ~ bienen_bereit -= 1
 }
-{teil_zwei == 0 && Tasche ? (Ts_Giesskanne, Ts_Pinzette, Ts_Hammer):
+{teil_zwei == 0 && Tasche ? (Ts_Giesskanne, Ts_Pinzette, Ts_Hammer, Ts_Gletscherbrille):
     ~ teil_zwei = 1
     ~ mach_events = 0
     Teil Zwei - Verwicklung und Entwicklung #CLASS: title
