@@ -133,7 +133,7 @@
     ~ mach_events = 0
     Teil Zwei - Verwicklung und Entwicklung #CLASS: title
 }
-{bienen_gesehen == 0 && (bienen_bereit == 1 || (bienen_bereit > 1 && bienen_bereit < 6 && currentSound("events-fg3") != "giessen")):
+{bienen_gesehen == 0 && (bienen_bereit == 1 || (bienen_bereit > 1 && bienen_bereit < 5 && currentSound("events-fg3") != "giessen")):
     ~ mach_events = 0
     ~ bienen_bereit = 0
     ~ bienen_gesehen = 1

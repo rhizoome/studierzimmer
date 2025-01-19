@@ -218,7 +218,7 @@ Der Schrank wurde von jemandem erbaut, der sonst nur Panzer baut. Die Konstrukti
 
 {schrank_gesehen == 0:
     ~ schrank_gesehen = 1
-    An der gegenüberliegen Wand steht ein Panzerschrank, der unerklärlicher Weise das Gegenteil des Schrank darstellt. Er ist aus Porzellan. Verwirrt schüttle ich den Kopf.
+    An der gegenüberliegen Wand steht ein Panzerschrank, der auf unerklärliche Weise das Gegenteil des Schrank darstellt. Er ist aus Porzellan. Verwirrt schüttle ich den Kopf.
 }
 
 - ->->
@@ -401,12 +401,13 @@ Die Bienen werden nervös, fliegen immer schneller, bis der Bienenkorb in eine a
 
 - (NimmBasis)
 
-* <b>↯</b> Ich nehme den Schlüssel trotzdem.
+* {!bienen_versuch} <b>↯</b> Ich nehme den Schlüssel trotzdem.
     Hui, das kribbelt. Ich brauche immer mehr Kraft, bis ich schliesslich feststecke. Keine Chance.
 * Ich versuche nicht an den Schlüssel zu denken.
-    Die Bienen werden ruhig und das Feld verschwindet.
+    <>Die Bienen werden ruhig und das Feld verschwindet.
     ** <b>↯</b> Ich nehme den Schlüssel.
     Die Bienen fliegen wieder schneller. Hui, das kribbelt. Ich brauche immer mehr Kraft, bis ich schliesslich feststecke. Keine Chance.
+    ~ bienen_versuch = 1
 + <b>▼</b> Ich gebe auf
     ~ bienen_versuch = 1
     ->->
@@ -424,7 +425,7 @@ Der Panzerschrank ist verschlossen.
 + [<b>◉</b> Beschreibung #CTAG: p] ->e->Schau->Basis
 + {einschlagen_versuch < 2 && bereit(Ts_Hammer)} <b>↯</b> Ich schlage den Panzerschrank {einschlagen_versuch:<b>trotzdem</b>} mit dem Hammer ein.
     {einschlagen_versuch != 1:Nein, das kann ich nicht tun, um alles in der Welt das ist Porzellan!}
-    {einschlagen_versuch == 1:Autsch!! Der Schlag meines Hammers wird vom Panzerschrank abrupt gestoppt. Der Hammerschlag gab nicht einmal ein Geräusch von sich, wie durch eine unsichtbare Kraft wurde ihm jeglicher Impuls genommen. Mein Arm und meine Hand haben das leider nicht mitbekommen, es schmerzt sehr, ich werde es nicht noch einmal versuchen. Am Panzerschrank kann ich nicht einmal einen Kratzer entdecken.}
+    {einschlagen_versuch == 1:Autsch!! Der Schlag meines Hammers wird vom Panzerschrank abrupt gestoppt. Der Hammerschlag gab nicht einmal ein Geräusch von sich, wie durch eine unsichtbare Kraft wurde ihm jeglicher Impuls genommen. Mein Arm und meine Hand haben das leider nicht mitbekommen, es schmerzt sehr. Ich werde es nicht noch einmal versuchen. Am Panzerschrank kann ich nicht einmal einen Kratzer entdecken.}
     ~ einschlagen_versuch += 1
     ->e->Basis
 + [{tw(Ts_Meta)}] <b>❯ {tw(Ts_Meta)}</b> ->e->Meta->e->Panzerschrank
@@ -442,7 +443,7 @@ Dieser Panzerschrank aus feinstem {mmd():weissem|schwarzen} Meissner Porzellan i
 
 === SchauGletscherbrille ===
 
-Eine Gletscherbrille aus dem 19. Jahrhundert mit {mmd():schwarzen|weissen} Gläsern. Das Fehlen jeglicher Eleganz - nein die ungeheure negative Eleganz - lässt alles im um die der Brille herum elegant erscheinen. Ein netter Trick, so kann man in Trainerhosen an einen Ball gehen. Wenigstens fällt die Trainerhose dann nicht auf.
+Eine Gletscherbrille aus dem 19. Jahrhundert mit {mmd():schwarzen|weissen} Gläsern. Das Fehlen jeglicher Eleganz - nein die ungeheure negative Eleganz - lässt alles um die der Brille herum elegant erscheinen. Ein netter Trick, so kann man in Trainerhosen an einen Ball gehen. Wenigstens fällt die Trainerhose dann nicht auf.
 
 - ->->
 
@@ -464,7 +465,7 @@ Eine hochwertige Pinzette aus Edelstahl mit einer {mmd():schwarzen|weissen} Karb
 
 Ihre Form, eine Symphonie von Natur und Traum,<br>Ein Tanz der Eleganz, so zart wie ein Baum.<br>Der Ausguss wie ein Schwanenhals, sanft geneigt,<br>Lebensstrom spendend, wo die Blüte gedeiht.
 
-Der Körper steht fällt ein Tropfen so rein,,<br>Gefangen in ewigem Raum und Sein.<br>Es spricht von der Zeit, als Kunst die Seele lab,<br>Eine Giesskanne, die dem Garten das Leben gab.
+Der Körper fällt wie ein Tropfen so rein,<br>Gefangen in ewigem Raum und Sein.<br>Es spricht von der Zeit, als Kunst die Seele lab,<br>Eine Giesskanne, die dem Garten das Leben gab.
 
 So vieles hängt an ihr, die Leben uns bringt,<br>Die Jugendstil-Giesskanne, die Schönheit besingt.
 
@@ -474,7 +475,7 @@ So vieles hängt an ihr, die Leben uns bringt,<br>Die Jugendstil-Giesskanne, die
 {tuer_gesehen == 0:
     ~ playSoundS("events-fg", "open-close")
     Eine Tür erscheint. #CLASS: event
-    Eine kleine Person mit spitzen Ohren tritt ins Studierzimmer, sieht mich und gibt einen Aufschrei der Verwunderung von sich: "Oh nein, oh nein," und murmelt zu sich selbst, "das ist nicht der HERR. Welche wunderliche Idee hat ER nun wieder? Was soll ich nur machen? Das geht bestimmt nicht gut. Soll nun diese Person seine Aufgaben übernehmen? Oh nein, oh nein. Bestimmt darf ich am Ende das Raumzeitgefüge wiederherstellen. Was soll ich nur machen?". Für einen Moment scheint die kleine Figur mich anzusprechen wollen, doch dann besinnt sie sich eines Bessern und verschwindet durch die Tür. #CLASS: event
+    Eine kleine Person mit spitzen Ohren tritt ins Studierzimmer, sieht mich und gibt einen Aufschrei der Verwunderung von sich: "Oh nein, oh nein," und murmelt zu sich selbst, "das ist nicht der HERR. Welche wunderliche Idee hat ER nun wieder? Was soll ich nur machen? Das geht bestimmt nicht gut. Soll nun diese Person seine Aufgaben übernehmen? Oh nein, oh nein. Bestimmt darf ich am Ende das Raumzeitgefüge wiederherstellen. Was soll ich nur machen?" Für einen Moment scheint die kleine Figur mich anzusprechen wollen, doch dann besinnt sie sich eines Bessern und verschwindet durch die Tür. #CLASS: event
     ~ tuer_gesehen = 1
 - else:
         ~ debug_out("Else for tuer_gesehen happened")
@@ -489,7 +490,7 @@ So vieles hängt an ihr, die Leben uns bringt,<br>Die Jugendstil-Giesskanne, die
     {tee_giessen()} Unvermittelt erscheint eine kleine {mmd():schwarze|weisse} gusseiserne japanische Teekanne. Aus dem Ausguss dampft ein herrlicher Duft von Pfefferminze. Daneben erschent eine {mmd():weisse|schwarze} Tasse mit der Aufschrift: "Unser TOD ist der Beste". Wie von Geisterhand wird der Tee eingeschenkt. #CLASS: event
     ~ tee_erschienen = 1
 - else:
-    Der Tee wird langsam kalt. Mit einer ruckartigen Bewegung entleert sich die {mmd():weisse|schwarze} Tasse auf den Boden und die Teekanne giesst Tee nach. Merkwürdig, auf dem Boden ist kein Tee zu sehen.
+    Der Tee wird langsam kalt. Mit einer ruckartigen Bewegung entleert sich die {mmd():weisse|schwarze} Tasse auf den Boden und die Teekanne giesst Tee nach. Merkwürdig, auf dem Boden ist kein Tee zu sehen. #CLASS: event
 }
 
 - ->->
