@@ -166,7 +166,7 @@ Im {mmd():düstern|hellen} Studierzimmer sehe ich: <b>einen Schreibtisch</b>, <b
     ~ musik_an = 0
     ->e->Bienenkorb->Studierzimmer
 + {schrank_gesehen} [Panzerschrank] {ib()} <b>den Panzerschrank</b> ->e->Panzerschrank->Studierzimmer
-+ [{tw(Ts_Meta)}] <b>❯ {tw(Ts_Meta)}</b> ->e->Meta->e->Studierzimmer
++ [{tw(Ts_Meta)}] <b>❯ {tw(Ts_Meta)}</b> ->Meta->Studierzimmer
 // + TODO: Ausgang ->e->END
 
 = Schau
@@ -207,7 +207,7 @@ Die <b>Schranktüre</b> ist <b>{schrank_offen:offen|geschlossen}</b>.
         ~ playSoundS("events", "schrank-close")
     }
      ->Schrank
-+ [{tw(Ts_Meta)}] <b>❯ {tw(Ts_Meta)}</b> ->e->Meta->e->Schrank
++ [{tw(Ts_Meta)}] <b>❯ {tw(Ts_Meta)}</b> ->Meta->Schrank
 + [<b>▼</b> Zurück] {iwm("vom Schrank")}
 
 - ->->
@@ -233,7 +233,7 @@ Auf dem Schreibtisch sehe ich: <b>einen Knopf</b>, <b>eine Lampe</b> und <b>eine
 + [Knopf] {ib()} <b>den Knopf</b>. ->e->Knopf->e->Schreibtisch
 + [Lampe] {ib()} <b>die Lampe</b>. ->e->Lampe->e->Schreibtisch
 + [Globus] {ib()} <b>den Globus</b>. ->e->Globus->e->Schreibtisch
-+ [{tw(Ts_Meta)}] <b>❯ {tw(Ts_Meta)}</b> ->e->Meta->e->Schreibtisch
++ [{tw(Ts_Meta)}] <b>❯ {tw(Ts_Meta)}</b> ->Meta->Schreibtisch
 + [<b>▼</b> Zurück] {iwm("vom Schreibtisch")}
 
 - ->->
@@ -257,7 +257,7 @@ Die Gravur des Knopfs zeigt das Symbol {mmd():der Sonne|des Mondes}.
             ~ setTheme("dark")
     }
     Urplötzlich ist alles was Schwarz ist Weiss und umgekehrt. Die abrupte Veränderung ist schwindelerregend. ->Leuchten->e->KnopfBasis
-+ [{tw(Ts_Meta)}] <b>❯ {tw(Ts_Meta)}</b> ->e->Meta->e->Knopf
++ [{tw(Ts_Meta)}] <b>❯ {tw(Ts_Meta)}</b> ->Meta->Knopf
 + [<b>▼</b> Zurück] {iwm("vom Knopf")}
 
 - ->->
@@ -273,7 +273,7 @@ Die Lampe ist {lampe_an:an|aus}.
     ~ playSoundS("events", "snap")
     ~ lampe_an = !lampe_an
      ->Leuchten->e->LampeBasis
-+ [{tw(Ts_Meta)}] <b>❯ {tw(Ts_Meta)}</b> ->e->Meta->e->Lampe
++ [{tw(Ts_Meta)}] <b>❯ {tw(Ts_Meta)}</b> ->Meta->Lampe
 + [<b>▼</b> Zurück] {iwm("von der Lampe")}
 
 - ->->
@@ -317,7 +317,7 @@ Die Lampe ist {lampe_an:an|aus}.
 + {globus_begossen && bereit(Ts_Giesskanne) && GlobusSchalter == GS_Scheibenwelt} [<b>↯</b> Ich <b>begiesse</b> den Globus mit der Giesskanne.]
     Halt! Nein, ich will keine Umweltkatastrophe auslösen.
     ->e->GlobusBasis
-+ [{tw(Ts_Meta)}] <b>❯ {tw(Ts_Meta)}</b> ->e->Meta->e->Globus
++ [{tw(Ts_Meta)}] <b>❯ {tw(Ts_Meta)}</b> ->Meta->Globus
 + [<b>▼</b> Zurück] {iwm("von der Lampe")}
 
 - ->->
@@ -375,7 +375,7 @@ Die Lampe ist {lampe_an:an|aus}.
     - else:
         ->NimmDialog->e->Basis
     }
-+ [{tw(Ts_Meta)}] <b>❯ {tw(Ts_Meta)}</b> ->e->Meta->e->Brillencheck->Oben
++ [{tw(Ts_Meta)}] <b>❯ {tw(Ts_Meta)}</b> ->Meta->Brillencheck->Oben
 + [<b>▼</b> Zurück] {iwm("vom Bienenkorb")}
     ~ musik_an = 1
     ~ stopSound("loops")
@@ -428,7 +428,7 @@ Der Panzerschrank ist verschlossen.
     {einschlagen_versuch == 1:Autsch!! Der Schlag meines Hammers wird vom Panzerschrank abrupt gestoppt. Der Hammerschlag gab nicht einmal ein Geräusch von sich, wie durch eine unsichtbare Kraft wurde ihm jeglicher Impuls genommen. Mein Arm und meine Hand haben das leider nicht mitbekommen, es schmerzt sehr. Ich werde es nicht noch einmal versuchen. Am Panzerschrank kann ich nicht einmal einen Kratzer entdecken.}
     ~ einschlagen_versuch += 1
     ->e->Basis
-+ [{tw(Ts_Meta)}] <b>❯ {tw(Ts_Meta)}</b> ->e->Meta->e->Panzerschrank
++ [{tw(Ts_Meta)}] <b>❯ {tw(Ts_Meta)}</b> ->Meta->Panzerschrank
 + [<b>▼</b> Zurück] {iwm("vom Panzerschrank")}
 
 - ->->
@@ -510,39 +510,39 @@ So vieles hängt an ihr, die Leben uns bringt,<br>Die Jugendstil-Giesskanne, die
 
 Meine Tasche enthält:
 
-+ {zeige(Ts_Giesskanne)} [Eine Gieskanne] ->SchauGiesskanne->e->Basis
++ {zeige(Ts_Giesskanne)} [Eine Gieskanne] ->SchauGiesskanne->Basis
 + {benutzer(Ts_Giesskanne)} [(benutze) #FLAG: space]
     {in} die <b>Giesskanne</b>.
     ~ benutze = Ts_Giesskanne
     ~ playSoundV("events", "take", 0.25)
-    ->e->Basis
-+ {zeige(Ts_Pinzette)} [Eine Pinzette] ->SchauPinzette->e->Basis
+    ->Basis
++ {zeige(Ts_Pinzette)} [Eine Pinzette] ->SchauPinzette->Basis
 + {benutzer(Ts_Pinzette)} [(benutze) #FLAG: space]
     {in} die <b>Pinzette</b>.
     ~ benutze = Ts_Pinzette
     ~ playSoundV("events", "take", 0.25)
-    ->e->Basis
-+ {zeige(Ts_Hammer)} [Ein Hammer] ->SchauHammer->e->Basis
+    ->Basis
++ {zeige(Ts_Hammer)} [Ein Hammer] ->SchauHammer->Basis
 + {benutzer(Ts_Hammer)} [(benutze) #FLAG: space]
     {in} den <b>Hammer</b>.
     ~ benutze = Ts_Hammer
     ~ playSoundV("events", "take", 0.25)
-    ->e->Basis
-+ {zeige(Ts_Gletscherbrille)} [Eine Gletscherbrille] ->SchauGletscherbrille->e->Basis
+    ->Basis
++ {zeige(Ts_Gletscherbrille)} [Eine Gletscherbrille] ->SchauGletscherbrille->Basis
 + {benutzer(Ts_Gletscherbrille)} [(aufsetzen) #FLAG: space]
     Ich setze die <b>Gletscherbrille</b> auf. Nanu, die Gläser der Gletscherbrille sind undurchsichtig. Ich bin total blind.
     ~ benutze = Ts_Gletscherbrille
     ~ playSoundV("events", "take", 0.25)
-    ->e->Basis
+    ->Basis
 + {einfach == 0 && benutze != Ts_Nichts} [Ich lege {taw(benutze)} weg. #CTAG: p]
     <b>▼</b> Ich lege <b>{taw(benutze)}</b> weg.
     ~ benutze = Ts_Nichts
     ~ playSoundV("events", "take", 0.25)
-    ->e->Basis
-+ {cheats} [Cheats #CTAG: p] ->Cheats->e->Basis
+    ->Basis
++ {cheats} [Cheats #CTAG: p] ->Cheats->Basis
 + {cheats} [{einfach:Rätselmode|Genussmode}]
     ~ einfach = !einfach
-    ->e->Basis
+    ->Basis
 + [<b>▼</b> Zurück #CTAG: p] <b>❮</b> Ich lenke meine Aufmerksamkeit von <b>der Tasche</b> weg.
 ~ playSoundV("events", "tasche-zu", 0.1)
 
