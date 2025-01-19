@@ -161,7 +161,9 @@ Im {mmd():düstern|hellen} Studierzimmer sehe ich: <b>einen Schreibtisch</b>, <b
 + [Schreibtisch] {ib()} <b>den Schreibtisch</b>. ->e->Schreibtisch->e->Studierzimmer
 + [Schrank] {ib()} <b>den Schrank</b>. ->e->Schrank->e->Studierzimmer
 + {tuer_gesehen} [Tür] Huch, die Tür ist wieder verschwunden, nachdem die kleine Person den Raum verliess. ->e->Basis
-+ {bienen_gesehen} [Bienenkorb] {ib()} <b>den Bienenkorb</b> ->e->Bienenkorb->Studierzimmer
++ {bienen_gesehen} [Bienenkorb] {ib()} <b>den Bienenkorb</b>
+    ~ musik_an = 0
+    ->e->Bienenkorb->Studierzimmer
 + {schrank_gesehen} [Panzerschrank] {ib()} <b>den Panzerschrank</b> ->e->Panzerschrank->Studierzimmer
 + [{tw(Ts_Meta)}] <b>❯ {tw(Ts_Meta)}</b> ->e->Meta->e->Studierzimmer
 // + TODO: Ausgang ->e->END
@@ -346,6 +348,8 @@ Die Lampe ist {lampe_an:an|aus}.
 ~ stopSound("music-loop")
 ~ playSoundV("loops", "bienenkorb", 0.20)
 
+-  (Oben) #CTAG: span
+
 {Tasche !? Ts_Schluessel:An einem Nagel am Bienenkorb hängt ein silberner Schlüssel.}
 
 {Tasche ? Ts_Pinzette:Ein Bienenkorb.|Neben dem Bienenkorb liegt:}
@@ -359,12 +363,34 @@ Die Lampe ist {lampe_an:an|aus}.
     ->e->Basis
 + [<b>◉</b> Beschreibung #CTAG: p] Bei näherer Betrachtung stelle ich fest, die Bienen bewegen sich wie Teilchen. Zwei kleine Bienen verbinden sich zu einer grossen Biene und trennen sich wieder zu zwei kleinen Bienen. Aus dem Nichts taucht eine Biene auf, fliegt zwanzig Zentimeter weit und verschwindet wieder. "Bienen aus Vakuumenergie!", denke ich unvermittelt. {bienen_beschreibung} "DAS VAKUUM BESTEHT AUS MIR!". Ich wünschte, diese Bienen wären nicht dauernd in meinem Kopf. Mit Schrecken stelle ich fest, dass die Bienen durch ihre Fähigkeiten tatsächlich in meinen Kopf eindringen können. Postwendend höre ich ein Brummen in meinem Kopf.->e->Basis
 + {Tasche !? Ts_Schluessel} <b>↯</b> Ich nehme den Schlüssel
-    ->NimmDialog->e->Basis
-+ [{tw(Ts_Meta)}] <b>❯ {tw(Ts_Meta)}</b> ->e->Meta->e->Bienenkorb
+    {(einfach && Tasche ? Ts_Gletscherbrille) || benutze == Ts_Gletscherbrille:
+        {einfach:
+            Ich setze die Gletscherbrille auf. Die Bienen verstummen und ich nehme den Schlüssel. Woher wusste ich, was ich tun sollte? Irgendwie hat sich das Rätsel für mich gelöst.
+        - else:
+            Sind die Bienen wirklich weg wenn man sie nicht mehr sieht? Zumindest sind sie still. Ich versuche, den Schlüssel zu nehmen, und diesmal gelingt es mir.
+        }
+        ~ Tasche += Ts_Schluessel
+        Die Bienen scheinen den Welle-Teilchen-Dualismus aus der Physik falsch zu verstehen und existieren nur, wenn man sie beobachtet. In dieser Welt ist alles ein wenig verrückt. {bienen_beschreibung} "GERNEGESCHEHEN!" Erschrocken antworte ich: "Ihr habt mich erwischt!“, denn die Bienen erinnern mich damit in ihrer unmittelbaren Art, dass sie doch noch irgendwo existieren. ->e->Basis
+    - else:
+        ->NimmDialog->e->Basis
+    }
++ [{tw(Ts_Meta)}] <b>❯ {tw(Ts_Meta)}</b> ->e->Meta->e->Brillencheck->Oben
 + [<b>▼</b> Zurück] {iwm("vom Bienenkorb")}
     ~ musik_an = 1
     ~ stopSound("loops")
     ~ music_loop()
+
+- ->->
+
+= Brillencheck
+{benutze == Ts_Gletscherbrille && currentSound("loops") == "bienenkorb":
+    Nanu, plötzlich verstummen die Bienen.
+    ~ stopSound("loops")
+}
+{benutze != Ts_Gletscherbrille && currentSound("loops") != "bienenkorb":
+    Nun summen die Bienen wieder.
+    ~ playSoundV("loops", "bienenkorb", 0.20)
+}
 
 - ->->
 
