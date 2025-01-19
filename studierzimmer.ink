@@ -66,6 +66,7 @@ VAR tasche_gesehen = 0
 VAR tee_erschienen = 0
 VAR bienen_bereit = 0
 VAR bienen_gesehen = 0
+VAR bienen_versuch = 0
 VAR teil_zwei = 0
 VAR einschlagen_versuch = 0
 CONST in = "<b>▲</b> Ich benutze"
@@ -115,7 +116,7 @@ INCLUDE funktionen.ink
 
 Benutze einen Kopfhörer. Zuerst wirst Du leise Klänge hören, stelle die Lautstärke so ein, dass Du diese nur leise hörst.
 
-<b>Eine deutsche interaktive Fangeschichte.</b> Du kannst das Fandom selbst erraten. Eine interaktive deutsche Fangeschichte. Wenn Du schon einmal vom B-Raum gehört hast, dann schau doch rein.
+<b>Eine deutsche interaktive Fangeschichte.</b> Du kannst das Fandom selbst erraten. Wenn Du schon einmal vom B-Raum gehört hast, dann schau doch rein.
 
 {cheats:
     ~ keepSoundAlive()
@@ -331,7 +332,7 @@ Die Lampe ist {lampe_an:an|aus}.
 
 {GlobusSchalter:
     - GS_Erde:
-        Der Globus zeigt eine Karte der Erde in vergibten Grautönen, das Meer ist irgendwie in einem blauen Grau gehalten.
+        Der Globus zeigt eine Karte der Erde in vergilbten Grautönen, das Meer ist gewissermassen in einem blauen Grau gehalten.
     - GS_Scheibenwelt:
         Aus dem Sockel des Globus ragt eine Stange, die sich in den Bauch einer Schildkröte bohrt. Vier Elefanten auf der Schildkröte tragen eine Scheibe. Ozeane, Berge, Ebenen und alles, was eine Welt so braucht, erstrahlen in spektakulär polychromer Farbenpracht. Sie ist das Echteste im ganzen Schreibzimmer. Ein Moment - über der Scheibe hängen Wolken und sie scheinen sich zu bewegen.
     - GS_Studierzimmer:
@@ -363,7 +364,7 @@ Die Lampe ist {lampe_an:an|aus}.
     ->e->Basis
 + [<b>◉</b> Beschreibung #CTAG: p] Bei näherer Betrachtung stelle ich fest, die Bienen bewegen sich wie Teilchen. Zwei kleine Bienen verbinden sich zu einer grossen Biene und trennen sich wieder zu zwei kleinen Bienen. Aus dem Nichts taucht eine Biene auf, fliegt zwanzig Zentimeter weit und verschwindet wieder. "Bienen aus Vakuumenergie!", denke ich unvermittelt. {bienen_beschreibung} "DAS VAKUUM BESTEHT AUS MIR!". Ich wünschte, diese Bienen wären nicht dauernd in meinem Kopf. Mit Schrecken stelle ich fest, dass die Bienen durch ihre Fähigkeiten tatsächlich in meinen Kopf eindringen können. Postwendend höre ich ein Brummen in meinem Kopf.->e->Basis
 + {Tasche !? Ts_Schluessel} <b>↯</b> Ich nehme den Schlüssel
-    {(einfach && Tasche ? Ts_Gletscherbrille) || benutze == Ts_Gletscherbrille:
+    {(bienen_versuch && einfach && Tasche ? Ts_Gletscherbrille) || benutze == Ts_Gletscherbrille:
         {einfach:
             Ich setze die Gletscherbrille auf. Die Bienen verstummen und ich nehme den Schlüssel. Woher wusste ich, was ich tun sollte? Irgendwie hat sich das Rätsel für mich gelöst.
         - else:
@@ -400,13 +401,14 @@ Die Bienen werden nervös, fliegen immer schneller, bis der Bienenkorb in eine a
 
 - (NimmBasis)
 
-* <b>↯</b> Ich nehme den Schlüssel trotzdem
+* <b>↯</b> Ich nehme den Schlüssel trotzdem.
     Hui, das kribbelt. Ich brauche immer mehr Kraft, bis ich schliesslich feststecke. Keine Chance.
 * Ich versuche nicht an den Schlüssel zu denken.
     Die Bienen werden ruhig und das Feld verschwindet.
-    ** <b>↯</b> Ich nehme den Schlüssel
+    ** <b>↯</b> Ich nehme den Schlüssel.
     Die Bienen fliegen wieder schneller. Hui, das kribbelt. Ich brauche immer mehr Kraft, bis ich schliesslich feststecke. Keine Chance.
 + <b>▼</b> Ich gebe auf
+    ~ bienen_versuch = 1
     ->->
 
 - ->NimmBasis->e
