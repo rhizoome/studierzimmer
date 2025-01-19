@@ -73,7 +73,7 @@ CONST in = "<b>▲</b> Ich benutze"
 CONST inn = "<b>▲</b> Ich nehme"
 CONST event_wahrscheinlichkeit = 20 // In Prozent
 CONST debug = 0
-CONST cheats = 1
+CONST cheats = 0
 CONST bienen_beschreibung = "Aus einer unendlichen Entfernung - die so weit weg ist, dass es sich wie aus jedem meiner Knochen anfühlt - höre ich donnernd und vibrierend:"
 
 INCLUDE src/frontend.ink
